@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Formulário de Chamado</title>
+<style>
+    body {
+        font-family: Arial, sans-serif;
+        margin: 0;
+        padding: 20px;
+        background-color: #f5f5f5;
+    }
+    h1 {
+        text-align: center;
+        margin-bottom: 20px;
+    }
+    form {
+        max-width: 500px;
+        margin: auto;
+        background: #fff;
+        padding: 20px;
+        border-radius: 8px;
+        box-shadow: 0 0 10px rgba(0,0,0,0.1);
+    }
+    label {
+        display: block;
+        margin-top: 15px;
+        font-weight: bold;
+    }
+    input, textarea, canvas {
+        width: 100%;
+        padding: 12px;
+        margin-top: 5px;
+        font-size: 16px;
+        border-radius: 5px;
+        border: 1px solid #ccc;
+        box-sizing: border-box;
+    }
+    textarea {
+        resize: vertical;
+        min-height: 80px;
+    }
+    button {
+        margin-top: 20px;
+        padding: 15px;
+        width: 100%;
+        font-size: 18px;
+        background-color: #007BFF;
+        color: white;
+        border: none;
+        border-radius: 8px;
+        cursor: pointer;
+    }
+    button:hover { background-color: #0056b3; }
+    #limparAssinatura {
+        background-color: #dc3545;
+        margin-top: 5px;
+    }
+    #limparAssinatura:hover { background-color: #a71d2a; }
+</style>
+</head>
+<body>
+<h1>Formulário de Chamado</h1>
+<form id="chamadoForm">
+    <label for="numero">Número do Chamado</label>
+    <input type="text" id="numero" required>
+
+    <label for="data">Data</label>
+    <input type="date" id="data" required>
+
+    <label for="inicio">Horário de Início</label>
+    <input type="time" id="inicio" required>
+
+    <label for="termino">Horário de Término</label>
+    <input type="time" id="termino" required>
+
+    <label for="nome">Nome</label>
+    <input type="text" id="nome" required>
+
+    <label for="cliente">Cliente</label>
+    <input type="text" id="cliente" required>
+
+    <label for="observacao">Observação</label>
+    <textarea id="observacao"></textarea>
+
+    <label for="assinatura">Assinatura</label>
+    <canvas id="assinatura" style="border:1px solid #ccc; height:150px;"></canvas>
+    <button type="button" id="limparAssinatura">Limpar Assinatura</button>
+
+    <button type="button" id="btnPDF">Imprimir PDF</button>
+</form>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+<script>
+const canvas = document.getElementById('assinatura');
+const ctx = canvas.getContext('2d');
+let desenhando = false;
+let lastX = 0;
+let lastY = 0;
+
+function ajustarCanvas() {
+    canvas.width = canvas.offsetWidth;
+    canvas.height = 150;
+    ctx.lineWidth = 2;
+    ctx.lineCap = 'round';
+}
+window.addEventListener('resize', ajustarCanvas);
+ajustarCanvas();
+
+// --- Desenhar assinatura com traços curtos ---
+canvas.addEventListener('mousedown', (e) => {
+    desenhando = true;
+    const rect = canvas.getBoundingClientRect();
+    lastX = e.clientX - rect.left;
+    lastY = e.clientY - rect.top;
+});
+canvas.addEventListener('mouseup', () => desenhando = false);
+canvas.addEventListener('mouseout', () => desenhando = false);
+canvas.addEventListener('mousemove', (e) => {
+    if (!desenhando) return;
+    const rect = canvas.getBoundingClientRect();
+    const x = e.clientX - rect.left;
+    const y = e.clientY - rect.top;
+
+    const deltaX = x - lastX;
+    const deltaY = y - lastY;
+    const distancia = Math.sqrt(deltaX**2 + deltaY**2);
+    if (distancia > 2) {
+        ctx.beginPath();
+        ctx.moveTo(lastX, lastY);
+        ctx.lineTo(x, y);
+        ctx.stroke();
+        ctx.closePath();
+        lastX = x;
+        lastY = y;
+    }
+});
+
+// Touch
+canvas.addEventListener('touchstart', (e) => {
+    desenhando = true;
+    const rect = canvas.getBoundingClientRect();
+    lastX = e.touches[0].clientX - rect.left;
+    lastY = e.touches[0].clientY - rect.top;
+    e.preventDefault();
+});
+canvas.addEventListener('touchend', () => desenhando = false);
+canvas.addEventListener('touchmove', (e) => {
+    if (!desenhando) return;
+    const rect = canvas.getBoundingClientRect();
+    const x = e.touches[0].clientX - rect.left;
+    const y = e.touches[0].clientY - rect.top;
+
+    const deltaX = x - lastX;
+    const deltaY = y - lastY;
+    const distancia = Math.sqrt(deltaX**2 + deltaY**2);
+    if (distancia > 2) {
+        ctx.beginPath();
+        ctx.moveTo(lastX, lastY);
+        ctx.lineTo(x, y);
+        ctx.stroke();
+        ctx.closePath();
+        lastX = x;
+        lastY = y;
+    }
+    e.preventDefault();
+});
+
+// Limpar assinatura
+document.getElementById('limparAssinatura').addEventListener('click', () => {
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+});
+
+// --- Gerar PDF ---
+const { jsPDF } = window.jspdf;
+document.getElementById('btnPDF').addEventListener('click', () => {
+    const doc = new jsPDF({ format: "a4", unit: "mm" });
+    const chamado = {
+        numero: document.getElementById('numero').value,
+        data: document.getElementById('data').value,
+        inicio: document.getElementById('inicio').value,
+        termino: document.getElementById('termino').value,
+        nome: document.getElementById('nome').value,
+        cliente: document.getElementById('cliente').value,
+        observacao: document.getElementById('observacao').value,
+        assinatura: canvas.toDataURL()
+    };
+
+    let y = 20;
+    doc.setFontSize(16);
+    doc.text("Formulário de Chamado", 105, y, null, null, "center");
+
+    doc.setFontSize(12);
+    y += 15;
+    doc.text(`Número do Chamado: ${chamado.numero}`, 20, y);
+    y += 10;
+    doc.text(`Data: ${chamado.data}`, 20, y);
+    y += 10;
+    doc.text(`Horário de Início: ${chamado.inicio}`, 20, y);
+    y += 10;
+    doc.text(`Horário de Término: ${chamado.termino}`, 20, y);
+    y += 10;
+    doc.text(`Nome: ${chamado.nome}`, 20, y);
+    y += 10;
+    doc.text(`Cliente: ${chamado.cliente}`, 20, y);
+    y += 10;
+    doc.text(`Observação:`, 20, y);
+    y += 10;
+    doc.text(chamado.observacao, 25, y, { maxWidth: 160 });
+
+    y += 40;
+    doc.text("Assinatura:", 20, y);
+    doc.addImage(chamado.assinatura, 'PNG', 25, y + 5, 160, 50);
+
+    doc.save(`Chamado_${chamado.numero}.pdf`);
+});
+</script>
+</body>
+</html>
