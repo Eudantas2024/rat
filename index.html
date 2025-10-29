@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Formulário de Chamado</title>
+    <title>RAT ARKLOK - JM INFORMATICA</title>
     <style>
         body {
             font-family: Arial;
@@ -315,7 +315,11 @@
                 const yBase = y + 4;
 
                 doc.text(texto, xCentro, yBase);
-                doc.line(xCentro + larguraTexto, yBase, xCentro + larguraTexto + larguraAssinatura, yBase);
+
+
+                const comprimentoLinha = larguraAssinatura + 35; // aumenta 20mm
+                doc.line(xCentro + larguraTexto, yBase, xCentro + larguraTexto + comprimentoLinha, yBase);
+
                 doc.addImage(imageData, 'PNG', xCentro + larguraTexto, yBase - alturaAssinatura - 2, larguraAssinatura, alturaAssinatura);
             }
 
