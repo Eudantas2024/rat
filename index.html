@@ -78,6 +78,7 @@
 </head>
 
 <body>
+    <h3>JM INFORMÁTICA</h3>
     <h3>RAT (RELATÓRIO ATENDIMENTO TÉCNICO)</h3>
     <form id="chamadoForm">
         <label for="tecnico">NOME DO TÉCNICO:</label>
@@ -99,9 +100,15 @@
         <input type="time" id="termino" name="termino" required>
 
         <label for="assinatura">ASSINATURA DO TÉCNICO / RESPONSÁVEL:</label>
-        <!-- define dimensões reais do canvas -->
-        <canvas id="assinatura" width="500" height="150" style="border:1px solid #ccc;"></canvas>
+        <div style="position: relative;">
+            <canvas id="assinatura" width="500" height="150" style="border:1px solid #ccc;"></canvas>
+            <div
+                style="position: absolute; bottom: 10px; width: 100%; text-align: center; color: #999; font-size: 16px; pointer-events: none;">
+                ______ASSINE AQUI______
+            </div>
+        </div>
         <button type="button" id="limparAssinatura">Limpar Assinatura</button>
+
 
         <button type="button" id="btnPDF">Gerar PDF</button>
     </form>
@@ -152,6 +159,14 @@
             let y = 20;
             const larguraTotal = 190;
 
+            // --- Título principal ---
+            doc.setFontSize(14);
+            doc.setFont(undefined, 'normal');
+            doc.setTextColor(200, 0, 0);
+            doc.text("RAT (RELATÓRIO ATENDIMENTO TÉCNICO)", 105, y, { align: "center" });
+            y += 10;
+
+
             // função para criar campo
             function addCampo(x, y, largura, titulo, valor, padding = 2) {
                 const altura = 8;
@@ -160,7 +175,11 @@
 
                 doc.setDrawColor(0);
                 doc.setLineWidth(0.3);
+                doc.setLineDashPattern([0.3, 0.3], 0); // pontinhos menores e mais próximos
+
                 doc.rect(x, y, largura, altura, 'S');
+                doc.setLineDashPattern([], 0); // volta ao normal para outros campos
+
 
                 doc.setFillColor(200, 0, 0);
                 doc.rect(x, y, larguraTitulo, altura, 'F');
@@ -181,7 +200,9 @@
             const larguraNome = larguraTotal * 0.50;
             addCampo(xInicio, y, larguraNome, "NOME DO TÉCNICO:", form.tecnico.value);
             addCampo(xInicio + larguraNome, y, larguraEmpresa, "EMPRESA PARCEIRA:", form.empresa.value);
-            y += 8;
+
+            // espaçamento entre linha 1 e linha 2
+            y += 10;
 
             // --- Linha 2 ---
             // CHAMADO = 30% | DATA DO ATENDIMENTO = 38% | HORÁRIO = 32%
@@ -202,9 +223,13 @@
                 const larguraTitulo = largura * 0.60; // título ocupa mais espaço
                 const padding = 2;
 
+
                 doc.setDrawColor(0);
                 doc.setLineWidth(0.3);
+                doc.setLineDashPattern([0.3, 0.3], 0); // pontinhos menores e mais próximos
+
                 doc.rect(x, y, largura, altura, 'S');
+                doc.setLineDashPattern([], 0); // volta ao normal para outros campos
 
                 // fundo vermelho do título
                 doc.setFillColor(200, 0, 0);
@@ -233,7 +258,11 @@
             const larguraTituloHorario = 20;
             doc.setDrawColor(0);
             doc.setLineWidth(0.3);
+            doc.setLineDashPattern([0.3, 0.3], 0); // pontinhos menores e mais próximos
+
             doc.rect(xHorario, y, larguraHorario, altura, 'S');
+            doc.setLineDashPattern([], 0); // volta ao normal para os próximos campos
+
 
             doc.setFont(undefined, 'bold');
             doc.setTextColor(255, 255, 255);
@@ -274,7 +303,7 @@
             // assinatura
             const imageData = canvas.toDataURL('image/png');
             if (imageData && imageData.length > 100) {
-                const larguraAssinatura = 60 * 0.7; // reduz para 70%
+                const larguraAssinatura = 60 * 0.7;
                 const alturaAssinatura = (canvas.height / canvas.width) * larguraAssinatura;
 
                 const texto = "ASSINATURA DO TÉCNICO / RESPONSÁVEL:";
@@ -287,9 +316,8 @@
 
                 doc.text(texto, xCentro, yBase);
                 doc.line(xCentro + larguraTexto, yBase, xCentro + larguraTexto + larguraAssinatura, yBase);
-                doc.addImage(imageData, 'PNG', xCentro + larguraTexto, yBase - alturaAssinatura / 2, larguraAssinatura, alturaAssinatura);
+                doc.addImage(imageData, 'PNG', xCentro + larguraTexto, yBase - alturaAssinatura - 2, larguraAssinatura, alturaAssinatura);
             }
-
 
             // salvar pdf
             const chamadoNum = form.chamado.value || 'sem_numero';
