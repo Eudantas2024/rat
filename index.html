@@ -190,7 +190,7 @@
             const larguraHorario = larguraTotal - larguraChamado - larguraData; // 32%
 
             // CHAMADO
-            addCampo(xInicio, y, larguraChamado, "CHAMADO:", form.elements['chamado'].value, 1); 
+            addCampo(xInicio, y, larguraChamado, "CHAMADO:", form.elements['chamado'].value, 1);
 
             // DATA DO ATENDIMENTO (com título com folga maior, valor menor)
             const dataInput = form.elements['data'].value;
@@ -217,7 +217,7 @@
 
                 // valor do campo com espaço levemente menor à direita
                 const xValor = x + larguraTitulo + padding;
-                const maxLarguraValor = largura - larguraTitulo - padding * 2 - 9; 
+                const maxLarguraValor = largura - larguraTitulo - padding * 2 - 9;
                 doc.setFont(undefined, 'normal');
                 doc.setTextColor(0, 0, 0);
                 doc.setFontSize(9);
@@ -274,7 +274,7 @@
             // assinatura
             const imageData = canvas.toDataURL('image/png');
             if (imageData && imageData.length > 100) {
-                const larguraAssinatura = 60;
+                const larguraAssinatura = 60 * 0.7; // reduz para 70%
                 const alturaAssinatura = (canvas.height / canvas.width) * larguraAssinatura;
 
                 const texto = "ASSINATURA DO TÉCNICO / RESPONSÁVEL:";
@@ -289,6 +289,7 @@
                 doc.line(xCentro + larguraTexto, yBase, xCentro + larguraTexto + larguraAssinatura, yBase);
                 doc.addImage(imageData, 'PNG', xCentro + larguraTexto, yBase - alturaAssinatura / 2, larguraAssinatura, alturaAssinatura);
             }
+
 
             // salvar pdf
             const chamadoNum = form.chamado.value || 'sem_numero';
