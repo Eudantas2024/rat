@@ -83,10 +83,8 @@
         <label for="tecnico">NOME DO TÉCNICO:</label>
         <input type="text" id="tecnico" name="tecnico" required>
 
-        <!-- o campo empresa parceira está preenchido e bloqueado -->
         <label for="empresa">EMPRESA PARCEIRA:</label>
         <input type="text" id="empresa" name="empresa" value="JM INFORMATICA" readonly>
-
 
         <label for="chamado">CHAMADO:</label>
         <input type="text" id="chamado" name="chamado" required>
@@ -101,7 +99,8 @@
         <input type="time" id="termino" name="termino" required>
 
         <label for="assinatura">ASSINATURA DO TÉCNICO / RESPONSÁVEL:</label>
-        <canvas id="assinatura" style="border:1px solid #ccc; height:150px;"></canvas>
+        <!-- define dimensões reais do canvas -->
+        <canvas id="assinatura" width="500" height="150" style="border:1px solid #ccc;"></canvas>
         <button type="button" id="limparAssinatura">Limpar Assinatura</button>
 
         <button type="button" id="btnPDF">Gerar PDF</button>
@@ -114,120 +113,124 @@
         let desenhando = false;
         let lastX = 0, lastY = 0;
 
-        function ajustarCanvas() {
-            canvas.width = canvas.offsetWidth;
-            canvas.height = 150;
-            ctx.lineWidth = 2;
-            ctx.lineCap = 'round';
-        }
-        window.addEventListener('resize', ajustarCanvas);
-        ajustarCanvas();
+        // configuração do traço
+        ctx.lineWidth = 2;
+        ctx.lineJoin = "round";
+        ctx.lineCap = "round";
+        ctx.strokeStyle = "#000";
 
-        // --- Assinatura ---
-        function desenhar(e) {
+        // desenhar assinatura
+        canvas.addEventListener('mousedown', e => {
+            desenhando = true;
+            [lastX, lastY] = [e.offsetX, e.offsetY];
+        });
+
+        canvas.addEventListener('mousemove', e => {
             if (!desenhando) return;
-            const rect = canvas.getBoundingClientRect();
-            let x = (e.touches ? e.touches[0].clientX : e.clientX) - rect.left;
-            let y = (e.touches ? e.touches[0].clientY : e.clientY) - rect.top;
+            ctx.beginPath();
+            ctx.moveTo(lastX, lastY);
+            ctx.lineTo(e.offsetX, e.offsetY);
+            ctx.stroke();
+            [lastX, lastY] = [e.offsetX, e.offsetY];
+        });
 
-            const dx = x - lastX, dy = y - lastY;
-            if (Math.sqrt(dx * dx + dy * dy) > 2) {
-                ctx.beginPath();
-                ctx.moveTo(lastX, lastY);
-                ctx.lineTo(x, y);
-                ctx.stroke();
-                ctx.closePath();
-                lastX = x; lastY = y;
-            }
-        }
-
-        canvas.addEventListener('mousedown', e => { desenhando = true; const rect = canvas.getBoundingClientRect(); lastX = e.clientX - rect.left; lastY = e.clientY - rect.top; });
         canvas.addEventListener('mouseup', () => desenhando = false);
         canvas.addEventListener('mouseout', () => desenhando = false);
-        canvas.addEventListener('mousemove', desenhar);
 
-        canvas.addEventListener('touchstart', e => { desenhando = true; const rect = canvas.getBoundingClientRect(); lastX = e.touches[0].clientX - rect.left; lastY = e.touches[0].clientY - rect.top; e.preventDefault(); });
-        canvas.addEventListener('touchend', () => desenhando = false);
-        canvas.addEventListener('touchmove', desenhar);
+        // botão para limpar assinatura
+        document.getElementById('limparAssinatura').addEventListener('click', () => {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+        });
 
-        // Limpar assinatura
-        document.getElementById('limparAssinatura').addEventListener('click', () => ctx.clearRect(0, 0, canvas.width, canvas.height));
-
-
+        // --- Gerar PDF ---
         const { jsPDF } = window.jspdf;
-
         document.getElementById('btnPDF').addEventListener('click', () => {
             const form = document.getElementById('chamadoForm');
             const doc = new jsPDF({ format: 'a4', unit: 'mm' });
 
-            let y = 10;
-            const xInicio = 10;
-            const xFim = 200;
-            const larguraTotal = xFim - xInicio;
-            const gap = 3;
+            let xInicio = 10;
+            let y = 20;
+            const larguraTotal = 190;
 
-            // --- Título principal ---
-            doc.setFontSize(14);
-            doc.setFont(undefined, 'normal');
-            doc.setTextColor(200, 0, 0);
-            doc.text("RAT (RELATÓRIO ATENDIMENTO TÉCNICO)", 105, y, { align: "center" });
-            y += 10;
-
-            // --- Função para desenhar campo com título ---
-            function addCampo(x, yPos, largura, titulo, valor) {
+            // função para criar campo
+            function addCampo(x, y, largura, titulo, valor, padding = 2) {
                 const altura = 8;
-                const larguraTitulo = titulo.length * 1.5 + 5;
+                const larguraTitulo = largura * 0.4;
+                valor = (valor || "").toString().toUpperCase();
 
                 doc.setDrawColor(0);
                 doc.setLineWidth(0.3);
-                doc.rect(x, yPos, largura, altura, 'S');
+                doc.rect(x, y, largura, altura, 'S');
+
+                doc.setFillColor(200, 0, 0);
+                doc.rect(x, y, larguraTitulo, altura, 'F');
 
                 doc.setFont(undefined, 'bold');
                 doc.setTextColor(255, 255, 255);
-                doc.setFillColor(200, 0, 0);
-                doc.rect(x, yPos, larguraTitulo, altura, 'F');
-
-                doc.setFontSize(7);
-                doc.text(titulo, x + 1, yPos + 4.5);
-
-                doc.setLineDash([0.5, 1], 0);
-                doc.setDrawColor(0);
-                doc.rect(x + larguraTitulo, yPos, largura - larguraTitulo, altura, 'S');
-                doc.setLineDash([], 0);
+                doc.setFontSize(9);
+                doc.text(titulo, x + padding, y + 4.5);
 
                 doc.setFont(undefined, 'normal');
                 doc.setTextColor(0, 0, 0);
-                doc.setFontSize(8);
-                doc.text((valor || '').toString().toUpperCase(), x + larguraTitulo + 1, yPos + 4.5);
+                doc.setFontSize(9);
+                doc.text(valor, x + larguraTitulo + padding, y + 4.5);
             }
 
-            // --- Linha 1 ---
-            const larguraNome = 90;
-            const larguraEmpresa = larguraTotal - larguraNome - gap;
-            addCampo(xInicio, y, larguraNome, "NOME DO TÉCNICO:", form.elements['tecnico'].value);
-            addCampo(xInicio + larguraNome + gap, y, larguraEmpresa, "EMPRESA PARCEIRA:", form.elements['empresa'].value);
-            y += 8 + gap;
+            // linha 1
+            const larguraEmpresa = larguraTotal * 0.50;
+            const larguraNome = larguraTotal * 0.50;
+            addCampo(xInicio, y, larguraNome, "NOME DO TÉCNICO:", form.tecnico.value);
+            addCampo(xInicio + larguraNome, y, larguraEmpresa, "EMPRESA PARCEIRA:", form.empresa.value);
+            y += 8;
 
             // --- Linha 2 ---
-            const larguraChamado = 40;
-            const larguraData = 60;
-            const larguraHorario = larguraTotal - larguraChamado - larguraData - gap * 2;
+            // CHAMADO = 30% | DATA DO ATENDIMENTO = 38% | HORÁRIO = 32%
+            const larguraChamado = larguraTotal * 0.27;
+            const larguraData = larguraTotal * 0.38; // aumenta um pouco do anterior 35%
+            const larguraHorario = larguraTotal - larguraChamado - larguraData; // 32%
 
-            // Formatar data para DD/MM/AAAA
-            let dataValor = form.elements['data'].value; // YYYY-MM-DD
-            if (dataValor) {
-                const partes = dataValor.split('-');
-                dataValor = `${partes[2]}/${partes[1]}/${partes[0]}`;
-            }
+            // CHAMADO
+            addCampo(xInicio, y, larguraChamado, "CHAMADO:", form.elements['chamado'].value, 1); 
 
-            addCampo(xInicio, y, larguraChamado, "CHAMADO:", form.elements['chamado'].value);
-            addCampo(xInicio + larguraChamado + gap, y, larguraData, "DATA DO ATENDIMENTO:", dataValor);
+            // DATA DO ATENDIMENTO (com título com folga maior, valor menor)
+            const dataInput = form.elements['data'].value;
+            const partesData = dataInput.split('-');
+            const dataFormatada = partesData.length === 3 ? `${partesData[2]}/${partesData[1]}/${partesData[0]}` : dataInput;
 
-            // Horário
-            const xHorario = xInicio + larguraChamado + larguraData + gap * 2;
+            (function addCampoData(x, y, largura, titulo, valor) {
+                const altura = 8;
+                const larguraTitulo = largura * 0.60; // título ocupa mais espaço
+                const padding = 2;
+
+                doc.setDrawColor(0);
+                doc.setLineWidth(0.3);
+                doc.rect(x, y, largura, altura, 'S');
+
+                // fundo vermelho do título
+                doc.setFillColor(200, 0, 0);
+                doc.rect(x, y, larguraTitulo, altura, 'F');
+
+                doc.setFont(undefined, 'bold');
+                doc.setTextColor(255, 255, 255);
+                doc.setFontSize(9);
+                doc.text(titulo, x + padding, y + 4.5);
+
+                // valor do campo com espaço levemente menor à direita
+                const xValor = x + larguraTitulo + padding;
+                const maxLarguraValor = largura - larguraTitulo - padding * 2 - 9; 
+                doc.setFont(undefined, 'normal');
+                doc.setTextColor(0, 0, 0);
+                doc.setFontSize(9);
+                doc.text(valor, xValor, y + 4.3, { maxWidth: maxLarguraValor });
+            })(xInicio + larguraChamado, y, larguraData, "DATA DO ATENDIMENTO:", dataFormatada);
+
+
+            // --- HORÁRIO ---
+            const xHorario = xInicio + larguraChamado + larguraData;
             const altura = 8;
-            const larguraTituloHorario = 15;
 
+            // Fundo vermelho do título HORÁRIO
+            const larguraTituloHorario = 20;
             doc.setDrawColor(0);
             doc.setLineWidth(0.3);
             doc.rect(xHorario, y, larguraHorario, altura, 'S');
@@ -236,71 +239,61 @@
             doc.setTextColor(255, 255, 255);
             doc.setFillColor(200, 0, 0);
             doc.rect(xHorario, y, larguraTituloHorario, altura, 'F');
-            doc.setFontSize(7);
-            doc.text("HORÁRIO:", xHorario + 1, y + 4.5);
+            doc.setFontSize(9);
+            doc.text("HORÁRIO:", xHorario + 2, y + altura / 2 + 1.5);
 
-            doc.setLineDash([0.5, 1], 0);
-            doc.setDrawColor(0);
-            doc.rect(xHorario + larguraTituloHorario, y, larguraHorario - larguraTituloHorario, altura, 'S');
-            doc.setLineDash([], 0);
-
+            // Texto interno com gap de 1px
             doc.setFont(undefined, 'normal');
             doc.setTextColor(0, 0, 0);
-            doc.setFontSize(7);
+            doc.setFontSize(9);
+
             const inicioVal = form.elements['inicio'].value;
             const terminoVal = form.elements['termino'].value;
-            doc.text("INÍCIO :", xHorario + larguraTituloHorario + 1, y + 4.5);
-            doc.text(inicioVal, xHorario + larguraTituloHorario + 10, y + 4.5);
-            doc.text("FIM :", xHorario + larguraTituloHorario + 25, y + 4.5);
-            doc.text(terminoVal, xHorario + larguraTituloHorario + 31, y + 4.5);
 
-            y += 8 + 10;
+            // largura útil disponível
+            const larguraConteudo = larguraHorario - larguraTituloHorario;
+            const larguraBloco = (larguraConteudo - 1) / 2;
 
-            // --- Inserção do Canvas da assinatura ---
-            const canvasAssinatura = document.getElementById('assinatura');
-            if (canvasAssinatura) {
-                try {
-                    const imageData = canvasAssinatura.toDataURL('image/png');
-                    if (imageData && imageData.length > 100) {
-                        const larguraAssinatura = 60; // largura fixa
-                        const alturaAssinatura = (canvasAssinatura.height / canvasAssinatura.width) * larguraAssinatura;
+            const yTexto = y + altura / 2 + 1.5;
 
-                        // Centralizar conjunto (texto + linha)
-                        const texto = "ASSINATURA DO TÉCNICO / RESPONSÁVEL:";
-                        doc.setFontSize(8);
-                        doc.setFont(undefined, 'normal');
-                        const larguraTexto = doc.getTextWidth(texto); // largura exata do texto
 
-                        const xCentro = (210 - (larguraTexto + larguraAssinatura)) / 2; // centraliza na página A4
-                        const yBase = y + 4; 
+            // Bloco INÍCIO
+            const xInicioBloco = xHorario + larguraTituloHorario;
+            doc.text("INÍCIO :", xInicioBloco + 1, yTexto);  // título mais próximo do início
+            doc.text(inicioVal, xInicioBloco + 14, yTexto);  // valor mais próximo do título
 
-                        // --- Texto à esquerda ---
-                        doc.setTextColor(0, 0, 0);
-                        doc.text(texto, xCentro, yBase);
+            // Bloco FIM (1px de gap)
+            const xFimBloco = xInicioBloco + larguraBloco + 1.3; // +1px gap entre blocos
+            doc.text("FIM :", xFimBloco + 1, yTexto);        // título FIM mais próximo do início do bloco
+            doc.text(terminoVal, xFimBloco + 11, yTexto);    // valor FIM mais próximo do título
 
-                        // --- Linha imediatamente após o texto (sem gap) ---
-                        const xLinhaInicio = xCentro + larguraTexto;
-                        const xLinhaFim = xLinhaInicio + larguraAssinatura;
-                        doc.setLineWidth(0.3);
-                        doc.line(xLinhaInicio, yBase, xLinhaFim, yBase);
+            y += 15;
 
-                        // --- Imagem da assinatura centralizada sobre a linha ---
-                        const yAssinatura = yBase - alturaAssinatura / 1; // centraliza verticalmente sobre a linha
-                        doc.addImage(imageData, 'PNG', xLinhaInicio, yAssinatura, larguraAssinatura, alturaAssinatura);
-                    }
-                } catch (e) {
-                    console.error("Erro ao adicionar assinatura:", e);
-                }
+
+
+            // assinatura
+            const imageData = canvas.toDataURL('image/png');
+            if (imageData && imageData.length > 100) {
+                const larguraAssinatura = 60;
+                const alturaAssinatura = (canvas.height / canvas.width) * larguraAssinatura;
+
+                const texto = "ASSINATURA DO TÉCNICO / RESPONSÁVEL:";
+                doc.setFontSize(9);
+                doc.setFont(undefined, 'normal');
+                const larguraTexto = doc.getTextWidth(texto);
+
+                const xCentro = (210 - (larguraTexto + larguraAssinatura)) / 2;
+                const yBase = y + 4;
+
+                doc.text(texto, xCentro, yBase);
+                doc.line(xCentro + larguraTexto, yBase, xCentro + larguraTexto + larguraAssinatura, yBase);
+                doc.addImage(imageData, 'PNG', xCentro + larguraTexto, yBase - alturaAssinatura / 2, larguraAssinatura, alturaAssinatura);
             }
 
-
-            // --- Salvar PDF ---
-            const chamadoNum = form.elements['chamado'].value || 'sem_numero';
+            // salvar pdf
+            const chamadoNum = form.chamado.value || 'sem_numero';
             doc.save(`Chamado_${chamadoNum}.pdf`);
         });
-
-
-
     </script>
 </body>
 
