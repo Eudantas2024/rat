@@ -1,220 +1,309 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
+
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Formulário de Chamado</title>
-<style>
-    body {
-        font-family: Arial, sans-serif;
-        margin: 0;
-        padding: 20px 5px;
-        background-color: #8caad4;
-    }
-    h1 {
-        text-align: center;
-        margin-bottom: 20px;
-    }
-    form {
-        max-width: 500px;
-        margin: auto;
-        background: #fff;
-        padding: 20px;
-        border-radius: 8px;
-        box-shadow: 0 0 10px rgba(0,0,0,0.1);
-    }
-    label {
-        display: block;
-        margin-top: 15px;
-        font-weight: bold;
-    }
-    input, textarea, canvas {
-        width: 100%;
-        padding: 12px;
-        margin-top: 5px;
-        font-size: 16px;
-        border-radius: 5px;
-        border: 1px solid #ccc;
-        box-sizing: border-box;
-    }
-    textarea {
-        resize: vertical;
-        min-height: 80px;
-    }
-    button {
-        margin-top: 20px;
-        padding: 15px;
-        width: 100%;
-        font-size: 18px;
-        background-color: #007BFF;
-        color: white;
-        border: none;
-        border-radius: 8px;
-        cursor: pointer;
-    }
-    button:hover { background-color: #0056b3; }
-    #limparAssinatura {
-        background-color: #dc3545;
-        margin-top: 5px;
-    }
-    #limparAssinatura:hover { background-color: #a71d2a; }
-</style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Formulário de Chamado</title>
+    <style>
+        body {
+            font-family: Arial;
+            margin: 0;
+            padding: 20px 5px;
+            background-color: #8caad4;
+        }
+
+        h3 {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        form {
+            max-width: 500px;
+            margin: auto;
+            background: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        label {
+            display: block;
+            margin-top: 15px;
+            font-weight: bold;
+        }
+
+        input,
+        textarea,
+        canvas {
+            width: 100%;
+            padding: 12px;
+            margin-top: 5px;
+            font-size: 16px;
+            border-radius: 5px;
+            border: 1px solid #ccc;
+            box-sizing: border-box;
+        }
+
+        textarea {
+            resize: vertical;
+            min-height: 80px;
+        }
+
+        button {
+            margin-top: 20px;
+            padding: 15px;
+            width: 100%;
+            font-size: 18px;
+            background-color: #007BFF;
+            color: white;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background-color: #0056b3;
+        }
+
+        #limparAssinatura {
+            background-color: #dc3545;
+            margin-top: 5px;
+        }
+
+        #limparAssinatura:hover {
+            background-color: #a71d2a;
+        }
+    </style>
 </head>
+
 <body>
-<h1>Formulário de Chamado</h1>
-<form id="chamadoForm">
-    <label for="numero">Número do Chamado</label>
-    <input type="text" id="numero" required>
+    <h3>RAT (RELATÓRIO ATENDIMENTO TÉCNICO)</h3>
+    <form id="chamadoForm">
+        <label for="tecnico">NOME DO TÉCNICO:</label>
+        <input type="text" id="tecnico" name="tecnico" required>
 
-    <label for="data">Data</label>
-    <input type="date" id="data" required>
+        <label for="empresa">EMPRESA PARCEIRA:</label>
+        <input type="text" id="empresa" name="empresa" required>
 
-    <label for="inicio">Horário de Início</label>
-    <input type="time" id="inicio" required>
+        <label for="chamado">CHAMADO:</label>
+        <input type="text" id="chamado" name="chamado" required>
 
-    <label for="termino">Horário de Término</label>
-    <input type="time" id="termino" required>
+        <label for="data">DATA DO ATENDIMENTO:</label>
+        <input type="date" id="data" name="data" required>
 
-    <label for="nome">Nome</label>
-    <input type="text" id="nome" required>
+        <label for="inicio">Horário de Início:</label>
+        <input type="time" id="inicio" name="inicio" required>
 
-    <label for="cliente">Cliente</label>
-    <input type="text" id="cliente" required>
+        <label for="termino">Horário de Término:</label>
+        <input type="time" id="termino" name="termino" required>
 
-    <label for="observacao">Observação</label>
-    <textarea id="observacao"></textarea>
+        <label for="assinatura">ASSINATURA DO TÉCNICO / RESPONSÁVEL:</label>
+        <canvas id="assinatura" style="border:1px solid #ccc; height:150px;"></canvas>
+        <button type="button" id="limparAssinatura">Limpar Assinatura</button>
 
-    <label for="assinatura">Assinatura</label>
-    <canvas id="assinatura" style="border:1px solid #ccc; height:150px;"></canvas>
-    <button type="button" id="limparAssinatura">Limpar Assinatura</button>
+        <button type="button" id="btnPDF">Imprimir PDF</button>
+    </form>
 
-    <button type="button" id="btnPDF">Imprimir PDF</button>
-</form>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+    <script>
+        const canvas = document.getElementById('assinatura');
+        const ctx = canvas.getContext('2d');
+        let desenhando = false;
+        let lastX = 0, lastY = 0;
 
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
-<script>
-const canvas = document.getElementById('assinatura');
-const ctx = canvas.getContext('2d');
-let desenhando = false;
-let lastX = 0;
-let lastY = 0;
+        function ajustarCanvas() {
+            canvas.width = canvas.offsetWidth;
+            canvas.height = 150;
+            ctx.lineWidth = 2;
+            ctx.lineCap = 'round';
+        }
+        window.addEventListener('resize', ajustarCanvas);
+        ajustarCanvas();
 
-function ajustarCanvas() {
-    canvas.width = canvas.offsetWidth;
-    canvas.height = 150;
-    ctx.lineWidth = 2;
-    ctx.lineCap = 'round';
-}
-window.addEventListener('resize', ajustarCanvas);
-ajustarCanvas();
+        // --- Assinatura ---
+        function desenhar(e) {
+            if (!desenhando) return;
+            const rect = canvas.getBoundingClientRect();
+            let x = (e.touches ? e.touches[0].clientX : e.clientX) - rect.left;
+            let y = (e.touches ? e.touches[0].clientY : e.clientY) - rect.top;
 
-// --- Desenhar assinatura com traços curtos ---
-canvas.addEventListener('mousedown', (e) => {
-    desenhando = true;
-    const rect = canvas.getBoundingClientRect();
-    lastX = e.clientX - rect.left;
-    lastY = e.clientY - rect.top;
-});
-canvas.addEventListener('mouseup', () => desenhando = false);
-canvas.addEventListener('mouseout', () => desenhando = false);
-canvas.addEventListener('mousemove', (e) => {
-    if (!desenhando) return;
-    const rect = canvas.getBoundingClientRect();
-    const x = e.clientX - rect.left;
-    const y = e.clientY - rect.top;
+            const dx = x - lastX, dy = y - lastY;
+            if (Math.sqrt(dx * dx + dy * dy) > 2) {
+                ctx.beginPath();
+                ctx.moveTo(lastX, lastY);
+                ctx.lineTo(x, y);
+                ctx.stroke();
+                ctx.closePath();
+                lastX = x; lastY = y;
+            }
+        }
 
-    const deltaX = x - lastX;
-    const deltaY = y - lastY;
-    const distancia = Math.sqrt(deltaX**2 + deltaY**2);
-    if (distancia > 2) {
-        ctx.beginPath();
-        ctx.moveTo(lastX, lastY);
-        ctx.lineTo(x, y);
-        ctx.stroke();
-        ctx.closePath();
-        lastX = x;
-        lastY = y;
-    }
-});
+        canvas.addEventListener('mousedown', e => { desenhando = true; const rect = canvas.getBoundingClientRect(); lastX = e.clientX - rect.left; lastY = e.clientY - rect.top; });
+        canvas.addEventListener('mouseup', () => desenhando = false);
+        canvas.addEventListener('mouseout', () => desenhando = false);
+        canvas.addEventListener('mousemove', desenhar);
 
-// Touch
-canvas.addEventListener('touchstart', (e) => {
-    desenhando = true;
-    const rect = canvas.getBoundingClientRect();
-    lastX = e.touches[0].clientX - rect.left;
-    lastY = e.touches[0].clientY - rect.top;
-    e.preventDefault();
-});
-canvas.addEventListener('touchend', () => desenhando = false);
-canvas.addEventListener('touchmove', (e) => {
-    if (!desenhando) return;
-    const rect = canvas.getBoundingClientRect();
-    const x = e.touches[0].clientX - rect.left;
-    const y = e.touches[0].clientY - rect.top;
+        canvas.addEventListener('touchstart', e => { desenhando = true; const rect = canvas.getBoundingClientRect(); lastX = e.touches[0].clientX - rect.left; lastY = e.touches[0].clientY - rect.top; e.preventDefault(); });
+        canvas.addEventListener('touchend', () => desenhando = false);
+        canvas.addEventListener('touchmove', desenhar);
 
-    const deltaX = x - lastX;
-    const deltaY = y - lastY;
-    const distancia = Math.sqrt(deltaX**2 + deltaY**2);
-    if (distancia > 2) {
-        ctx.beginPath();
-        ctx.moveTo(lastX, lastY);
-        ctx.lineTo(x, y);
-        ctx.stroke();
-        ctx.closePath();
-        lastX = x;
-        lastY = y;
-    }
-    e.preventDefault();
-});
+        // Limpar assinatura
+        document.getElementById('limparAssinatura').addEventListener('click', () => ctx.clearRect(0, 0, canvas.width, canvas.height));
 
-// Limpar assinatura
-document.getElementById('limparAssinatura').addEventListener('click', () => {
-    ctx.clearRect(0, 0, canvas.width, canvas.height);
-});
 
-// --- Gerar PDF ---
-const { jsPDF } = window.jspdf;
-document.getElementById('btnPDF').addEventListener('click', () => {
-    const doc = new jsPDF({ format: "a4", unit: "mm" });
-    const chamado = {
-        numero: document.getElementById('numero').value,
-        data: document.getElementById('data').value,
-        inicio: document.getElementById('inicio').value,
-        termino: document.getElementById('termino').value,
-        nome: document.getElementById('nome').value,
-        cliente: document.getElementById('cliente').value,
-        observacao: document.getElementById('observacao').value,
-        assinatura: canvas.toDataURL()
-    };
+        const { jsPDF } = window.jspdf;
 
-    let y = 20;
-    doc.setFontSize(16);
-    doc.text("Formulário de Chamado", 105, y, null, null, "center");
+        document.getElementById('btnPDF').addEventListener('click', () => {
+            const form = document.getElementById('chamadoForm');
+            const doc = new jsPDF({ format: 'a4', unit: 'mm' });
 
-    doc.setFontSize(12);
-    y += 15;
-    doc.text(`Número do Chamado: ${chamado.numero}`, 20, y);
-    y += 10;
-    doc.text(`Data: ${chamado.data}`, 20, y);
-    y += 10;
-    doc.text(`Horário de Início: ${chamado.inicio}`, 20, y);
-    y += 10;
-    doc.text(`Horário de Término: ${chamado.termino}`, 20, y);
-    y += 10;
-    doc.text(`Nome: ${chamado.nome}`, 20, y);
-    y += 10;
-    doc.text(`Cliente: ${chamado.cliente}`, 20, y);
-    y += 10;
-    doc.text(`Observação:`, 20, y);
-    y += 10;
-    doc.text(chamado.observacao, 25, y, { maxWidth: 160 });
+            let y = 10;
+            const xInicio = 10;
+            const xFim = 200;
+            const larguraTotal = xFim - xInicio;
+            const gap = 3;
 
-    y += 40;
-    doc.text("Assinatura:", 20, y);
-    doc.addImage(chamado.assinatura, 'PNG', 25, y + 5, 160, 50);
+            // --- Título principal ---
+            doc.setFontSize(14);
+            doc.setFont(undefined, 'normal');
+            doc.setTextColor(200, 0, 0);
+            doc.text("RAT (RELATÓRIO ATENDIMENTO TÉCNICO)", 105, y, { align: "center" });
+            y += 10;
 
-    doc.save(`Chamado_${chamado.numero}.pdf`);
-});
-</script>
+            // --- Função para desenhar campo com título ---
+            function addCampo(x, yPos, largura, titulo, valor) {
+                const altura = 8;
+                const larguraTitulo = titulo.length * 1.5 + 5;
+
+                doc.setDrawColor(0);
+                doc.setLineWidth(0.3);
+                doc.rect(x, yPos, largura, altura, 'S');
+
+                doc.setFont(undefined, 'bold');
+                doc.setTextColor(255, 255, 255);
+                doc.setFillColor(200, 0, 0);
+                doc.rect(x, yPos, larguraTitulo, altura, 'F');
+
+                doc.setFontSize(7);
+                doc.text(titulo, x + 1, yPos + 4.5);
+
+                doc.setLineDash([0.5, 1], 0);
+                doc.setDrawColor(0);
+                doc.rect(x + larguraTitulo, yPos, largura - larguraTitulo, altura, 'S');
+                doc.setLineDash([], 0);
+
+                doc.setFont(undefined, 'normal');
+                doc.setTextColor(0, 0, 0);
+                doc.setFontSize(8);
+                doc.text((valor || '').toString().toUpperCase(), x + larguraTitulo + 1, yPos + 4.5);
+            }
+
+            // --- Linha 1 ---
+            const larguraNome = 90;
+            const larguraEmpresa = larguraTotal - larguraNome - gap;
+            addCampo(xInicio, y, larguraNome, "NOME DO TÉCNICO:", form.elements['tecnico'].value);
+            addCampo(xInicio + larguraNome + gap, y, larguraEmpresa, "EMPRESA PARCEIRA:", form.elements['empresa'].value);
+            y += 8 + gap;
+
+            // --- Linha 2 ---
+            const larguraChamado = 40;
+            const larguraData = 60;
+            const larguraHorario = larguraTotal - larguraChamado - larguraData - gap * 2;
+
+            // Formatar data para DD/MM/AAAA
+            let dataValor = form.elements['data'].value; // YYYY-MM-DD
+            if (dataValor) {
+                const partes = dataValor.split('-');
+                dataValor = `${partes[2]}/${partes[1]}/${partes[0]}`;
+            }
+
+            addCampo(xInicio, y, larguraChamado, "CHAMADO:", form.elements['chamado'].value);
+            addCampo(xInicio + larguraChamado + gap, y, larguraData, "DATA DO ATENDIMENTO:", dataValor);
+
+            // Horário
+            const xHorario = xInicio + larguraChamado + larguraData + gap * 2;
+            const altura = 8;
+            const larguraTituloHorario = 15;
+
+            doc.setDrawColor(0);
+            doc.setLineWidth(0.3);
+            doc.rect(xHorario, y, larguraHorario, altura, 'S');
+
+            doc.setFont(undefined, 'bold');
+            doc.setTextColor(255, 255, 255);
+            doc.setFillColor(200, 0, 0);
+            doc.rect(xHorario, y, larguraTituloHorario, altura, 'F');
+            doc.setFontSize(7);
+            doc.text("HORÁRIO:", xHorario + 1, y + 4.5);
+
+            doc.setLineDash([0.5, 1], 0);
+            doc.setDrawColor(0);
+            doc.rect(xHorario + larguraTituloHorario, y, larguraHorario - larguraTituloHorario, altura, 'S');
+            doc.setLineDash([], 0);
+
+            doc.setFont(undefined, 'normal');
+            doc.setTextColor(0, 0, 0);
+            doc.setFontSize(7);
+            const inicioVal = form.elements['inicio'].value;
+            const terminoVal = form.elements['termino'].value;
+            doc.text("INÍCIO :", xHorario + larguraTituloHorario + 1, y + 4.5);
+            doc.text(inicioVal, xHorario + larguraTituloHorario + 10, y + 4.5);
+            doc.text("FIM :", xHorario + larguraTituloHorario + 25, y + 4.5);
+            doc.text(terminoVal, xHorario + larguraTituloHorario + 31, y + 4.5);
+
+            y += 8 + 10;
+     
+
+            // --- Inserção do Canvas da assinatura ---
+            const canvasAssinatura = document.getElementById('assinatura');
+            if (canvasAssinatura) {
+                try {
+                    const imageData = canvasAssinatura.toDataURL('image/png');
+                    if (imageData && imageData.length > 100) {
+                        const larguraAssinatura = 60; // tamanho mais proporcional
+                        const alturaAssinatura = (canvasAssinatura.height / canvasAssinatura.width) * larguraAssinatura;
+
+                        // Posição do texto
+                        const xTexto = xInicio;
+                        const yTexto = y + alturaAssinatura / 1.5; // altura equilibrada para alinhar com a assinatura
+
+                        // Posição da assinatura ao lado direito do texto
+                        const xAssinatura = xTexto + 95; // deslocamento horizontal à direita do texto
+                        const yAssinatura = y; // mesma base vertical do texto
+
+                        // --- Texto à esquerda da assinatura ---
+                        doc.setFont(undefined, 'normal');
+                        doc.setTextColor(0, 0, 0);
+                        doc.setFontSize(8);
+                        doc.text("ASSINATURA DO TÉCNICO / RESPONSÁVEL:", xTexto, yTexto, { align: "left" });
+
+                        // --- Linha sob a assinatura ---
+                        const yLinha = yAssinatura + alturaAssinatura + 1; // logo abaixo da imagem
+                        doc.setLineWidth(0.3);
+                        doc.line(xAssinatura, yLinha, xAssinatura + larguraAssinatura, yLinha);
+
+                        // --- Adiciona a assinatura alinhada ao texto ---
+                        doc.addImage(imageData, 'PNG', xAssinatura, yAssinatura, larguraAssinatura, alturaAssinatura);
+                    }
+                } catch (e) {
+                    console.error("Erro ao adicionar assinatura:", e);
+                }
+            }
+
+
+
+
+
+
+            // --- Salvar PDF ---
+            const chamadoNum = form.elements['chamado'].value || 'sem_numero';
+            doc.save(`Chamado_${chamadoNum}.pdf`);
+        });
+
+
+
+    </script>
 </body>
+
 </html>
