@@ -316,15 +316,21 @@
         <label for="imei_b">IMEI:</label>
         <input type="text" id="imei_b" name="imei_b" required>
 
+        <h4>INFORMAÇÕES SOBRE BACKUP</h4>
 
+        <label for="backup_a">BACKUP REALIZADO:</label>
+        <input type="text" id="backup_a" name="backup_a" required>
 
+        <label for="patrimonio_b1">DETALHAR / PATRIMÔNIO:</label>
+        <input type="text" id="patrimonio_b1" name="patrimonio_b1" required>
 
+        <h4>INFORMAÇÕES SOBRE ACESSÓRIOS OU PERIFÉRICOS</h4>
 
+        <label for="usuario_a">NOME PERFIL USUÁRIO:</label>
+        <input type="text" id="usuario_a" name="usuario_a" required>
 
-
-
-
-
+        <label for="patrimonio_b2">DETALHAR / PATRIMÔNIO:</label>
+        <input type="text" id="patrimonio_b2" name="patrimonio_b2" required>
 
 
 
@@ -788,7 +794,107 @@
                 doc.text(`IMEI: ${form.imei_b?.value || ""}`, xB, linhaYB);
 
                 // Retorna nova posição Y para o próximo bloco
-                return y + alturaBloco + 5;
+                return y + alturaBloco + 1;
+            }
+
+
+            // BLOCO BACKUP DIVIDIDO EM DUAS PARTES 50% 50%
+            function addBlocoBackup(doc, x, y, larguraTotal, form) {
+                const alturaTitulo = 5;
+                const alturaBloco = 5;
+
+                // Borda pontilhada (pontos pequenos e próximos)
+                doc.setLineWidth(0.3);
+                doc.setDrawColor(0);
+                doc.setLineDashPattern([0.3, 0.3], 0);
+                doc.rect(x, y, larguraTotal, alturaBloco, 'S');
+                doc.setLineDashPattern([], 0);
+
+                // Metade esquerda e direita (vermelhas)
+                const larguraColuna = larguraTotal / 2;
+                doc.setFillColor(200, 0, 0);
+                doc.rect(x, y, larguraColuna, alturaTitulo, 'F');
+                doc.rect(x + larguraColuna, y, larguraColuna, alturaTitulo, 'F');
+
+                // Linha divisória central (pontilhada branca)
+                doc.setLineWidth(0.2);
+                doc.setDrawColor(255);
+                doc.setLineDashPattern([0.3, 0.3], 0);
+                doc.line(x + larguraColuna, y, x + larguraColuna, y + alturaTitulo);
+                doc.setLineDashPattern([], 0);
+
+                // Texto centralizado em cada metade
+                doc.setFont(undefined, 'bold');
+                doc.setFontSize(9);
+                doc.setTextColor(255, 255, 255);
+
+                // Texto centralizado verticalmente nas duas metades
+                const yTexto = y + (alturaTitulo / 2) + 2; // ajuste fino (+2 para compensar a base da fonte)
+                doc.text("BACKUP", x + larguraColuna / 2, yTexto, { align: "center" });
+                doc.text("ACESSÓRIOS OU PERIFÉRICOS", x + larguraColuna + larguraColuna / 2, yTexto, { align: "center" });
+
+
+                // Retorna nova posição Y para o próximo bloco
+                return y + alturaBloco + 0.5;
+            }
+
+            // --- BLOCO BACKUP REALIZADO (LADO A / LADO B) ---
+            function addBlocoBackupRealizado(doc, x, y, larguraTotal, form) {
+                const alturaTitulo = 5;
+                const alturaBloco = 30; // altura do bloco de conteúdo
+                const padding = 4;
+
+                // Borda pontilhada (preta, pontos pequenos)
+                doc.setLineWidth(0.3);
+                doc.setDrawColor(0);
+                doc.setLineDashPattern([0.3, 0.3], 0);
+                doc.rect(x, y, larguraTotal, alturaBloco + alturaTitulo, 'S');
+                doc.setLineDashPattern([], 0);
+
+                // Cabeçalho vermelho com título centralizado
+                doc.setFillColor(200, 0, 0);
+                doc.rect(x, y, larguraTotal, alturaTitulo, 'F');
+                doc.setFont(undefined, 'bold');
+                doc.setFontSize(9);
+                doc.setTextColor(255, 255, 255);
+                const yTexto = y + (alturaTitulo / 2) + 2;
+                doc.text("BACKUP REALIZADO", x + larguraTotal / 2, yTexto, { align: "center" });
+
+                // Conteúdo interno (fundo branco, letra preta)
+                doc.setFont(undefined, 'normal');
+                doc.setFontSize(9);
+                doc.setTextColor(0, 0, 0);
+
+                const larguraColuna = larguraTotal / 2;
+
+                // Captura segura dos valores do formulário
+                const backup_a = form.backup_a ? form.backup_a.value : "";
+                const usuario_a = form.usuario_a ? form.usuario_a.value : "";
+                const patrimonio_b1 = form.patrimonio_b1 ? form.patrimonio_b1.value : "";
+                const patrimonio_b2 = form.patrimonio_b2 ? form.patrimonio_b2.value : "";
+
+                // --- LADO A ---
+                let linhaYA = y + alturaTitulo + padding;
+                doc.text(`BACKUP REALIZADO: ${backup_a.toUpperCase()}`, x + padding, linhaYA);
+                linhaYA += 6;
+                doc.text(`NOME PERFIL USUÁRIO: ${usuario_a.toUpperCase()}`, x + padding, linhaYA);
+
+                // --- LADO B ---
+                let linhaYB = y + alturaTitulo + padding;
+                const xB = x + larguraColuna + padding;
+                doc.text(`DETALHAR / PATRIMÔNIO: ${patrimonio_b1.toUpperCase()}`, xB, linhaYB);
+                linhaYB += 6;
+                doc.text(`DETALHAR / PATRIMÔNIO: ${patrimonio_b2.toUpperCase()}`, xB, linhaYB);
+
+                // Linha divisória central (pontilhada)
+                doc.setLineWidth(0.2);
+                doc.setDrawColor(0);
+                doc.setLineDashPattern([0.3, 0.3], 0);
+                doc.line(x + larguraColuna, y + alturaTitulo, x + larguraColuna, y + alturaTitulo + alturaBloco);
+                doc.setLineDashPattern([], 0);
+
+                // Retorna nova posição Y para o próximo bloco
+                return y + alturaTitulo + alturaBloco + 5;
             }
 
 
@@ -806,6 +912,11 @@
             y = addBlocoEquipamentoDivido(doc, xInicio, y, larguraTotal, form);
 
             y = addBlocoModelo(doc, xInicio, y, larguraTotal, form);
+
+            y = addBlocoBackup(doc, xInicio, y, larguraTotal, form);
+
+            y = addBlocoBackupRealizado(doc, xInicio, y, larguraTotal, form);
+
 
 
 
