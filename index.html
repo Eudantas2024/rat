@@ -275,6 +275,49 @@
         <input type="text" id="eqpto_novo" name="eqpto_novo" readonly class="oculto">
 
 
+        <h4>EQUIPAMENTO ANTIGO</h4>
+
+        <label for="modelo_a">MODELO:</label>
+        <input type="text" id="modelo_a" name="modelo_a" required>
+
+        <label for="patrimonio_a">N° PATRIMÔNIO DO EQUIPAMENTO:</label>
+        <input type="text" id="patrimonio_a" name="patrimonio_a" required>
+
+        <label for="serie_a">N° SÉRIE:</label>
+        <input type="text" id="serie_a" name="serie_a" required>
+
+        <label for="hostname_a">HOSTNAME:</label>
+        <input type="text" id="hostname_a" name="hostname_a" required>
+
+        <label for="etiqueta_a">N° ETIQUETA E SÉRIE CLIENTE:</label>
+        <input type="text" id="etiqueta_a" name="etiqueta_a" required>
+
+        <label for="imei_a">IMEI:</label>
+        <input type="text" id="imei_a" name="imei_a" required>
+
+
+        <h4>EQUIPAMENTO NOVO</h4>
+
+        <label for="modelo_b">MODELO:</label>
+        <input type="text" id="modelo_b" name="modelo_b" required>
+
+        <label for="patrimonio_b">N° PATRIMÔNIO DO EQUIPAMENTO:</label>
+        <input type="text" id="patrimonio_b" name="patrimonio_b" required>
+
+        <label for="serie_b">N° SÉRIE:</label>
+        <input type="text" id="serie_b" name="serie_b" required>
+
+        <label for="hostname_b">HOSTNAME:</label>
+        <input type="text" id="hostname_b" name="hostname_b" required>
+
+        <label for="etiqueta_b">N° ETIQUETA E SÉRIE CLIENTE:</label>
+        <input type="text" id="etiqueta_b" name="etiqueta_b" required>
+
+        <label for="imei_b">IMEI:</label>
+        <input type="text" id="imei_b" name="imei_b" required>
+
+
+
 
 
 
@@ -688,46 +731,69 @@
                 return y + alturaBloco + 0.5;
             }
 
-            // BLOCO DADOS DOS EQUIPAMENTOS DIVIDIDO EM DUAS PARTES 50% 50%
-            function addBlocoEquipamentoDivido2(doc, x, y, larguraTotal, form) {
-                const alturaTitulo = 5;
-                const alturaBloco = 5;
 
-                // Borda pontilhada (pontos pequenos e próximos)
+            // --- BLOCO MODELO DIVIDIDO EM DUAS PARTES (LADO A / LADO B) ---
+            function addBlocoModelo(doc, x, y, larguraTotal, form) {
+                const alturaBloco = 50;
+                const padding = 4;
+
+                // Borda pontilhada (preta, pequenos pontos)
                 doc.setLineWidth(0.3);
                 doc.setDrawColor(0);
                 doc.setLineDashPattern([0.3, 0.3], 0);
                 doc.rect(x, y, larguraTotal, alturaBloco, 'S');
                 doc.setLineDashPattern([], 0);
 
-                // Metade esquerda e direita (vermelhas)
-                const larguraColuna = larguraTotal / 2;
-                doc.setFillColor(200, 0, 0);
-                doc.rect(x, y, larguraColuna, alturaTitulo, 'F');
-                doc.rect(x + larguraColuna, y, larguraColuna, alturaTitulo, 'F');
+                // Conteúdo interno (fundo branco, texto preto)
+                doc.setFont(undefined, 'normal');
+                doc.setFontSize(9);
+                doc.setTextColor(0, 0, 0);
 
-                // Linha divisória central (pontilhada branca)
+                // Divide área em duas metades (LADO A e LADO B)
+                const larguraColuna = larguraTotal / 2;
+
+                // Linha divisória central (pontilhada)
                 doc.setLineWidth(0.2);
-                doc.setDrawColor(255);
                 doc.setLineDashPattern([0.3, 0.3], 0);
-                doc.line(x + larguraColuna, y, x + larguraColuna, y + alturaTitulo);
+                doc.line(x + larguraColuna, y, x + larguraColuna, y + alturaBloco);
                 doc.setLineDashPattern([], 0);
 
-                // Texto centralizado em cada metade
-                doc.setFont(undefined, 'bold');
-                doc.setFontSize(9);
-                doc.setTextColor(255, 255, 255);
+                // --- LADO A ---
+                let linhaYA = y + 4;
+                doc.setFont(undefined, 'normal');
+                linhaYA += 6;
+                doc.text(`MODELO: ${form.modelo_a?.value || ""}`, x + padding, linhaYA);
+                linhaYA += 6;
+                doc.text(`N° PATRIMÔNIO DO EQUIPAMENTO: ${form.patrimonio_a?.value || ""}`, x + padding, linhaYA);
+                linhaYA += 6;
+                doc.text(`N° SÉRIE: ${form.serie_a?.value || ""}`, x + padding, linhaYA);
+                linhaYA += 6;
+                doc.text(`HOSTNAME: ${form.hostname_a?.value || ""}`, x + padding, linhaYA);
+                linhaYA += 6;
+                doc.text(`N° ETIQUETA E SÉRIE CLIENTE: ${form.etiqueta_a?.value || ""}`, x + padding, linhaYA);
+                linhaYA += 6;
+                doc.text(`IMEI: ${form.imei_a?.value || ""}`, x + padding, linhaYA);
 
-                // Texto centralizado verticalmente nas duas metades
-                const yTexto = y + (alturaTitulo / 2) + 2; // ajuste fino (+2 para compensar a base da fonte)
-                doc.text("EQUIPAMENTO ANTIGO", x + larguraColuna / 2, yTexto, { align: "center" });
-                doc.text("EQUIPAMENTO NOVO", x + larguraColuna + larguraColuna / 2, yTexto, { align: "center" });
+                // --- LADO B ---
+                let linhaYB = y + 4;
+                const xB = x + larguraColuna + padding;
+                doc.setFont(undefined, 'normal');
+                linhaYB += 6;
+                doc.text(`MODELO: ${form.modelo_b?.value || ""}`, xB, linhaYB);
+                linhaYB += 6;
+                doc.text(`N° PATRIMÔNIO DO EQUIPAMENTO: ${form.patrimonio_b?.value || ""}`, xB, linhaYB);
+                linhaYB += 6;
+                doc.text(`N° SÉRIE: ${form.serie_b?.value || ""}`, xB, linhaYB);
+                linhaYB += 6;
+                doc.text(`HOSTNAME: ${form.hostname_b?.value || ""}`, xB, linhaYB);
+                linhaYB += 6;
+                doc.text(`N° ETIQUETA E SÉRIE CLIENTE: ${form.etiqueta_b?.value || ""}`, xB, linhaYB);
+                linhaYB += 6;
+                doc.text(`IMEI: ${form.imei_b?.value || ""}`, xB, linhaYB);
 
                 // Retorna nova posição Y para o próximo bloco
-                return y + alturaBloco + 0.5;
+                return y + alturaBloco + 5;
             }
-
-
 
 
             // 1 --- função chamar o bloco dados do cliente
@@ -742,7 +808,7 @@
             // 4 --- função chamar o bloco EQUIPAMENTO ANTIGO e EQUIPAMENTO NOVO  50% cada 
             y = addBlocoEquipamentoDivido(doc, xInicio, y, larguraTotal, form);
 
-            y = addBlocoEquipamentoDivido2(doc, xInicio, y, larguraTotal, form);
+            y = addBlocoModelo(doc, xInicio, y, larguraTotal, form);
 
 
 
