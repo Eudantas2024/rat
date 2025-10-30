@@ -369,170 +369,146 @@
             doc.text("RAT (RELATÓRIO ATENDIMENTO TÉCNICO)", 105, y, { align: "center" });
             y += 10;
 
-
-            // função para criar campo
+            // --- BLOCO DADOS DO CHAMADO ---
             function addCampo(x, y, largura, titulo, valor, padding = 2) {
-                const altura = 8;
+                const altura = 5; // mesma altura visual do bloco DADOS DO CLIENTE
                 const larguraTitulo = largura * 0.4;
                 valor = (valor || "").toString().toUpperCase();
 
                 doc.setDrawColor(0);
                 doc.setLineWidth(0.3);
-                doc.setLineDashPattern([0.3, 0.3], 0); // pontinhos menores e mais próximos
-
+                doc.setLineDashPattern([0.3, 0.3], 0);
                 doc.rect(x, y, largura, altura, 'S');
-                doc.setLineDashPattern([], 0); // volta ao normal para outros campos
-
-
-                doc.setFillColor(200, 0, 0);
-                doc.rect(x, y, larguraTitulo, altura, 'F');
-
-                doc.setFont(undefined, 'bold');
-                doc.setTextColor(255, 255, 255);
-                doc.setFontSize(9);
-                doc.text(titulo, x + padding, y + 4.5);
-
-                doc.setFont(undefined, 'normal');
-                doc.setTextColor(0, 0, 0);
-                doc.setFontSize(9);
-                doc.text(valor, x + larguraTitulo + padding, y + 4.5);
-            }
-
-            // linha 1
-            const larguraEmpresa = larguraTotal * 0.50;
-            const larguraNome = larguraTotal * 0.50;
-            addCampo(xInicio, y, larguraNome, "NOME DO TÉCNICO:", form.tecnico.value);
-            addCampo(xInicio + larguraNome, y, larguraEmpresa, "EMPRESA PARCEIRA:", form.empresa.value);
-
-            // espaçamento entre linha 1 e linha 2
-            y += 10;
-
-            // --- Linha 2 ---
-            // CHAMADO = 30% | DATA DO ATENDIMENTO = 38% | HORÁRIO = 32%
-            const larguraChamado = larguraTotal * 0.27;
-            const larguraData = larguraTotal * 0.38; // aumenta um pouco do anterior 35%
-            const larguraHorario = larguraTotal - larguraChamado - larguraData; // 32%
-
-            // CHAMADO
-            addCampo(xInicio, y, larguraChamado, "CHAMADO:", form.elements['chamado'].value, 1);
-
-            // DATA DO ATENDIMENTO (com título com folga maior, valor menor)
-            const dataInput = form.elements['data'].value;
-            const partesData = dataInput.split('-');
-            const dataFormatada = partesData.length === 3 ? `${partesData[2]}/${partesData[1]}/${partesData[0]}` : dataInput;
-
-            (function addCampoData(x, y, largura, titulo, valor) {
-                const altura = 8;
-                const larguraTitulo = largura * 0.60; // título ocupa mais espaço
-                const padding = 2;
-
-
-                doc.setDrawColor(0);
-                doc.setLineWidth(0.3);
-                doc.setLineDashPattern([0.3, 0.3], 0); // pontinhos menores e mais próximos
-
-                doc.rect(x, y, largura, altura, 'S');
-                doc.setLineDashPattern([], 0); // volta ao normal para outros campos
+                doc.setLineDashPattern([], 0);
 
                 // fundo vermelho do título
                 doc.setFillColor(200, 0, 0);
                 doc.rect(x, y, larguraTitulo, altura, 'F');
 
-                doc.setFont(undefined, 'bold');
-                doc.setTextColor(255, 255, 255);
-                doc.setFontSize(9);
-                doc.text(titulo, x + padding, y + 4.5);
+                // centralização vertical (ajustada)
+                const yTexto = y + altura / 2 + 2.2;
 
-                // valor do campo com espaço levemente menor à direita
-                const xValor = x + larguraTitulo + padding;
-                const maxLarguraValor = largura - larguraTitulo - padding * 2 - 9;
-                doc.setFont(undefined, 'normal');
+                // título
+                doc.setFont("helvetica", "bold");
+                doc.setFontSize(9);
+                doc.setTextColor(255, 255, 255);
+                doc.text(titulo, x + padding, yTexto);
+
+                // valor
+                doc.setFont("helvetica", "normal");
                 doc.setTextColor(0, 0, 0);
                 doc.setFontSize(9);
-                doc.text(valor, xValor, y + 4.3, { maxWidth: maxLarguraValor });
-            })(xInicio + larguraChamado, y, larguraData, "DATA DO ATENDIMENTO:", dataFormatada);
+                doc.text(valor, x + larguraTitulo + padding, yTexto);
+            }
 
+            // --- LINHA 1 ---
+            const larguraNome = larguraTotal * 0.50;
+            const larguraEmpresa = larguraTotal * 0.50;
+            const alturaCampos = 5; // mesma altura padronizada
+
+            addCampo(xInicio, y, larguraNome, "NOME DO TÉCNICO:", form.tecnico.value);
+            addCampo(xInicio + larguraNome, y, larguraEmpresa, "EMPRESA PARCEIRA:", form.empresa.value);
+
+            // --- Espaçamento entre linhas ---
+            y += alturaCampos + 2;
+
+            // --- LINHA 2 (CHAMADO / DATA / HORÁRIO) ---
+            const larguraChamado = larguraTotal * 0.27;
+            const larguraData = larguraTotal * 0.38;
+            const larguraHorario = larguraTotal - larguraChamado - larguraData;
+
+            // --- CHAMADO ---
+            addCampo(xInicio, y, larguraChamado, "CHAMADO:", form.chamado.value, 1);
+
+            // --- DATA DO ATENDIMENTO ---
+            const dataInput = form.elements['data'].value;
+            const partesData = dataInput.split('-');
+            const dataFormatada = partesData.length === 3 ? `${partesData[2]}/${partesData[1]}/${partesData[0]}` : dataInput;
+
+            (function addCampoData(x, y, largura, titulo, valor) {
+                const altura = 5; // altura igual ao DADOS DO CLIENTE
+                const larguraTitulo = largura * 0.6;
+                const padding = 2;
+
+                doc.setDrawColor(0);
+                doc.setLineWidth(0.3);
+                doc.setLineDashPattern([0.3, 0.3], 0);
+                doc.rect(x, y, largura, altura, 'S');
+                doc.setLineDashPattern([], 0);
+
+                // fundo vermelho
+                doc.setFillColor(200, 0, 0);
+                doc.rect(x, y, larguraTitulo, altura, 'F');
+
+                const yTexto = y + altura / 2 + 2.2; // centralização vertical
+
+                // título
+                doc.setFont("helvetica", "bold");
+                doc.setFontSize(9);
+                doc.setTextColor(255, 255, 255);
+                doc.text(titulo, x + padding, yTexto);
+
+                // valor
+                const xValor = x + larguraTitulo + padding;
+                const maxLarguraValor = largura - larguraTitulo - padding * 2 - 9;
+                doc.setFont("helvetica", "normal");
+                doc.setTextColor(0, 0, 0);
+                doc.setFontSize(9);
+                doc.text(valor, xValor, yTexto, { maxWidth: maxLarguraValor });
+            })(xInicio + larguraChamado, y, larguraData, "DATA DO ATENDIMENTO:", dataFormatada);
 
             // --- HORÁRIO ---
             const xHorario = xInicio + larguraChamado + larguraData;
-            const altura = 8;
-
-            // Fundo vermelho do título HORÁRIO
+            const altura = 5;
             const larguraTituloHorario = 20;
+
             doc.setDrawColor(0);
             doc.setLineWidth(0.3);
-            doc.setLineDashPattern([0.3, 0.3], 0); // pontinhos menores e mais próximos
-
+            doc.setLineDashPattern([0.3, 0.3], 0);
             doc.rect(xHorario, y, larguraHorario, altura, 'S');
-            doc.setLineDashPattern([], 0); // volta ao normal para os próximos campos
+            doc.setLineDashPattern([], 0);
 
-
-            doc.setFont(undefined, 'bold');
-            doc.setTextColor(255, 255, 255);
+            // fundo vermelho
             doc.setFillColor(200, 0, 0);
             doc.rect(xHorario, y, larguraTituloHorario, altura, 'F');
-            doc.setFontSize(9);
-            doc.text("HORÁRIO:", xHorario + 2, y + altura / 2 + 1.5);
 
-            // Texto interno com gap de 1px
-            doc.setFont(undefined, 'normal');
+            const yTextoHorario = y + altura / 2 + 2.2;
+
+            // título HORÁRIO
+            doc.setFont("helvetica", "bold");
+            doc.setFontSize(9);
+            doc.setTextColor(255, 255, 255);
+            doc.text("HORÁRIO:", xHorario + 2, yTextoHorario);
+
+            // conteúdo interno
+            doc.setFont("helvetica", "normal");
+            doc.setFontSize(9);
             doc.setTextColor(0, 0, 0);
-            doc.setFontSize(9);
 
-            const inicioVal = form.elements['inicio'].value;
-            const terminoVal = form.elements['termino'].value;
+            const inicioVal = form.inicio.value;
+            const terminoVal = form.termino.value;
 
-            // largura útil disponível
             const larguraConteudo = larguraHorario - larguraTituloHorario;
             const larguraBloco = (larguraConteudo - 1) / 2;
 
-            const yTexto = y + altura / 2 + 1.5;
+            const yTextoInterno = yTextoHorario;
 
-
-            // Bloco INÍCIO
+            // bloco INÍCIO
             const xInicioBloco = xHorario + larguraTituloHorario;
-            doc.text("INÍCIO :", xInicioBloco + 1, yTexto);  // título mais próximo do início
-            doc.text(inicioVal, xInicioBloco + 14, yTexto);  // valor mais próximo do título
+            doc.text("INÍCIO :", xInicioBloco + 1, yTextoInterno);
+            doc.text(inicioVal, xInicioBloco + 14, yTextoInterno);
 
-            // Bloco FIM (1px de gap)
-            const xFimBloco = xInicioBloco + larguraBloco + 1.3; // +1px gap entre blocos
-            doc.text("FIM :", xFimBloco + 1, yTexto);        // título FIM mais próximo do início do bloco
-            doc.text(terminoVal, xFimBloco + 11, yTexto);    // valor FIM mais próximo do título
+            // bloco FIM
+            const xFimBloco = xInicioBloco + larguraBloco + 1.3;
+            doc.text("FIM :", xFimBloco + 1, yTextoInterno);
+            doc.text(terminoVal, xFimBloco + 11, yTextoInterno);
 
-            y += 15;
-
-
-
-            // assinatura
-            const imageData = canvas.toDataURL('image/png');
-            if (imageData && imageData.length > 100) {
-                const larguraAssinatura = 60 * 0.7;
-                const alturaAssinatura = (canvas.height / canvas.width) * larguraAssinatura;
-
-                const texto = "ASSINATURA DO TÉCNICO / RESPONSÁVEL:";
-                doc.setFontSize(9);
-                doc.setFont(undefined, 'normal');
-                const larguraTexto = doc.getTextWidth(texto);
-
-                const xCentro = (210 - (larguraTexto + larguraAssinatura)) / 2;
-                const yBase = y + 4;
-
-                doc.text(texto, xCentro, yBase);
+            y += altura + 3;
 
 
-                const comprimentoLinha = larguraAssinatura + 35; // aumenta 20mm
-                doc.line(xCentro + larguraTexto, yBase, xCentro + larguraTexto + comprimentoLinha, yBase);
-
-                doc.addImage(imageData, 'PNG', xCentro + larguraTexto, yBase - alturaAssinatura - 2, larguraAssinatura, alturaAssinatura);
-            }
-
-            y += 8;
-
-
-
-
+            //  BLOCO DADOS DO CLIENTE
             function addBlocoDadosCliente(doc, x, y, larguraTotal, form) {
-                const alturaTitulo = 8;
+                const alturaTitulo = 5;
                 const alturaBloco = 42;
                 const padding = 4;
 
@@ -552,7 +528,9 @@
                 doc.setFont(undefined, 'bold');
                 doc.setFontSize(9);
                 doc.setTextColor(255, 255, 255);
-                doc.text("DADOS DO CLIENTE", x + larguraTotal / 2, y + 5.5, { align: "center" });
+                const yTexto = y + (alturaTitulo / 2) + 2; // centraliza verticalmente com leve ajuste
+                doc.text("DADOS DO CLIENTE", x + larguraTotal / 2, yTexto, { align: "center" });
+
 
 
                 //conteudo interno
@@ -574,13 +552,14 @@
             }
 
 
-            // --- BLOCO DE SERVIÇOS / EQUIPAMENTO ---
-
+            // --- BLOCO DE SERVIÇOS / EQUIPAMENTO CHECKBOX ---
             function addBlocoEquipamento(doc, x, y, larguraTotal, form) {
                 const padding = 6;
-                const altura = 18;
+                const alturaLinha1 = 7;
+                const alturaLinha2 = 7;
+                const alturaTotal = alturaLinha1 + alturaLinha2; // altura combinada do bloco
                 const checkboxSize = 3; // tamanho do quadradinho
-                const spacing = 0.5; // gap mínimo entre colunas
+                const spacing = 0.5;   // gap mínimo entre colunas
 
                 doc.setFontSize(9);
                 doc.setTextColor(0, 0, 0);
@@ -588,7 +567,6 @@
 
                 // --- Função para desenhar checkbox ---
                 function drawCheckbox(cx, cy, checked) {
-                    const offsetY = 2; // para alinhar verticalmente ao texto
                     doc.rect(cx, cy - checkboxSize / 2, checkboxSize, checkboxSize);
                     if (checked) {
                         doc.line(cx, cy - checkboxSize / 2, cx + checkboxSize, cy + checkboxSize / 2);
@@ -597,8 +575,7 @@
                 }
 
                 // --- Linha 1 ---
-                const linha1Y = y;
-                const colWidthsLinha1 = [70, 60, 60]; // largura fixa de cada coluna
+                const linha1Y = y + 3.5; // alinhamento vertical
                 const itensLinha1 = [
                     { label: `RETIRADO PARA LABORATÓRIO S/N: ${form.retirado_lab.value || ""}`, checked: null },
                     { label: "SUBSTITUIÇÃO OU TROCA:", checked: form.substituicao_troca.checked },
@@ -606,22 +583,17 @@
                 ];
 
                 let cX1 = x + padding;
-                itensLinha1.forEach((item, index) => {
-                    const colWidth = colWidthsLinha1[index];
-                    doc.text(item.label, cX1, linha1Y); // não quebrar a linha
-
+                itensLinha1.forEach(item => {
+                    doc.text(item.label, cX1, linha1Y);
                     if (typeof item.checked === "boolean") {
-                        const checkboxX = cX1 + doc.getTextWidth(item.label) + 2; // 1mm de gap
-                        drawCheckbox(checkboxX, linha1Y, item.checked);
+                        drawCheckbox(cX1 + doc.getTextWidth(item.label) + 2, linha1Y, item.checked);
                     }
-
-                    // Próximo campo:
-                    cX1 += doc.getTextWidth(item.label) + checkboxSize + 3; // gap pequeno entre colunas
+                    cX1 += doc.getTextWidth(item.label) + checkboxSize + 3;
                 });
 
                 // --- Linha 2 ---
-                const linha2Y = y + 7;
-                const colWidthsLinha2 = [30, 30, 30, 30, 70];  // NOTEBOOK, DESKTOP, IMPRESSORA, MOBILE, OUTROS
+                const linha2Y = y + alturaLinha1 + 3.5;
+                const colWidthsLinha2 = [30, 30, 30, 30, 70];
                 const itensLinha2 = [
                     { label: "NOTEBOOK:", checked: form.notebook.checked },
                     { label: "DESKTOP:", checked: form.desktop.checked },
@@ -632,92 +604,147 @@
 
                 let cX2 = x + padding;
                 itensLinha2.forEach((item, index) => {
-                    const colWidth = colWidthsLinha2[index];
-                    const lines = doc.splitTextToSize(item.label, colWidth);
+                    const lines = doc.splitTextToSize(item.label, colWidthsLinha2[index]);
                     doc.text(lines, cX2, linha2Y);
-
                     if (typeof item.checked === "boolean") {
-                        const checkboxX = cX2 + colWidth - 6;
-                        drawCheckbox(checkboxX, linha2Y, item.checked);
+                        drawCheckbox(cX2 + colWidthsLinha2[index] - 6, linha2Y, item.checked);
                     }
-
-                    cX2 += colWidth + spacing;
+                    cX2 += colWidthsLinha2[index] + spacing;
                 });
 
-                return y + altura;
+                // Retorna Y ajustado com espaçamento mínimo
+                return y + alturaTotal + 1; // apenas 1mm de espaço extra
             }
 
-
-            // BLOCO DADOS DOS EQUIPAMENTOS
+            // BLOCO DADOS DOS EQUIPAMENTOS - LINHA UNICA 
             function addBlocoEquipamentoCorreto(doc, x, y, larguraTotal, form) {
-                const alturaTitulo = 6;
-                const alturaCampo = 8;
-                const alturaInferior = 6;
-                const padding = 1;
+                const alturaTitulo = 5;
+                const alturaBloco = 5;
+                const padding = 4;
 
-                // --- BLOCO VERMELHO ---
-                doc.setFillColor(192, 0, 0); // vermelho
-                doc.rect(x, y, larguraTotal, alturaTitulo + alturaCampo + alturaInferior, 'F');
+                // Borda pontilhada (pontos pequenos e próximos)
+                doc.setLineWidth(0.3);
+                doc.setDrawColor(0);
+                doc.setLineDashPattern([0.3, 0.3], 0); // pontinhos menores e mais próximos
+                doc.rect(x, y, larguraTotal, alturaBloco, 'S');
+                doc.setLineDashPattern([], 0);
+
+                // Cabeçalho vermelho
+                doc.setFillColor(200, 0, 0);
+                doc.rect(x, y, larguraTotal, alturaTitulo, 'F');
 
                 // --- TÍTULO ---
-                doc.setFont("helvetica", "bold");
+                doc.setFont(undefined, 'bold');
                 doc.setFontSize(9);
                 doc.setTextColor(255, 255, 255);
-                doc.text(
-                    "DADOS DO(S) EQUIPAMENTO(S)",
-                    x + larguraTotal / 2,
-                    y + alturaTitulo - 1,
-                    { align: "center" }
-                );
+                // Centralização vertical dentro do retângulo vermelho
+                const yTexto = y + (alturaTitulo / 2) + 2; // ajuste fino (+2 para compensar a altura da fonte)
+                doc.text("DADOS DO (S) EQUIPAMENTO (S)", x + larguraTotal / 2, yTexto, { align: "center" });
 
-                // --- LINHA: dados_eqpto ---
-                doc.setFont("helvetica", "normal");
-                doc.setFontSize(9);
-                doc.setTextColor(0, 0, 0);
-                const dadosEqpto = form?.dados_eqpto?.value || "-";
-                doc.text(dadosEqpto, x + padding, y + alturaTitulo + alturaCampo - 2);
 
-                // --- LINHA INFERIOR: EQUIPAMENTO ANTIGO / EQUIPAMENTO NOVO ---
-                const larguraCampo = larguraTotal * 0.5;
-                const yInferior = y + alturaTitulo + alturaCampo;
-
-                // linha horizontal superior da divisão
-                doc.setDrawColor(0);
-                doc.setLineWidth(0.2);
-                doc.line(x, yInferior, x + larguraTotal, yInferior);
-
-                // linha vertical separando antigo e novo
-                doc.line(x + larguraCampo, yInferior, x + larguraCampo, yInferior + alturaInferior);
-
-                // títulos inferior
-                doc.setFont("helvetica", "bold");
-                doc.setFontSize(8);
-                doc.setTextColor(255, 255, 255);
-                doc.text("EQUIPAMENTO ANTIGO", x + 2, yInferior + alturaInferior - 1);
-                doc.text("EQUIPAMENTO NOVO", x + larguraCampo + 2, yInferior + alturaInferior - 1);
-
-                // valores inferior
-                doc.setFont("helvetica", "normal");
-                doc.setFontSize(9);
-                doc.setTextColor(0, 0, 0);
-                const eqptoAntigo = form?.eqpto_antigo?.value || "-";
-                const eqptoNovo = form?.eqpto_novo?.value || "-";
-                doc.text(eqptoAntigo, x + 2, yInferior + alturaInferior + 4);
-                doc.text(eqptoNovo, x + larguraCampo + 2, yInferior + alturaInferior + 4);
-
-                // retorna a nova posição y para o próximo bloco
-                return y + alturaTitulo + alturaCampo + alturaInferior + 5;
+                // Retorna nova posição y para o próximo bloco
+                return y + alturaBloco + 0.4;
             }
 
 
-            // função para chamar o bloco dados do cliente
+
+            // BLOCO DADOS DOS EQUIPAMENTOS DIVIDIDO EM DUAS PARTES 50% 50%
+            function addBlocoEquipamentoDivido(doc, x, y, larguraTotal, form) {
+                const alturaTitulo = 5;
+                const alturaBloco = 5;
+
+                // Borda pontilhada (pontos pequenos e próximos)
+                doc.setLineWidth(0.3);
+                doc.setDrawColor(0);
+                doc.setLineDashPattern([0.3, 0.3], 0);
+                doc.rect(x, y, larguraTotal, alturaBloco, 'S');
+                doc.setLineDashPattern([], 0);
+
+                // Metade esquerda e direita (vermelhas)
+                const larguraColuna = larguraTotal / 2;
+                doc.setFillColor(200, 0, 0);
+                doc.rect(x, y, larguraColuna, alturaTitulo, 'F');
+                doc.rect(x + larguraColuna, y, larguraColuna, alturaTitulo, 'F');
+
+                // Linha divisória central (pontilhada branca)
+                doc.setLineWidth(0.2);
+                doc.setDrawColor(255);
+                doc.setLineDashPattern([0.3, 0.3], 0);
+                doc.line(x + larguraColuna, y, x + larguraColuna, y + alturaTitulo);
+                doc.setLineDashPattern([], 0);
+
+                // Texto centralizado em cada metade
+                doc.setFont(undefined, 'bold');
+                doc.setFontSize(9);
+                doc.setTextColor(255, 255, 255);
+
+                // Texto centralizado verticalmente nas duas metades
+                const yTexto = y + (alturaTitulo / 2) + 2; // ajuste fino (+2 para compensar a base da fonte)
+                doc.text("EQUIPAMENTO ANTIGO", x + larguraColuna / 2, yTexto, { align: "center" });
+                doc.text("EQUIPAMENTO NOVO", x + larguraColuna + larguraColuna / 2, yTexto, { align: "center" });
+
+
+                // Retorna nova posição Y para o próximo bloco
+                return y + alturaBloco + 0.5;
+            }
+
+            // BLOCO DADOS DOS EQUIPAMENTOS DIVIDIDO EM DUAS PARTES 50% 50%
+            function addBlocoEquipamentoDivido2(doc, x, y, larguraTotal, form) {
+                const alturaTitulo = 5;
+                const alturaBloco = 5;
+
+                // Borda pontilhada (pontos pequenos e próximos)
+                doc.setLineWidth(0.3);
+                doc.setDrawColor(0);
+                doc.setLineDashPattern([0.3, 0.3], 0);
+                doc.rect(x, y, larguraTotal, alturaBloco, 'S');
+                doc.setLineDashPattern([], 0);
+
+                // Metade esquerda e direita (vermelhas)
+                const larguraColuna = larguraTotal / 2;
+                doc.setFillColor(200, 0, 0);
+                doc.rect(x, y, larguraColuna, alturaTitulo, 'F');
+                doc.rect(x + larguraColuna, y, larguraColuna, alturaTitulo, 'F');
+
+                // Linha divisória central (pontilhada branca)
+                doc.setLineWidth(0.2);
+                doc.setDrawColor(255);
+                doc.setLineDashPattern([0.3, 0.3], 0);
+                doc.line(x + larguraColuna, y, x + larguraColuna, y + alturaTitulo);
+                doc.setLineDashPattern([], 0);
+
+                // Texto centralizado em cada metade
+                doc.setFont(undefined, 'bold');
+                doc.setFontSize(9);
+                doc.setTextColor(255, 255, 255);
+
+                // Texto centralizado verticalmente nas duas metades
+                const yTexto = y + (alturaTitulo / 2) + 2; // ajuste fino (+2 para compensar a base da fonte)
+                doc.text("EQUIPAMENTO ANTIGO", x + larguraColuna / 2, yTexto, { align: "center" });
+                doc.text("EQUIPAMENTO NOVO", x + larguraColuna + larguraColuna / 2, yTexto, { align: "center" });
+
+                // Retorna nova posição Y para o próximo bloco
+                return y + alturaBloco + 0.5;
+            }
+
+
+
+
+            // 1 --- função chamar o bloco dados do cliente
             y = addBlocoDadosCliente(doc, xInicio, y, larguraTotal, form);
 
-            // --- chamar o bloco de marcações ---
+            // 2 --- função chamar o bloco serviços checkbox
             y = addBlocoEquipamento(doc, xInicio, y, larguraTotal, form);
 
-            // chamada do bloco de equipamentos
+            // 3 --- função chamar o bloco DADOS DO (S) EQUIPAMENTO (S)
             y = addBlocoEquipamentoCorreto(doc, xInicio, y, larguraTotal, form);
+
+            // 4 --- função chamar o bloco EQUIPAMENTO ANTIGO e EQUIPAMENTO NOVO  50% cada 
+            y = addBlocoEquipamentoDivido(doc, xInicio, y, larguraTotal, form);
+
+            y = addBlocoEquipamentoDivido2(doc, xInicio, y, larguraTotal, form);
+
+
 
             // salvar pdf -- isso fica no fim do codigo
             const chamadoNum = form.chamado.value || 'sem_numero';
