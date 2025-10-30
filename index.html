@@ -18,6 +18,15 @@
             margin-bottom: 20px;
         }
 
+        h4 {
+            text-align: center;
+            font-size: 12px;
+            margin-top: 60px;
+            margin-bottom: 5px;
+        }
+
+
+
         form {
             max-width: 500px;
             margin: auto;
@@ -50,6 +59,11 @@
             min-height: 80px;
         }
 
+        .oculto {
+            display: none;
+        }
+
+
         button {
             margin-top: 20px;
             padding: 15px;
@@ -74,18 +88,77 @@
         #limparAssinatura:hover {
             background-color: #a71d2a;
         }
+
+        /* Centraliza todo o bloco de equipamento/serviço */
+        form div {
+            display: flex;
+            flex-direction: column;
+            /* cada item em linha separada */
+            align-items: center;
+            /* centraliza horizontalmente */
+            margin-top: 10px;
+        }
+
+        /* Cada label em linha separada, texto e checkbox próximos */
+        form div label {
+            display: flex;
+            align-items: center;
+            /* checkbox alinhado verticalmente ao meio do texto */
+            justify-content: center;
+            /* centraliza horizontalmente */
+            margin-bottom: 2px;
+            /* gap mínimo entre linhas */
+            font-weight: normal;
+            font-size: 18px;
+            white-space: nowrap;
+            /* evita quebra de linha nos títulos */
+        }
+
+        /* Inputs, checkboxes e select com espaço mínimo do texto */
+        form div label input[type="checkbox"],
+        form div label input[type="text"],
+        form div label select {
+            margin-left: 4px;
+            /* checkbox bem próximo do texto */
+            vertical-align: middle;
+            font-size: 15px;
+            padding: 3px;
+        }
+
+        /* Mantém tamanho específico para alguns campos */
+        form div label input[type="text"] {
+            width: 180px;
+            /* campo "OUTROS" */
+        }
+
+        form div label select {
+            width: 60px;
+            /* select "RETIRADO PARA LABORATÓRIO" */
+        }
+
+        /* Remove gaps extras entre quebras de linha */
+        form div br {
+            line-height: 0px;
+        }
     </style>
 </head>
 
 <body>
     <h3>JM INFORMÁTICA</h3>
     <h3>RAT (RELATÓRIO ATENDIMENTO TÉCNICO)</h3>
+
     <form id="chamadoForm">
+
+        <h4>DADOS DO TÉCNICO</h4>
+
+
         <label for="tecnico">NOME DO TÉCNICO:</label>
         <input type="text" id="tecnico" name="tecnico" required>
 
-        <label for="empresa">EMPRESA PARCEIRA:</label>
-        <input type="text" id="empresa" name="empresa" value="JM INFORMATICA" readonly>
+        <!-- esse campo empresa parceira está oculto no formulário -->
+        <label for="empresa" class="oculto">EMPRESA PARCEIRA:</label>
+        <input type="text" id="empresa" name="empresa" value="JM INFORMATICA" readonly class="oculto">
+
 
         <label for="chamado">CHAMADO:</label>
         <input type="text" id="chamado" name="chamado" required>
@@ -110,10 +183,80 @@
         <button type="button" id="limparAssinatura">Limpar Assinatura</button>
 
 
+        <!-- parte 2 dados do cliente -->
+
+        <h4>DADOS DO CLIENTE</h4>
+
+        <input type="text" id="dados_cliente" name="dados_cliente" readonly class="oculto">
+
+        <label for="razao_social">RAZÃO SOCIAL / NOME FANTASIA:</label>
+        <input type="text" id="razao_social" name="razao_social" required>
+
+        <label for="nome_responsavel">NOME DO RESPONSÁVEL:</label>
+        <input type="text" id="nome_responsavel" name="nome_responsavel" required>
+
+        <label for="telefone_cliente">TELEFONE:</label>
+        <input type="text" id="telefone_cliente" name="telefone_cliente" required>
+
+        <label for="email_cliente">E-MAIL:</label>
+        <input type="text" id="email_cliente" name="email_cliente" required>
+
+        <label for="cargo_cliente">CARGO:</label>
+        <input type="text" id="cargo_cliente" name="cargo_cliente" required>
+
+        <label for="depto_cliente">DEPARTAMENTO:</label>
+        <input type="text" id="depto_cliente" name="depto_cliente" required>
+
+
+        <!-- BLOCO DE EQUIPAMENTO / SERVIÇO -->
+        <div style="margin-top: 10px;">
+            <label>
+                RETIRADO PARA LABORATÓRIO S/N:
+                <select name="retirado_lab">
+                    <option value="">--</option>
+                    <option value="S">S</option>
+                    <option value="N">N</option>
+                </select>
+            </label>
+
+            <label style="margin-left: 20px;">
+                SUBSTITUIÇÃO OU TROCA:
+                <input type="checkbox" name="substituicao_troca">
+            </label>
+
+            <label style="margin-left: 20px;">
+                UPGRADE (ATUALIZAÇÃO SSD, MEMÓRIA):
+                <input type="checkbox" name="upgrade">
+            </label>
+
+            <br><br>
+
+            <label>NOTEBOOK: <input type="checkbox" name="notebook"></label>
+            <label style="margin-left: 15px;">DESKTOP: <input type="checkbox" name="desktop"></label>
+            <label style="margin-left: 15px;">IMPRESSORA: <input type="checkbox" name="impressora"></label>
+            <label style="margin-left: 15px;">MOBILE: <input type="checkbox" name="mobile"></label>
+            <label style="margin-left: 15px;">
+                OUTROS:
+                <input type="text" name="outros" style="width: 180px;">
+            </label>
+        </div>
+
+
+        <!-- botão gerar DPF  -->
         <button type="button" id="btnPDF">Gerar PDF</button>
+
+
+
     </form>
 
+
+    <!-- INICIO DO JAVASCRIPT  -->
+
+    <!-- API que gera o PDF -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+
+
+
     <script>
         const canvas = document.getElementById('assinatura');
         const ctx = canvas.getContext('2d');
@@ -126,7 +269,7 @@
             ctx.lineWidth = 2;
             ctx.lineCap = 'round';
         }
-        
+
         ajustarCanvas();
 
         // --- Assinatura ---
@@ -160,7 +303,12 @@
         document.getElementById('limparAssinatura').addEventListener('click', () => ctx.clearRect(0, 0, canvas.width, canvas.height));
 
 
+
+
+
         // --- Gerar PDF ---
+
+
         const { jsPDF } = window.jspdf;
 
         document.getElementById('btnPDF').addEventListener('click', () => {
@@ -335,7 +483,137 @@
                 doc.addImage(imageData, 'PNG', xCentro + larguraTexto, yBase - alturaAssinatura - 2, larguraAssinatura, alturaAssinatura);
             }
 
-            // salvar pdf
+            y += 8;
+
+
+
+
+            function addBlocoDadosCliente(doc, x, y, larguraTotal, form) {
+                const alturaTitulo = 8;
+                const alturaBloco = 42;
+                const padding = 4;
+
+                // Borda pontilhada (pontos pequenos e próximos)
+                doc.setLineWidth(0.3);
+                doc.setDrawColor(0);
+                doc.setLineDashPattern([0.3, 0.3], 0); // pontinhos menores e mais próximos
+                doc.rect(x, y, larguraTotal, alturaBloco, 'S');
+                doc.setLineDashPattern([], 0);
+
+                // cabeçalho vermellho
+                doc.setFillColor(200, 0, 0);
+                doc.rect(x, y, larguraTotal, alturaTitulo, 'F');
+
+
+                //titulo linha unica
+                doc.setFont(undefined, 'bold');
+                doc.setFontSize(9);
+                doc.setTextColor(255, 255, 255);
+                doc.text("DADOS DO CLIENTE", x + larguraTotal / 2, y + 5.5, { align: "center" });
+
+
+                //conteudo interno
+                doc.setFont(undefined, 'normal');
+                doc.setFontSize(9);
+                doc.setTextColor(0, 0, 0);
+
+
+                let linhaY = y + alturaTitulo + 7;
+                doc.text(`RAZÃO SOCIAL / NOME FANTASIA: ${form.razao_social.value || ""}`, x + padding, linhaY);
+                linhaY += 7;
+                doc.text(`NOME DO RESPONSÁVEL: ${form.nome_responsavel.value || ""}`, x + padding, linhaY);
+                linhaY += 7;
+                doc.text(`TELEFONE: ${form.telefone_cliente.value || ""}     E-MAIL: ${form.email_cliente.value || ""}`, x + padding, linhaY);
+                linhaY += 7;
+                doc.text(`CARGO: ${form.cargo_cliente.value || ""}     DEPARTAMENTO: ${form.depto_cliente.value || ""}`, x + padding, linhaY);
+
+                return y + alturaBloco + 5;
+            }
+
+
+            // --- BLOCO DE SERVIÇOS / EQUIPAMENTO ---
+
+            function addBlocoEquipamento(doc, x, y, larguraTotal, form) {
+                const padding = 6;
+                const altura = 18;
+                const checkboxSize = 3; // tamanho do quadradinho
+                const spacing = 0.5; // gap mínimo entre colunas
+
+                doc.setFontSize(9);
+                doc.setTextColor(0, 0, 0);
+                doc.setFont("helvetica", "normal");
+
+                // --- Função para desenhar checkbox ---
+                function drawCheckbox(cx, cy, checked) {
+                    const offsetY = 2; // para alinhar verticalmente ao texto
+                    doc.rect(cx, cy - checkboxSize / 2, checkboxSize, checkboxSize);
+                    if (checked) {
+                        doc.line(cx, cy - checkboxSize / 2, cx + checkboxSize, cy + checkboxSize / 2);
+                        doc.line(cx, cy + checkboxSize / 2, cx + checkboxSize, cy - checkboxSize / 2);
+                    }
+                }
+
+                // --- Linha 1 ---
+                const linha1Y = y;
+                const colWidthsLinha1 = [70, 60, 60]; // largura fixa de cada coluna
+                const itensLinha1 = [
+                    { label: `RETIRADO PARA LABORATÓRIO S/N: ${form.retirado_lab.value || ""}`, checked: null },
+                    { label: "SUBSTITUIÇÃO OU TROCA:", checked: form.substituicao_troca.checked },
+                    { label: "UPGRADE (ATUALIZAÇÃO SSD, MEMÓRIA):", checked: form.upgrade.checked }
+                ];
+
+                let cX1 = x + padding;
+                itensLinha1.forEach((item, index) => {
+                    const colWidth = colWidthsLinha1[index];
+                    doc.text(item.label, cX1, linha1Y); // não quebrar a linha
+
+                    if (typeof item.checked === "boolean") {
+                        const checkboxX = cX1 + doc.getTextWidth(item.label) + 2; // 1mm de gap
+                        drawCheckbox(checkboxX, linha1Y, item.checked);
+                    }
+
+                    // Próximo campo:
+                    cX1 += doc.getTextWidth(item.label) + checkboxSize + 3; // gap pequeno entre colunas
+                });
+
+                // --- Linha 2 ---
+                const linha2Y = y + 7;
+                const colWidthsLinha2 = [30, 30, 30, 30, 70];  // NOTEBOOK, DESKTOP, IMPRESSORA, MOBILE, OUTROS
+                const itensLinha2 = [
+                    { label: "NOTEBOOK:", checked: form.notebook.checked },
+                    { label: "DESKTOP:", checked: form.desktop.checked },
+                    { label: "IMPRESSORA:", checked: form.impressora.checked },
+                    { label: "MOBILE:", checked: form.mobile.checked },
+                    { label: `OUTROS: ${form.outros.value || ""}`, checked: null }
+                ];
+
+                let cX2 = x + padding;
+                itensLinha2.forEach((item, index) => {
+                    const colWidth = colWidthsLinha2[index];
+                    const lines = doc.splitTextToSize(item.label, colWidth);
+                    doc.text(lines, cX2, linha2Y);
+
+                    if (typeof item.checked === "boolean") {
+                        const checkboxX = cX2 + colWidth - 6;
+                        drawCheckbox(checkboxX, linha2Y, item.checked);
+                    }
+
+                    cX2 += colWidth + spacing;
+                });
+
+                return y + altura;
+            }
+
+
+
+
+            // função para chamar o bloco dados do cliente
+            y = addBlocoDadosCliente(doc, xInicio, y, larguraTotal, form);
+
+            // --- chamar o bloco de marcações ---
+            y = addBlocoEquipamento(doc, xInicio, y, larguraTotal, form);
+
+            // salvar pdf -- isso fica no fim do codigo
             const chamadoNum = form.chamado.value || 'sem_numero';
             doc.save(`Chamado_${chamadoNum}.pdf`);
         });
