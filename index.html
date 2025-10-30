@@ -552,8 +552,8 @@
             //  BLOCO DADOS DO CLIENTE
             function addBlocoDadosCliente(doc, x, y, larguraTotal, form) {
                 const alturaTitulo = 5;
-                const alturaBloco = 42;
-                const padding = 4;
+                const alturaBloco = 35;
+                const padding = 3;
 
                 // Borda pontilhada (pontos pequenos e próximos)
                 doc.setLineWidth(0.3);
@@ -734,7 +734,7 @@
 
             // --- BLOCO MODELO DIVIDIDO EM DUAS PARTES (LADO A / LADO B) ---
             function addBlocoModelo(doc, x, y, larguraTotal, form) {
-                const alturaBloco = 50;
+                const alturaBloco = 35;
                 const padding = 4;
 
                 // Borda pontilhada (preta, pequenos pontos)
@@ -759,9 +759,7 @@
                 doc.setLineDashPattern([], 0);
 
                 // --- LADO A ---
-                let linhaYA = y + 4;
-                doc.setFont(undefined, 'normal');
-                linhaYA += 6;
+                let linhaYA = y + padding; // posição inicial colada ao topo
                 doc.text(`MODELO: ${form.modelo_a?.value || ""}`, x + padding, linhaYA);
                 linhaYA += 6;
                 doc.text(`N° PATRIMÔNIO DO EQUIPAMENTO: ${form.patrimonio_a?.value || ""}`, x + padding, linhaYA);
@@ -775,10 +773,8 @@
                 doc.text(`IMEI: ${form.imei_a?.value || ""}`, x + padding, linhaYA);
 
                 // --- LADO B ---
-                let linhaYB = y + 4;
+                let linhaYB = y + padding; // posição inicial colada ao topo
                 const xB = x + larguraColuna + padding;
-                doc.setFont(undefined, 'normal');
-                linhaYB += 6;
                 doc.text(`MODELO: ${form.modelo_b?.value || ""}`, xB, linhaYB);
                 linhaYB += 6;
                 doc.text(`N° PATRIMÔNIO DO EQUIPAMENTO: ${form.patrimonio_b?.value || ""}`, xB, linhaYB);
@@ -794,6 +790,7 @@
                 // Retorna nova posição Y para o próximo bloco
                 return y + alturaBloco + 5;
             }
+
 
 
             // 1 --- função chamar o bloco dados do cliente
