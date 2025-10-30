@@ -13,6 +13,26 @@
             background-color: #8caad4;
         }
 
+        .minha-div {
+            width: 100px;
+            height: 100px;
+            display: flex;
+            justify-content: center;
+            /* centraliza horizontalmente */
+            align-items: center;
+            /* centraliza verticalmente */
+            margin: 50px auto;
+            /* centraliza a div na página */
+        }
+
+        .minha-div img {
+            width: 100px;
+            height: 100px;
+            cursor: pointer;
+            /* indica que é clicável */
+
+        }
+
         h3 {
             text-align: center;
             margin-bottom: 20px;
@@ -144,7 +164,14 @@
 </head>
 
 <body>
-    <h3>JM INFORMÁTICA</h3>
+
+    <div class="minha-div">
+        <a href="https://www.jminformatica.com/" target="_blank">
+            <img src="https://www.jminformatica.com/img/iconbar.png" alt="JM Informática">
+        </a>
+    </div>
+
+    
     <h3>RAT (RELATÓRIO ATENDIMENTO TÉCNICO)</h3>
 
     <form id="chamadoForm">
@@ -240,6 +267,22 @@
                 <input type="text" name="outros" style="width: 180px;">
             </label>
         </div>
+
+
+        <h4>DADOS DO(S) EQUIPAMENTO(S)</h4>
+        <input type="text" id="dados_eqpto" name="dados_eqpto" readonly class="oculto">
+        <input type="text" id="eqpto_antigo" name="eqpto_antigo" readonly class="oculto">
+        <input type="text" id="eqpto_novo" name="eqpto_novo" readonly class="oculto">
+
+
+
+
+
+
+
+
+
+
 
 
         <!-- botão gerar DPF  -->
@@ -605,6 +648,66 @@
             }
 
 
+            // BLOCO DADOS DOS EQUIPAMENTOS
+            function addBlocoEquipamentoCorreto(doc, x, y, larguraTotal, form) {
+                const alturaTitulo = 6;
+                const alturaCampo = 8;
+                const alturaInferior = 6;
+                const padding = 1;
+
+                // --- BLOCO VERMELHO ---
+                doc.setFillColor(192, 0, 0); // vermelho
+                doc.rect(x, y, larguraTotal, alturaTitulo + alturaCampo + alturaInferior, 'F');
+
+                // --- TÍTULO ---
+                doc.setFont("helvetica", "bold");
+                doc.setFontSize(9);
+                doc.setTextColor(255, 255, 255);
+                doc.text(
+                    "DADOS DO(S) EQUIPAMENTO(S)",
+                    x + larguraTotal / 2,
+                    y + alturaTitulo - 1,
+                    { align: "center" }
+                );
+
+                // --- LINHA: dados_eqpto ---
+                doc.setFont("helvetica", "normal");
+                doc.setFontSize(9);
+                doc.setTextColor(0, 0, 0);
+                const dadosEqpto = form?.dados_eqpto?.value || "-";
+                doc.text(dadosEqpto, x + padding, y + alturaTitulo + alturaCampo - 2);
+
+                // --- LINHA INFERIOR: EQUIPAMENTO ANTIGO / EQUIPAMENTO NOVO ---
+                const larguraCampo = larguraTotal * 0.5;
+                const yInferior = y + alturaTitulo + alturaCampo;
+
+                // linha horizontal superior da divisão
+                doc.setDrawColor(0);
+                doc.setLineWidth(0.2);
+                doc.line(x, yInferior, x + larguraTotal, yInferior);
+
+                // linha vertical separando antigo e novo
+                doc.line(x + larguraCampo, yInferior, x + larguraCampo, yInferior + alturaInferior);
+
+                // títulos inferior
+                doc.setFont("helvetica", "bold");
+                doc.setFontSize(8);
+                doc.setTextColor(255, 255, 255);
+                doc.text("EQUIPAMENTO ANTIGO", x + 2, yInferior + alturaInferior - 1);
+                doc.text("EQUIPAMENTO NOVO", x + larguraCampo + 2, yInferior + alturaInferior - 1);
+
+                // valores inferior
+                doc.setFont("helvetica", "normal");
+                doc.setFontSize(9);
+                doc.setTextColor(0, 0, 0);
+                const eqptoAntigo = form?.eqpto_antigo?.value || "-";
+                const eqptoNovo = form?.eqpto_novo?.value || "-";
+                doc.text(eqptoAntigo, x + 2, yInferior + alturaInferior + 4);
+                doc.text(eqptoNovo, x + larguraCampo + 2, yInferior + alturaInferior + 4);
+
+                // retorna a nova posição y para o próximo bloco
+                return y + alturaTitulo + alturaCampo + alturaInferior + 5;
+            }
 
 
             // função para chamar o bloco dados do cliente
@@ -612,6 +715,9 @@
 
             // --- chamar o bloco de marcações ---
             y = addBlocoEquipamento(doc, xInicio, y, larguraTotal, form);
+
+            // chamada do bloco de equipamentos
+            y = addBlocoEquipamentoCorreto(doc, xInicio, y, larguraTotal, form);
 
             // salvar pdf -- isso fica no fim do codigo
             const chamadoNum = form.chamado.value || 'sem_numero';
