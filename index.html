@@ -318,20 +318,35 @@
 
         <h4>INFORMAÇÕES SOBRE BACKUP</h4>
 
-        <label for="backup_a">BACKUP REALIZADO:</label>
-        <input type="text" id="backup_a" name="backup_a" required>
+        <div>
+            <label for="backup_a">
+                BACKUP REALIZADO:
+                <input type="text" id="backup_a" name="backup_a" required>
+                <input type="checkbox" id="check_backup_a" name="check_backup_a">
+            </label>
 
-        <label for="patrimonio_b1">DETALHAR / PATRIMÔNIO:</label>
-        <input type="text" id="patrimonio_b1" name="patrimonio_b1" required>
+            <label for="patrimonio_b1">
+                DETALHAR / PATRIMÔNIO:
+                <input type="text" id="patrimonio_b1" name="patrimonio_b1" required>
+                <input type="checkbox" id="check_patrimonio_b1" name="check_patrimonio_b1">
+            </label>
+        </div>
 
         <h4>INFORMAÇÕES SOBRE ACESSÓRIOS OU PERIFÉRICOS</h4>
 
-        <label for="usuario_a">NOME PERFIL USUÁRIO:</label>
-        <input type="text" id="usuario_a" name="usuario_a" required>
+        <div>
+            <label for="usuario_a">
+                NOME PERFIL USUÁRIO:
+                <input type="text" id="usuario_a" name="usuario_a" required>
+                <input type="checkbox" id="check_usuario_a" name="check_usuario_a">
+            </label>
 
-        <label for="patrimonio_b2">DETALHAR / PATRIMÔNIO:</label>
-        <input type="text" id="patrimonio_b2" name="patrimonio_b2" required>
-
+            <label for="patrimonio_b2">
+                DETALHAR / PATRIMÔNIO:
+                <input type="text" id="patrimonio_b2" name="patrimonio_b2" required>
+                <input type="checkbox" id="check_patrimonio_b2" name="check_patrimonio_b2">
+            </label>
+        </div>
 
 
         <!-- botão gerar DPF  -->
@@ -555,6 +570,45 @@
             y += altura + 3;
 
 
+
+            // assinatura
+            const imageData = canvas.toDataURL('image/png');
+            if (imageData && imageData.length > 100) {
+                const larguraAssinatura = 60 * 0.5;
+                const alturaAssinatura = (canvas.height / canvas.width) * larguraAssinatura;
+
+                const texto = "ASSINATURA DO TÉCNICO / RESPONSÁVEL:";
+                doc.setFontSize(9);
+                doc.setFont(undefined, 'normal');
+                const larguraTexto = doc.getTextWidth(texto);
+
+                const xCentro = (210 - (larguraTexto + larguraAssinatura)) / 2;
+                const yBase = y + 4;
+
+                // escreve o texto
+                doc.text(texto, xCentro, yBase);
+
+                // comprimento da linha
+                const comprimentoLinha = larguraAssinatura + 35;
+                doc.setLineWidth(0.02); // linha bem fina
+                doc.line(xCentro + larguraTexto, yBase, xCentro + larguraTexto + comprimentoLinha, yBase);
+
+                // adiciona a assinatura levemente sobre a linha
+                const sobreLinha = 0.3;
+                doc.addImage(
+                    imageData,
+                    'PNG',
+                    xCentro + larguraTexto,
+                    yBase - alturaAssinatura + sobreLinha,
+                    larguraAssinatura,
+                    alturaAssinatura
+                );
+            }
+
+            y += 8;
+
+
+
             //  BLOCO DADOS DO CLIENTE
             function addBlocoDadosCliente(doc, x, y, larguraTotal, form) {
                 const alturaTitulo = 5;
@@ -600,31 +654,31 @@
                 return y + alturaBloco + 5;
             }
 
-
             // --- BLOCO DE SERVIÇOS / EQUIPAMENTO CHECKBOX ---
             function addBlocoEquipamento(doc, x, y, larguraTotal, form) {
                 const padding = 6;
                 const alturaLinha1 = 7;
                 const alturaLinha2 = 7;
-                const alturaTotal = alturaLinha1 + alturaLinha2; // altura combinada do bloco
-                const checkboxSize = 3; // tamanho do quadradinho
-                const spacing = 0.5;   // gap mínimo entre colunas
+                const alturaTotal = alturaLinha1 + alturaLinha2;
+                const checkboxSize = 3;
+                const checkboxOffsetY = 1.4; // sobe o checkbox acima da linha do texto
+                const spacing = 0.5;
 
                 doc.setFontSize(9);
                 doc.setTextColor(0, 0, 0);
                 doc.setFont("helvetica", "normal");
 
-                // --- Função para desenhar checkbox ---
                 function drawCheckbox(cx, cy, checked) {
-                    doc.rect(cx, cy - checkboxSize / 2, checkboxSize, checkboxSize);
+                    // Ajusta a posição vertical do checkbox
+                    doc.rect(cx, cy - checkboxSize / 2 - checkboxOffsetY, checkboxSize, checkboxSize);
                     if (checked) {
-                        doc.line(cx, cy - checkboxSize / 2, cx + checkboxSize, cy + checkboxSize / 2);
-                        doc.line(cx, cy + checkboxSize / 2, cx + checkboxSize, cy - checkboxSize / 2);
+                        doc.line(cx, cy - checkboxSize / 2 - checkboxOffsetY, cx + checkboxSize, cy + checkboxSize / 2 - checkboxOffsetY);
+                        doc.line(cx, cy + checkboxSize / 2 - checkboxOffsetY, cx + checkboxSize, cy - checkboxSize / 2 - checkboxOffsetY);
                     }
                 }
 
                 // --- Linha 1 ---
-                const linha1Y = y + 3.5; // alinhamento vertical
+                const linha1Y = y + 3.5;
                 const itensLinha1 = [
                     { label: `RETIRADO PARA LABORATÓRIO S/N: ${form.retirado_lab.value || ""}`, checked: null },
                     { label: "SUBSTITUIÇÃO OU TROCA:", checked: form.substituicao_troca.checked },
@@ -661,9 +715,10 @@
                     cX2 += colWidthsLinha2[index] + spacing;
                 });
 
-                // Retorna Y ajustado com espaçamento mínimo
-                return y + alturaTotal + 1; // apenas 1mm de espaço extra
+                return y + alturaTotal + 1;
             }
+
+
 
             // BLOCO DADOS DOS EQUIPAMENTOS - LINHA UNICA 
             function addBlocoEquipamentoCorreto(doc, x, y, larguraTotal, form) {
@@ -839,64 +894,77 @@
             }
 
             // --- BLOCO BACKUP REALIZADO (LADO A / LADO B) ---
+            // Checkboxes à direita e mais alto
             function addBlocoBackupRealizado(doc, x, y, larguraTotal, form) {
-                const alturaTitulo = 5;
-                const alturaBloco = 30; // altura do bloco de conteúdo
-                const padding = 4;
+                const alturaBloco = 18;
+                const padding = 3;
+                const espacoLinha = 5;
+                const larguraColuna = larguraTotal / 2;
+                const checkboxSize = 3;
+                const checkboxOffsetY = 1.6; // sobe o checkbox acima da linha do texto
 
-                // Borda pontilhada (preta, pontos pequenos)
+                // --- Borda pontilhada ---
                 doc.setLineWidth(0.3);
                 doc.setDrawColor(0);
                 doc.setLineDashPattern([0.3, 0.3], 0);
-                doc.rect(x, y, larguraTotal, alturaBloco + alturaTitulo, 'S');
+                doc.rect(x, y, larguraTotal, alturaBloco, 'S');
                 doc.setLineDashPattern([], 0);
 
-                // Cabeçalho vermelho com título centralizado
-                doc.setFillColor(200, 0, 0);
-                doc.rect(x, y, larguraTotal, alturaTitulo, 'F');
-                doc.setFont(undefined, 'bold');
-                doc.setFontSize(9);
-                doc.setTextColor(255, 255, 255);
-                const yTexto = y + (alturaTitulo / 2) + 2;
-                doc.text("BACKUP REALIZADO", x + larguraTotal / 2, yTexto, { align: "center" });
-
-                // Conteúdo interno (fundo branco, letra preta)
-                doc.setFont(undefined, 'normal');
+                doc.setFont("helvetica", "normal");
                 doc.setFontSize(9);
                 doc.setTextColor(0, 0, 0);
 
-                const larguraColuna = larguraTotal / 2;
+                // --- Função para desenhar checkbox ---
+                function drawCheckbox(cx, cy, checked) {
+                    doc.rect(cx, cy - checkboxSize / 2, checkboxSize, checkboxSize);
+                    if (checked) {
+                        doc.line(cx, cy - checkboxSize / 2, cx + checkboxSize, cy + checkboxSize / 2);
+                        doc.line(cx, cy + checkboxSize / 2, cx + checkboxSize, cy - checkboxSize / 2);
+                    }
+                }
 
-                // Captura segura dos valores do formulário
-                const backup_a = form.backup_a ? form.backup_a.value : "";
-                const usuario_a = form.usuario_a ? form.usuario_a.value : "";
-                const patrimonio_b1 = form.patrimonio_b1 ? form.patrimonio_b1.value : "";
-                const patrimonio_b2 = form.patrimonio_b2 ? form.patrimonio_b2.value : "";
+                // --- Valores ---
+                const backup_a = form.backup_a?.value.trim() || "";
+                const usuario_a = form.usuario_a?.value.trim() || "";
+                const patrimonio_b1 = form.patrimonio_b1?.value.trim() || "";
+                const patrimonio_b2 = form.patrimonio_b2?.value.trim() || "";
+
+                const check_backup_a = form.check_backup_a?.checked || false;
+                const check_usuario_a = form.check_usuario_a?.checked || false;
+                const check_patrimonio_b1 = form.check_patrimonio_b1?.checked || false;
+                const check_patrimonio_b2 = form.check_patrimonio_b2?.checked || false;
 
                 // --- LADO A ---
-                let linhaYA = y + alturaTitulo + padding;
-                doc.text(`BACKUP REALIZADO: ${backup_a.toUpperCase()}`, x + padding, linhaYA);
-                linhaYA += 6;
-                doc.text(`NOME PERFIL USUÁRIO: ${usuario_a.toUpperCase()}`, x + padding, linhaYA);
+                let linhaYA = y + padding + 4;
+                const xA = x + padding;
+
+                doc.text(`BACKUP REALIZADO: ${backup_a.toUpperCase()}`, xA, linhaYA);
+                drawCheckbox(x + larguraColuna - padding - checkboxSize, linhaYA - checkboxOffsetY, check_backup_a);
+
+                linhaYA += espacoLinha;
+                doc.text(`NOME PERFIL USUÁRIO: ${usuario_a.toUpperCase()}`, xA, linhaYA);
+                drawCheckbox(x + larguraColuna - padding - checkboxSize, linhaYA - checkboxOffsetY, check_usuario_a);
 
                 // --- LADO B ---
-                let linhaYB = y + alturaTitulo + padding;
+                let linhaYB = y + padding + 4;
                 const xB = x + larguraColuna + padding;
-                doc.text(`DETALHAR / PATRIMÔNIO: ${patrimonio_b1.toUpperCase()}`, xB, linhaYB);
-                linhaYB += 6;
-                doc.text(`DETALHAR / PATRIMÔNIO: ${patrimonio_b2.toUpperCase()}`, xB, linhaYB);
 
-                // Linha divisória central (pontilhada)
+                doc.text(`DETALHAR / PATRIMÔNIO: ${patrimonio_b1.toUpperCase()}`, xB, linhaYB);
+                drawCheckbox(x + larguraTotal - padding - checkboxSize, linhaYB - checkboxOffsetY, check_patrimonio_b1);
+
+                linhaYB += espacoLinha;
+                doc.text(`DETALHAR / PATRIMÔNIO: ${patrimonio_b2.toUpperCase()}`, xB, linhaYB);
+                drawCheckbox(x + larguraTotal - padding - checkboxSize, linhaYB - checkboxOffsetY, check_patrimonio_b2);
+
+                // --- Linha divisória central ---
                 doc.setLineWidth(0.2);
                 doc.setDrawColor(0);
                 doc.setLineDashPattern([0.3, 0.3], 0);
-                doc.line(x + larguraColuna, y + alturaTitulo, x + larguraColuna, y + alturaTitulo + alturaBloco);
+                doc.line(x + larguraColuna, y, x + larguraColuna, y + alturaBloco);
                 doc.setLineDashPattern([], 0);
 
-                // Retorna nova posição Y para o próximo bloco
-                return y + alturaTitulo + alturaBloco + 5;
+                return y + alturaBloco;
             }
-
 
 
             // 1 --- função chamar o bloco dados do cliente
