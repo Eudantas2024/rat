@@ -101,6 +101,22 @@
             background-color: #0056b3;
         }
 
+        button2 {
+            margin-top: 20px;
+            padding: 15px;
+            width: 100%;
+            font-size: 18px;
+            background-color: #12a310;
+            color: white;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+        }
+
+        button2:hover {
+            background-color: #117508;
+        }
+
         #limparAssinatura,
         #limparAssinaturaCliente {
             background-color: #dc3545;
@@ -507,6 +523,12 @@
         <button type="button" id="btnPDF">Gerar PDF</button>
 
 
+        <!-- botao exportar script txt -->
+        <div style="text-align:center; margin-top:20px;">
+            <button2 type="button2" onclick="gerarScriptFechamento()">Exportar Script de Fechamento TXT</butto2>
+        </div>
+
+
 
     </form>
 
@@ -561,6 +583,54 @@
             const comprimento = relatorio.value.length;
             contadorRelatorio.textContent = `${comprimento} / 500 caracteres`;
         });
+
+
+
+        // script de fechamento:
+
+
+        function gerarScriptFechamento() {
+            // Coleta de dados dos campos
+            const tecnico = document.getElementById("nome_responsavel")?.value || "";
+            const parceiro = document.getElementById("empresa")?.value || "";
+            const cliente = document.getElementById("razao_social")?.value || "";
+            const chamado = document.getElementById("chamado")?.value || "";
+            const inicio = document.getElementById("inicio")?.value || "";
+            const termino = document.getElementById("termino")?.value || "";
+            const problema = document.getElementById("sintoma")?.value || "";
+            const atividade = document.getElementById("relatorio")?.value || "";
+            const patrimonio = document.getElementById("patrimonio_a")?.value || "";
+            const serie = document.getElementById("serie_a")?.value || "";
+            const modelo = document.getElementById("modelo_a")?.value || "";
+            const status = "Concluído";
+            const acompanhante = document.getElementById("nome_responsavel")?.value || "";
+
+            // Montagem do texto no formato solicitado
+            const texto =
+                `SCRIPT DE FECHAMENTO
+                 É obrigatório em todo agendamento técnico o envio do script preenchido via WhatsApp, junto com a RAT assinada.
+                 Técnico: ${tecnico}
+                 Parceiro: ${parceiro}
+                 Cliente: ${cliente}
+                 Chamado: ${chamado}
+                 Início da atividade: ${inicio}
+                 Término da atividade: ${termino}
+                 Problema identificado: ${problema}
+                 Atividade realizada: ${atividade}
+                 N.º Patrimônio/serial: ${patrimonio} / ${serie}
+                 Modelo do equipamento: ${modelo}
+                 Status do chamado: ${status}
+                 Nome de quem acompanhou a atividade: ${acompanhante}
+                 `;
+
+
+            // Criação e download do arquivo TXT
+            const blob = new Blob([texto], { type: "text/plain;charset=utf-8" });
+            const link = document.createElement("a");
+            link.href = URL.createObjectURL(blob);
+            link.download = `script_fechamento_${chamado || "sem_numero"}.txt`;
+            link.click();
+        }
 
 
         // --- Assinatura tecnico ---
