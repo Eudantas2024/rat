@@ -600,8 +600,7 @@
         // status do chamado
         const status = document.getElementById("status_chamado")?.value || "";
 
-
-        // script de fechamento:
+        // script de fechamento
         function gerarScriptFechamento() {
             // Coleta de dados dos campos
             const tecnico = document.getElementById("tecnico")?.value || "";
@@ -618,7 +617,7 @@
             const status = document.getElementById("status_chamado")?.value || "";
             const acompanhante = document.getElementById("nome_responsavel")?.value || "";
 
-            // Montagem do texto no formato solicitado
+            // Montagem do texto
             let texto = `
 SCRIPT DE FECHAMENTO
 É OBRIGATÓRIO EM TODO AGENDAMENTO TÉCNICO O ENVIO DO SCRIPT PREENCHIDO VIA WHATSAPP, JUNTO COM A RAT ASSINADA.
@@ -635,17 +634,58 @@ N.º PATRIMÔNIO/SERIAL: ${patrimonio} / ${serie}
 MODELO DO EQUIPAMENTO: ${modelo}
 STATUS DO CHAMADO: ${status}
 NOME DE QUEM ACOMPANHOU A ATIVIDADE: ${acompanhante}
-        `;
+    `;
 
-            // Converter todo o texto para maiúsculas e remover espaços desnecessários
             texto = texto.toUpperCase().trim();
 
-            // Abrir em nova janela simples (sem CSS)
-            const novaJanela = window.open("", "ScriptFechamento", "width=700,height=600");
-            novaJanela.document.write(`<pre style="font-family: monospace; white-space: pre-wrap;">${texto}</pre>`);
-            novaJanela.document.title = "SCRIPT DE FECHAMENTO";
-        }
+            // Detecta se está em celular
+            const emCelular = /Android|iPhone|iPad|iPod/i.test(navigator.userAgent);
 
+            if (emCelular) {
+                // Cria um balão grande centralizado com texto legível
+                const overlay = document.createElement("div");
+                overlay.style.position = "fixed";
+                overlay.style.top = "0";
+                overlay.style.left = "0";
+                overlay.style.width = "100%";
+                overlay.style.height = "100%";
+                overlay.style.backgroundColor = "rgba(0,0,0,0.6)";
+                overlay.style.display = "flex";
+                overlay.style.alignItems = "center";
+                overlay.style.justifyContent = "center";
+                overlay.style.zIndex = "9999";
+
+                const balao = document.createElement("div");
+                balao.style.backgroundColor = "white";
+                balao.style.padding = "20px";
+                balao.style.borderRadius = "10px";
+                balao.style.maxWidth = "90%";
+                balao.style.maxHeight = "85%";
+                balao.style.overflowY = "auto";
+                balao.style.fontSize = "18px";
+                balao.style.fontFamily = "monospace";
+                balao.style.whiteSpace = "pre-wrap";
+                balao.textContent = texto;
+
+                const botaoFechar = document.createElement("button");
+                botaoFechar.textContent = "FECHAR";
+                botaoFechar.style.marginTop = "15px";
+                botaoFechar.style.fontSize = "18px";
+                botaoFechar.style.display = "block";
+                botaoFechar.style.marginLeft = "auto";
+                botaoFechar.style.marginRight = "auto";
+                botaoFechar.onclick = () => document.body.removeChild(overlay);
+
+                balao.appendChild(botaoFechar);
+                overlay.appendChild(balao);
+                document.body.appendChild(overlay);
+            } else {
+                // Computador: abre nova janela simples
+                const novaJanela = window.open("", "ScriptFechamento", "width=700,height=600");
+                novaJanela.document.write(`<pre style="font-family: monospace; font-size: 16px; white-space: pre-wrap;">${texto}</pre>`);
+                novaJanela.document.title = "SCRIPT DE FECHAMENTO";
+            }
+        }
 
 
 
