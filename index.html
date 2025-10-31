@@ -100,14 +100,22 @@
             background-color: #0056b3;
         }
 
-        #limparAssinatura {
+        #limparAssinatura,
+        #limparAssinaturaCliente {
             background-color: #dc3545;
+            color: white;
+            border: none;
+            padding: 6px 12px;
+            border-radius: 4px;
+            cursor: pointer;
             margin-top: 5px;
         }
 
-        #limparAssinatura:hover {
+        #limparAssinatura:hover,
+        #limparAssinaturaCliente:hover {
             background-color: #a71d2a;
         }
+
 
         /* Centraliza todo o bloco de equipamento/serviço */
         form div {
@@ -179,6 +187,13 @@
         <h4>DADOS DO TÉCNICO</h4>
 
 
+        <label for="cidade">CIDADE DO CHAMADO:</label>
+        <input type="text" id="cidade" name="cidade" required>
+
+        <label for="UF">UF:</label>
+        <input type="text" id="UF" name="UF" maxlength="2" required>
+
+
         <label for="tecnico">NOME DO TÉCNICO:</label>
         <input type="text" id="tecnico" name="tecnico" required>
 
@@ -198,16 +213,6 @@
 
         <label for="termino">Horário de Término:</label>
         <input type="time" id="termino" name="termino" required>
-
-        <label for="assinatura">ASSINATURA DO TÉCNICO / RESPONSÁVEL:</label>
-        <div style="position: relative;">
-            <canvas id="assinatura" width="500" height="150" style="border:1px solid #ccc;"></canvas>
-            <div
-                style="position: absolute; bottom: 10px; width: 100%; text-align: center; color: #999; font-size: 16px; pointer-events: none;">
-                ______ASSINE AQUI______
-            </div>
-        </div>
-        <button type="button" id="limparAssinatura">Limpar Assinatura</button>
 
 
         <!-- parte 2 dados do cliente -->
@@ -262,10 +267,18 @@
             <label style="margin-left: 15px;">DESKTOP: <input type="checkbox" name="desktop"></label>
             <label style="margin-left: 15px;">IMPRESSORA: <input type="checkbox" name="impressora"></label>
             <label style="margin-left: 15px;">MOBILE: <input type="checkbox" name="mobile"></label>
-            <label style="margin-left: 15px;">
+            <label style="margin-left: 15px; display: block;">
                 OUTROS:
-                <input type="text" name="outros" style="width: 180px;">
+                <input type="text" id="outros" name="outros" maxlength="15" style="width: 180px;">
+                <div id="contador-outros" style="font-size: 12px; color: gray; margin-top: 4px;">
+                    0 / 15 caracteres
+                </div>
             </label>
+
+
+
+
+
         </div>
 
 
@@ -349,7 +362,87 @@
         </div>
 
 
+        <!-- BLOCO VALIDAÇÃO SOFTWARE DE GESTÃO: -->
+
+        <h4>VALIDAÇÃO SOFTWARE DE GESTÃO</h4>
+
+        <div style="margin-top: 10px;">
+
+            <label style="margin-left: 15px;">AIM: <input type="checkbox" name="aim"></label>
+            <label style="margin-left: 15px;">KACE: <input type="checkbox" name="kace"></label>
+            <label style="margin-left: 15px;">OUTROS: <input type="checkbox" name="v_outros"></label>
+            <label style="margin-left: 15px; display: block;">
+                OBSERVAÇÕES:
+                <input id="observacoes" name="observacoes" maxlength="15" style="width: 300px; height: 10px;">
+                <div id="contador" style="font-size: 12px; color: gray; margin-top: 4px;">0 / 15 caracteres</div>
+            </label>
+
+        </div>
+
+
+        <!-- Sintoma de problema relatado -->
+
+        <div style="text-align: center; margin-top: 15px;">
+            <label for="sintoma" style="display: block; font-weight: bold; margin-bottom: 5px;">
+                SINTOMA DO PROBLEMA RELATADO
+            </label>
+
+            <textarea id="sintoma" name="sintoma" maxlength="200"
+                style="width: 500px; height: 80px; resize: none;"></textarea>
+
+            <div id="contador-sintoma" style="font-size: 12px; color: gray; margin-top: 4px;">
+                0 / 200 caracteres
+            </div>
+        </div>
+
+        <!-- RELATÓRIO TÉCNICO - FECHAMENTO -->
+
+        <div style="text-align: center; margin-top: 15px;">
+            <label for="relatorio" style="display: block; font-weight: bold; margin-bottom: 5px;">
+                RELATÓRIO TÉCNICO - FECHAMENTO
+            </label>
+
+            <textarea id="relatorio" name="relatorio" maxlength="500"
+                style="width: 500px; height: 80px; resize: none;"></textarea>
+
+            <div id="contador-relatorio" style="font-size: 12px; color: gray; margin-top: 4px;">
+                0 / 500 caracteres
+            </div>
+        </div>
+
+
+        <!-- Assinatura do tecnico -->
+        <label for="assinatura">ASSINATURA DO TÉCNICO:</label>
+        <div style="position: relative;">
+            <canvas id="assinatura" width="500" height="150" style="border:1px solid #ccc;"></canvas>
+            <div
+                style="position: absolute; bottom: 10px; width: 100%; text-align: center; color: #999; font-size: 16px; pointer-events: none;">
+                ______ASSINE AQUI______
+            </div>
+        </div>
+        <button type="button" id="limparAssinatura">Limpar Assinatura</button>
+
+
+        <!-- Assinatura do Cliente -->
+        <label for="assinaturaCliente">ASSINATURA DO CLIENTE:</label>
+        <div style="position: relative; margin-bottom: 15px;">
+            <canvas id="assinaturaCliente" width="500" height="150" style="border:1px solid #ccc;"></canvas>
+            <div
+                style="position: absolute; bottom: 10px; width: 100%; text-align: center; color: #999; font-size: 16px; pointer-events: none;">
+                ______ASSINE AQUI______
+            </div>
+        </div>
+        <button type="button" id="limparAssinaturaCliente">Limpar Assinatura</button>
+
+
+
+
+
+
+
+
         <!-- botão gerar DPF  -->
+        <h4>O arquivo PDF gerado será salvo nos seus downloads</h4>
         <button type="button" id="btnPDF">Gerar PDF</button>
 
 
@@ -365,6 +458,51 @@
 
 
     <script>
+
+
+        // contador de caracteres
+        const inputOutros = document.getElementById("outros");
+        const contadorOutros = document.getElementById("contador-outros");
+
+        inputOutros.addEventListener("input", () => {
+            const length = inputOutros.value.length;
+            const max = inputOutros.maxLength;
+            contadorOutros.textContent = `${length} / ${max} caracteres`;
+        });
+
+
+
+        // contador de caracteres1
+        const textarea = document.getElementById("observacoes");
+        const contador = document.getElementById("contador");
+
+        textarea.addEventListener("input", () => {
+            const length = textarea.value.length;
+            const max = textarea.maxLength;
+            contador.textContent = `${length} / ${max} caracteres`;
+        });
+
+        // contador de caracteres2
+        const textareaSintoma = document.getElementById("sintoma");
+        const contadorSintoma = document.getElementById("contador-sintoma");
+
+        textareaSintoma.addEventListener("input", () => {
+            const length = textareaSintoma.value.length;
+            const max = textareaSintoma.maxLength;
+            contadorSintoma.textContent = `${length} / ${max} caracteres`;
+        });
+
+        // contador de caracteres3
+        const relatorio = document.getElementById('relatorio');
+        const contadorRelatorio = document.getElementById('contador-relatorio');
+
+        relatorio.addEventListener('input', () => {
+            const comprimento = relatorio.value.length;
+            contadorRelatorio.textContent = `${comprimento} / 500 caracteres`;
+        });
+
+
+        // --- Assinatura tecnico ---
         const canvas = document.getElementById('assinatura');
         const ctx = canvas.getContext('2d');
         let desenhando = false;
@@ -379,7 +517,7 @@
 
         ajustarCanvas();
 
-        // --- Assinatura ---
+
         function desenhar(e) {
             if (!desenhando) return;
             const rect = canvas.getBoundingClientRect();
@@ -408,6 +546,67 @@
 
         // Limpar assinatura
         document.getElementById('limparAssinatura').addEventListener('click', () => ctx.clearRect(0, 0, canvas.width, canvas.height));
+
+
+        // Asinatura do Cliente
+
+        const canvasCliente = document.getElementById('assinaturaCliente');
+        const ctxCliente = canvasCliente.getContext('2d');
+        let desenhandoCliente = false;
+        let lastXCliente = 0, lastYCliente = 0;
+
+        function ajustarCanvasCliente() {
+            canvasCliente.width = canvasCliente.offsetWidth;
+            canvasCliente.height = 150;
+            ctxCliente.lineWidth = 2;
+            ctxCliente.lineCap = 'round';
+        }
+        ajustarCanvasCliente();
+
+        function desenharCliente(e) {
+            if (!desenhandoCliente) return;
+            const rect = canvasCliente.getBoundingClientRect();
+            let x = (e.touches ? e.touches[0].clientX : e.clientX) - rect.left;
+            let y = (e.touches ? e.touches[0].clientY : e.clientY) - rect.top;
+
+            const dx = x - lastXCliente, dy = y - lastYCliente;
+            if (Math.sqrt(dx * dx + dy * dy) > 2) {
+                ctxCliente.beginPath();
+                ctxCliente.moveTo(lastXCliente, lastYCliente);
+                ctxCliente.lineTo(x, y);
+                ctxCliente.stroke();
+                ctxCliente.closePath();
+                lastXCliente = x; lastYCliente = y;
+            }
+        }
+
+        // Eventos mouse/touch
+        canvasCliente.addEventListener('mousedown', e => {
+            desenhandoCliente = true;
+            const rect = canvasCliente.getBoundingClientRect();
+            lastXCliente = e.clientX - rect.left;
+            lastYCliente = e.clientY - rect.top;
+        });
+        canvasCliente.addEventListener('mouseup', () => desenhandoCliente = false);
+        canvasCliente.addEventListener('mouseout', () => desenhandoCliente = false);
+        canvasCliente.addEventListener('mousemove', desenharCliente);
+
+        canvasCliente.addEventListener('touchstart', e => {
+            desenhandoCliente = true;
+            const rect = canvasCliente.getBoundingClientRect();
+            lastXCliente = e.touches[0].clientX - rect.left;
+            lastYCliente = e.touches[0].clientY - rect.top;
+            e.preventDefault();
+        });
+        canvasCliente.addEventListener('touchend', () => desenhandoCliente = false);
+        canvasCliente.addEventListener('touchmove', desenharCliente);
+
+        // Limpar assinatura do cliente
+        document.getElementById('limparAssinaturaCliente')
+            .addEventListener('click', () => ctxCliente.clearRect(0, 0, canvasCliente.width, canvasCliente.height));
+
+
+
 
 
 
@@ -571,7 +770,7 @@
 
 
 
-            // assinatura
+            // assinatura do tecnico
             const imageData = canvas.toDataURL('image/png');
             if (imageData && imageData.length > 100) {
                 const larguraAssinatura = 60 * 0.5;
@@ -583,7 +782,7 @@
                 const larguraTexto = doc.getTextWidth(texto);
 
                 const xCentro = (210 - (larguraTexto + larguraAssinatura)) / 2;
-                const yBase = y + 4;
+                const yBase = y + 6;
 
                 // escreve o texto
                 doc.text(texto, xCentro, yBase);
@@ -612,8 +811,8 @@
             //  BLOCO DADOS DO CLIENTE
             function addBlocoDadosCliente(doc, x, y, larguraTotal, form) {
                 const alturaTitulo = 5;
-                const alturaBloco = 35;
-                const padding = 3;
+                const alturaBloco = 33;
+                const padding = 2;
 
                 // Borda pontilhada (pontos pequenos e próximos)
                 doc.setLineWidth(0.3);
@@ -642,7 +841,7 @@
                 doc.setTextColor(0, 0, 0);
 
 
-                let linhaY = y + alturaTitulo + 7;
+                let linhaY = y + alturaTitulo + 4;
                 doc.text(`RAZÃO SOCIAL / NOME FANTASIA: ${form.razao_social.value || ""}`, x + padding, linhaY);
                 linhaY += 7;
                 doc.text(`NOME DO RESPONSÁVEL: ${form.nome_responsavel.value || ""}`, x + padding, linhaY);
@@ -661,15 +860,15 @@
                 const alturaLinha2 = 7;
                 const alturaTotal = alturaLinha1 + alturaLinha2;
                 const checkboxSize = 3;
-                const checkboxOffsetY = 1.4; // sobe o checkbox acima da linha do texto
-                const spacing = 0.5;
+                const checkboxOffsetY = 1.2; // alinhamento vertical fino
+                const spacing = 5; // espaçamento entre grupos
 
                 doc.setFontSize(9);
                 doc.setTextColor(0, 0, 0);
                 doc.setFont("helvetica", "normal");
 
+                // --- Função para desenhar checkbox ---
                 function drawCheckbox(cx, cy, checked) {
-                    // Ajusta a posição vertical do checkbox
                     doc.rect(cx, cy - checkboxSize / 2 - checkboxOffsetY, checkboxSize, checkboxSize);
                     if (checked) {
                         doc.line(cx, cy - checkboxSize / 2 - checkboxOffsetY, cx + checkboxSize, cy + checkboxSize / 2 - checkboxOffsetY);
@@ -678,7 +877,8 @@
                 }
 
                 // --- Linha 1 ---
-                const linha1Y = y + 3.5;
+                const linha1Y = y + 4;
+
                 const itensLinha1 = [
                     { label: `RETIRADO PARA LABORATÓRIO S/N: ${form.retirado_lab.value || ""}`, checked: null },
                     { label: "SUBSTITUIÇÃO OU TROCA:", checked: form.substituicao_troca.checked },
@@ -689,14 +889,17 @@
                 itensLinha1.forEach(item => {
                     doc.text(item.label, cX1, linha1Y);
                     if (typeof item.checked === "boolean") {
-                        drawCheckbox(cX1 + doc.getTextWidth(item.label) + 2, linha1Y, item.checked);
+                        // checkbox logo após o texto, sem espaçamento excessivo
+                        const posCheckbox = cX1 + doc.getTextWidth(item.label) + 1.5;
+                        drawCheckbox(posCheckbox, linha1Y, item.checked);
+                        cX1 = posCheckbox + checkboxSize + spacing;
+                    } else {
+                        cX1 += doc.getTextWidth(item.label) + spacing;
                     }
-                    cX1 += doc.getTextWidth(item.label) + checkboxSize + 3;
                 });
 
                 // --- Linha 2 ---
-                const linha2Y = y + alturaLinha1 + 3.5;
-                const colWidthsLinha2 = [30, 30, 30, 30, 70];
+                const linha2Y = y + alturaLinha1 + 4;
                 const itensLinha2 = [
                     { label: "NOTEBOOK:", checked: form.notebook.checked },
                     { label: "DESKTOP:", checked: form.desktop.checked },
@@ -706,17 +909,20 @@
                 ];
 
                 let cX2 = x + padding;
-                itensLinha2.forEach((item, index) => {
-                    const lines = doc.splitTextToSize(item.label, colWidthsLinha2[index]);
-                    doc.text(lines, cX2, linha2Y);
+                itensLinha2.forEach(item => {
+                    doc.text(item.label, cX2, linha2Y);
                     if (typeof item.checked === "boolean") {
-                        drawCheckbox(cX2 + colWidthsLinha2[index] - 6, linha2Y, item.checked);
+                        const posCheckbox = cX2 + doc.getTextWidth(item.label) + 1.5;
+                        drawCheckbox(posCheckbox, linha2Y, item.checked);
+                        cX2 = posCheckbox + checkboxSize + spacing;
+                    } else {
+                        cX2 += doc.getTextWidth(item.label) + spacing;
                     }
-                    cX2 += colWidthsLinha2[index] + spacing;
                 });
 
-                return y + alturaTotal + 1;
+                return y + alturaTotal + 0.4;
             }
+
 
 
 
@@ -789,7 +995,7 @@
 
 
                 // Retorna nova posição Y para o próximo bloco
-                return y + alturaBloco + 0.5;
+                return y + alturaBloco + 1.5;
             }
 
 
@@ -849,7 +1055,7 @@
                 doc.text(`IMEI: ${form.imei_b?.value || ""}`, xB, linhaYB);
 
                 // Retorna nova posição Y para o próximo bloco
-                return y + alturaBloco + 1;
+                return y + alturaBloco + 1.5;
             }
 
 
@@ -896,7 +1102,7 @@
             // --- BLOCO BACKUP REALIZADO (LADO A / LADO B) ---
             // Checkboxes à direita e mais alto
             function addBlocoBackupRealizado(doc, x, y, larguraTotal, form) {
-                const alturaBloco = 18;
+                const alturaBloco = 10;
                 const padding = 3;
                 const espacoLinha = 5;
                 const larguraColuna = larguraTotal / 2;
@@ -935,7 +1141,7 @@
                 const check_patrimonio_b2 = form.check_patrimonio_b2?.checked || false;
 
                 // --- LADO A ---
-                let linhaYA = y + padding + 4;
+                let linhaYA = y + padding + 1;  // <--- ajuste do espaço superior do bloco
                 const xA = x + padding;
 
                 doc.text(`BACKUP REALIZADO: ${backup_a.toUpperCase()}`, xA, linhaYA);
@@ -946,7 +1152,7 @@
                 drawCheckbox(x + larguraColuna - padding - checkboxSize, linhaYA - checkboxOffsetY, check_usuario_a);
 
                 // --- LADO B ---
-                let linhaYB = y + padding + 4;
+                let linhaYB = y + padding + 1;
                 const xB = x + larguraColuna + padding;
 
                 doc.text(`DETALHAR / PATRIMÔNIO: ${patrimonio_b1.toUpperCase()}`, xB, linhaYB);
@@ -963,8 +1169,238 @@
                 doc.line(x + larguraColuna, y, x + larguraColuna, y + alturaBloco);
                 doc.setLineDashPattern([], 0);
 
-                return y + alturaBloco;
+                return y + alturaBloco + 1.5;
             }
+
+
+
+            // BLOCO VALIDAÇÃO LINHA UNICA: 
+            function addBlocoValidacao(doc, x, y, larguraTotal, form) {
+                const alturaTitulo = 5;
+                const alturaBloco = 5;
+                const padding = 4;
+
+                // Borda pontilhada (pontos pequenos e próximos)
+                doc.setLineWidth(0.3);
+                doc.setDrawColor(0);
+                doc.setLineDashPattern([0.3, 0.3], 0); // pontinhos menores e mais próximos
+                doc.rect(x, y, larguraTotal, alturaBloco, 'S');
+                doc.setLineDashPattern([], 0);
+
+                // Cabeçalho vermelho
+                doc.setFillColor(200, 0, 0);
+                doc.rect(x, y, larguraTotal, alturaTitulo, 'F');
+
+                // --- TÍTULO ---
+                doc.setFont(undefined, 'bold');
+                doc.setFontSize(9);
+                doc.setTextColor(255, 255, 255);
+                // Centralização vertical dentro do retângulo vermelho
+                const yTexto = y + (alturaTitulo / 2) + 2; // ajuste fino (+2 para compensar a altura da fonte)
+                doc.text("VALIDAÇÃO SOFTWARE DE GESTÃO:", x + larguraTotal / 2, yTexto, { align: "center" });
+
+
+                // Retorna nova posição y para o próximo bloco
+                return y + alturaBloco + 0.4;
+            }
+
+
+            // --- BLOCO VALIDAÇÃO SOFTWARE DE GESTÃO ---
+            function addBlocoValidacaoSoftware(doc, x, y, larguraTotal, form) {
+                const padding = 6;
+                const alturaLinha = 7;
+                const checkboxSize = 3;
+                const checkboxOffsetY = 1.2;
+                const spacing = 6;
+                const alturaBloco = alturaLinha; // altura do bloco
+                const larguraBloco = larguraTotal * 1; // bloco ocupa 90% da largura total
+
+                doc.setFontSize(9);
+                doc.setTextColor(0, 0, 0);
+                doc.setFont("helvetica", "normal");
+
+                // --- Centralizar horizontalmente ---
+                const centroPagina = x + (larguraTotal / 2);
+                const xInicio = centroPagina - (larguraBloco / 2);
+
+                // --- Borda pontilhada (pontos pequenos e próximos) ---
+                doc.setLineWidth(0.3);
+                doc.setDrawColor(0);
+                doc.setLineDashPattern([0.3, 0.3], 0); // pontinhos pequenos e próximos
+                doc.rect(xInicio, y, larguraBloco, alturaBloco, 'S');
+                doc.setLineDashPattern([], 0); // reseta padrão de linha
+
+                // --- Função para desenhar checkbox ---
+                function drawCheckbox(cx, cy, checked) {
+                    doc.rect(cx, cy - checkboxSize / 2 - checkboxOffsetY, checkboxSize, checkboxSize);
+                    if (checked) {
+                        doc.line(cx, cy - checkboxSize / 2 - checkboxOffsetY, cx + checkboxSize, cy + checkboxSize / 2 - checkboxOffsetY);
+                        doc.line(cx, cy + checkboxSize / 2 - checkboxOffsetY, cx + checkboxSize, cy - checkboxSize / 2 - checkboxOffsetY);
+                    }
+                }
+
+                // --- Linha Única ---
+                const linhaY = y + 4;
+                const itensLinha = [
+                    { label: "AIM:", checked: form.aim.checked },
+                    { label: "KACE:", checked: form.kace.checked },
+                    { label: "OUTROS:", checked: form.v_outros.checked },
+                    { label: `OBSERVAÇÕES: ${form.observacoes.value || ""}`, checked: null }
+                ];
+
+                let cX = xInicio + padding;
+                itensLinha.forEach(item => {
+                    doc.text(item.label, cX, linhaY);
+                    if (typeof item.checked === "boolean") {
+                        const posCheckbox = cX + doc.getTextWidth(item.label) + 1.5;
+                        drawCheckbox(posCheckbox, linhaY, item.checked);
+                        cX = posCheckbox + checkboxSize + spacing;
+                    } else {
+                        cX += doc.getTextWidth(item.label) + spacing;
+                    }
+                });
+
+                return y + alturaBloco + 2;
+            }
+
+
+
+            // BLOCO VALIDAÇÃO LINHA UNICA: 
+            function addBlocoSintoma(doc, x, y, larguraTotal, form) {
+                const alturaTitulo = 5;
+                const alturaBloco = 5;
+                const padding = 4;
+
+                // Borda pontilhada (pontos pequenos e próximos)
+                doc.setLineWidth(0.3);
+                doc.setDrawColor(0);
+                doc.setLineDashPattern([0.3, 0.3], 0); // pontinhos menores e mais próximos
+                doc.rect(x, y, larguraTotal, alturaBloco, 'S');
+                doc.setLineDashPattern([], 0);
+
+                // Cabeçalho vermelho
+                doc.setFillColor(200, 0, 0);
+                doc.rect(x, y, larguraTotal, alturaTitulo, 'F');
+
+                // --- TÍTULO ---
+                doc.setFont(undefined, 'bold');
+                doc.setFontSize(9);
+                doc.setTextColor(255, 255, 255);
+                // Centralização vertical dentro do retângulo vermelho
+                const yTexto = y + (alturaTitulo / 2) + 2; // ajuste fino (+2 para compensar a altura da fonte)
+                doc.text("SINTOMA DO PROBLEMA RELATADO", x + larguraTotal / 2, yTexto, { align: "center" });
+
+
+                // Retorna nova posição y para o próximo bloco
+                return y + alturaBloco + 0.4;
+            }
+
+
+            // --- BLOCO SINTOMA DO PROBLEMA RELATADO  ---
+            function addBlocoSintomaProblema(doc, x, y, larguraTotal, form) {
+                const alturaBloco = 16;
+
+
+                // Fundo branco
+                doc.setFillColor(255, 255, 255);
+                doc.rect(x, y, larguraTotal, alturaBloco, 'F');
+
+                // Borda pontilhada (pontos pequenos e próximos)
+                doc.setLineWidth(0.3);
+                doc.setDrawColor(0);
+                doc.setLineDashPattern([0.3, 0.3], 0);
+                doc.rect(x, y, larguraTotal, alturaBloco, 'S');
+                doc.setLineDashPattern([], 0);
+
+                // Texto digitado no formulário
+                const sintoma = (form.sintoma?.value || "").toUpperCase();
+                doc.setFontSize(9);
+                doc.setTextColor(0, 0, 0);
+                doc.setFont('helvetica', 'normal');
+
+                const padding = 4;
+                const textoX = x + padding;
+                const textoY = y + padding;
+                const larguraTextoArea = larguraTotal - (padding * 2);
+                const linhas = doc.splitTextToSize(sintoma, larguraTextoArea);
+                doc.text(linhas, textoX, textoY);
+
+
+                // Retorna nova posição vertical
+                return y + alturaBloco + 1;
+            }
+
+
+
+            // BLOCO RELATÓRIO TÉCNICO - FECHAMENTO LINHA UNICA: 
+            function addBlocoFechamento(doc, x, y, larguraTotal, form) {
+                const alturaTitulo = 5;
+                const alturaBloco = 5;
+                const padding = 4;
+
+                // Borda pontilhada (pontos pequenos e próximos)
+                doc.setLineWidth(0.3);
+                doc.setDrawColor(0);
+                doc.setLineDashPattern([0.3, 0.3], 0); // pontinhos menores e mais próximos
+                doc.rect(x, y, larguraTotal, alturaBloco, 'S');
+                doc.setLineDashPattern([], 0);
+
+                // Cabeçalho vermelho
+                doc.setFillColor(200, 0, 0);
+                doc.rect(x, y, larguraTotal, alturaTitulo, 'F');
+
+                // --- TÍTULO ---
+                doc.setFont(undefined, 'bold');
+                doc.setFontSize(9);
+                doc.setTextColor(255, 255, 255);
+                // Centralização vertical dentro do retângulo vermelho
+                const yTexto = y + (alturaTitulo / 2) + 2; // ajuste fino (+2 para compensar a altura da fonte)
+                doc.text("RELATÓRIO TÉCNICO - FECHAMENTO", x + larguraTotal / 2, yTexto, { align: "center" });
+
+
+                // Retorna nova posição y para o próximo bloco
+                return y + alturaBloco + 0.4;
+            }
+
+
+
+
+            // --- BLOCO RELATÓRIO TÉCNICO - FECHAMENTO ---
+            function addBlocoRelatorioTecnico(doc, x, y, larguraTotal, form) {
+                const alturaBloco = 30; // altura ajustável conforme o texto
+                const padding = 4;
+
+                // Fundo branco
+                doc.setFillColor(255, 255, 255);
+                doc.rect(x, y, larguraTotal, alturaBloco, 'F');
+
+                // Borda pontilhada (pontos pequenos e próximos)
+                doc.setLineWidth(0.3);
+                doc.setDrawColor(0);
+                doc.setLineDashPattern([0.3, 0.3], 0);
+                doc.rect(x, y, larguraTotal, alturaBloco, 'S');
+                doc.setLineDashPattern([], 0);
+
+                // Texto digitado no formulário
+                const relatorio = (form.relatorio?.value || "").toUpperCase();
+                doc.setFontSize(9);
+                doc.setTextColor(0, 0, 0);
+                doc.setFont('helvetica', 'normal');
+
+                const textoX = x + padding;
+                const textoY = y + padding;
+                const larguraTextoArea = larguraTotal - (padding * 2);
+                const linhas = doc.splitTextToSize(relatorio, larguraTextoArea);
+                doc.text(linhas, textoX, textoY);
+
+                // Retorna nova posição vertical
+                return y + alturaBloco + 5;
+            }
+
+
+
+
+
 
 
             // 1 --- função chamar o bloco dados do cliente
@@ -985,12 +1421,116 @@
 
             y = addBlocoBackupRealizado(doc, xInicio, y, larguraTotal, form);
 
+            y = addBlocoValidacao(doc, xInicio, y, larguraTotal, form);
+
+            y = addBlocoValidacaoSoftware(doc, xInicio, y, larguraTotal, form);
+
+            y = addBlocoSintoma(doc, xInicio, y, larguraTotal, form);
+
+            y = addBlocoSintomaProblema(doc, xInicio, y, larguraTotal, form);
+
+            y = addBlocoFechamento(doc, xInicio, y, larguraTotal, form);
+
+            y = addBlocoRelatorioTecnico(doc, xInicio, y, larguraTotal, form);
+
+
+
+            // --- ASSINATURA DO CLIENTE ---
+            const canvasCliente = document.getElementById('assinaturaCliente');
+            const imageDataCliente = canvasCliente.toDataURL('image/png');
+
+            if (imageDataCliente && imageDataCliente.length > 100) {
+                const larguraAssinatura = 50;
+                const alturaAssinatura = (canvasCliente.height / canvasCliente.width) * (larguraAssinatura / 2);
+
+                const texto = "ASSINATURA DO CLIENTE / RESPONSÁVEL";
+                doc.setFontSize(9);
+                doc.setFont(undefined, 'normal');
+
+                // Centralização horizontal
+                const xCentroPagina = 105; // centro do A4
+                const yBase = 255; // posição vertical
+                const larguraLinha = 80;
+
+                // Linha centralizada
+                doc.setLineWidth(0.2);
+                doc.line(xCentroPagina - larguraLinha / 2, yBase, xCentroPagina + larguraLinha / 2, yBase);
+
+                // Texto centralizado logo abaixo
+                const larguraTexto = doc.getTextWidth(texto);
+                doc.text(texto, xCentroPagina - larguraTexto / 2, yBase + 5);
+
+                // 🔹 Assinatura (imagem)
+                const sobreLinha = 1;
+                doc.addImage(
+                    imageDataCliente,
+                    'PNG',
+                    xCentroPagina - (larguraAssinatura / 2),
+                    yBase - alturaAssinatura - sobreLinha,
+                    larguraAssinatura,
+                    alturaAssinatura
+                );
+
+                // 🔹 Linha de local e data (ex: CAMPINAS-SP, 30 DE OUTUBRO DE 2025)
+                const cidade = document.getElementById('cidade').value.toUpperCase() || "";
+                const uf = document.getElementById('UF').value.toUpperCase() || "";
+                const dataValor = document.getElementById('data').value;
+
+                if (cidade && uf && dataValor) {
+                    const dataObj = new Date(dataValor);
+                    const dia = dataObj.getDate();
+                    const mesExtenso = dataObj.toLocaleString('pt-BR', { month: 'long' }).toUpperCase();
+                    const ano = dataObj.getFullYear();
+
+                    const textoData = `${cidade}-${uf}, ${dia} DE ${mesExtenso} DE ${ano}`;
+                    const larguraTextoData = doc.getTextWidth(textoData);
+
+                    doc.text(textoData, xCentroPagina - larguraTextoData / 2, yBase + 10);
+                }
+            }
+
+
+
+            // --- RODAPÉ LGPD E DIREITOS RESERVADOS ---
+            doc.setFontSize(6);
+            doc.setFont(undefined, 'normal');
+            doc.setTextColor(0, 0, 0); // preto
+
+            const larguraPagina = 210;
+            let yRodape = 273; // posição perto do final da página A4 (297mm)
+
+            // Texto 1
+            const texto1 = "ATENDIMENTO À LGPD: AO INSERIR SEUS DADOS ACIMA, VOCÊ ESTARÁ DE ACORDO COM A UTILIZAÇÃO DE SUAS INFORMAÇÕES";
+            const larguraTexto1 = doc.getTextWidth(texto1);
+            doc.text(texto1, (larguraPagina - larguraTexto1) / 2, yRodape);
+
+            // Texto 2
+            const texto2 = "ÚNICA E EXCLUSIVAMENTE PARA O PROCESSO DE ATENDIMENTO TÉCNICO DA ARKLOK. SEUS DADOS NÃO SERÃO PROCESSADOS E";
+            const larguraTexto2 = doc.getTextWidth(texto2);
+            doc.text(texto2, (larguraPagina - larguraTexto2) / 2, yRodape + 4);
+
+            // Texto 3
+            const texto3 = "NEM DIVULGADOS PARA NENHUM OUTRO MEIO FORA O ESCLARECIDO ACIMA.";
+            const larguraTexto3 = doc.getTextWidth(texto3);
+            doc.text(texto3, (larguraPagina - larguraTexto3) / 2, yRodape + 8);
+
+            // Texto 4 (vermelho e negrito)
+            const texto4 = "Este documento é propriedade da ARKLOK, Todos os direitos são reservados";
+            doc.setFontSize(8);
+            doc.setFont(undefined, 'normal');
+            doc.setTextColor(200, 0, 0); // vermelho
+            const larguraTexto4 = doc.getTextWidth(texto4);
+            doc.text(texto4, (larguraPagina - larguraTexto4) / 2, yRodape + 13);
+
+            // Resetar cor para evitar afetar o restante
+            doc.setTextColor(0, 0, 0);
+            doc.setFont(undefined, 'normal');
 
 
 
             // salvar pdf -- isso fica no fim do codigo
             const chamadoNum = form.chamado.value || 'sem_numero';
-            doc.save(`Chamado_${chamadoNum}.pdf`);
+            doc.save(`RAT_ARKLOK_${chamadoNum}.pdf`);
         });
     </script>
 </body>
