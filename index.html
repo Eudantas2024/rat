@@ -1542,7 +1542,7 @@
                     const mesExtenso = dataObj.toLocaleString('pt-BR', { month: 'long' }).toUpperCase();
                     const ano = dataObj.getFullYear();
 
-                    const textoData = `${cidade}-${uf}, ${dia} DE ${mesExtenso} DE ${ano}`;
+                    const textoData = `${cidade} - ${uf}, ${dia} DE ${mesExtenso} DE ${ano}`;
                     const larguraTextoData = doc.getTextWidth(textoData);
 
                     doc.text(textoData, xCentroPagina - larguraTextoData / 2, yBase + 10);
