@@ -184,9 +184,8 @@
     <h3>RAT (RELATÓRIO ATENDIMENTO TÉCNICO)</h3>
 
     <form id="chamadoForm">
-
-        <h4>DADOS DO TÉCNICO</h4>
-
+        <label for="chamado">N° DO CHAMADO:</label>
+        <input type="text" id="chamado" name="chamado" required>
 
         <label for="cidade">CIDADE DO CHAMADO:</label>
         <input type="text" id="cidade" name="cidade" required>
@@ -194,7 +193,7 @@
         <label for="UF">UF:</label>
         <input type="text" id="UF" name="UF" maxlength="2" required>
 
-
+        <h4>DADOS DO TÉCNICO</h4>
         <label for="tecnico">NOME DO TÉCNICO:</label>
         <input type="text" id="tecnico" name="tecnico" required>
 
@@ -203,8 +202,7 @@
         <input type="text" id="empresa" name="empresa" value="JM INFORMATICA" readonly class="oculto">
 
 
-        <label for="chamado">N° DO CHAMADO:</label>
-        <input type="text" id="chamado" name="chamado" required>
+
 
         <label for="data">DATA DO ATENDIMENTO:</label>
         <input type="date" id="data" name="data" required>
