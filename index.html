@@ -487,6 +487,19 @@
             </div>
         </div>
 
+        <div>
+            <label>
+                STATUS DO CHAMADO:
+                <select name="status_chamado" id="status_chamado" required>
+                    <option value="">--</option>
+                    <option value="CONCLUÍDO">CONCLUÍDO</option>
+                    <option value="PENDENTE">PENDENTE</option>
+                    <option value="IMPRODUTIVO">IMPRODUTIVO</option>
+                </select>
+            </label>
+
+        </div>
+
 
         <!-- Assinatura do tecnico -->
         <label for="assinatura">ASSINATURA DO TÉCNICO:</label>
@@ -525,7 +538,7 @@
 
         <!-- botao exportar script txt -->
         <div style="text-align:center; margin-top:20px;">
-            <button2 type="button2" onclick="gerarScriptFechamento()">Exportar Script de Fechamento TXT</butto2>
+            <button2 type="button2" onclick="gerarScriptFechamento()">Abrir Script de Fechamento</butto2>
         </div>
 
 
@@ -584,14 +597,14 @@
             contadorRelatorio.textContent = `${comprimento} / 500 caracteres`;
         });
 
+        // status do chamado
+        const status = document.getElementById("status_chamado")?.value || "";
 
 
         // script de fechamento:
-
-
         function gerarScriptFechamento() {
             // Coleta de dados dos campos
-            const tecnico = document.getElementById("nome_responsavel")?.value || "";
+            const tecnico = document.getElementById("tecnico")?.value || "";
             const parceiro = document.getElementById("empresa")?.value || "";
             const cliente = document.getElementById("razao_social")?.value || "";
             const chamado = document.getElementById("chamado")?.value || "";
@@ -602,35 +615,40 @@
             const patrimonio = document.getElementById("patrimonio_a")?.value || "";
             const serie = document.getElementById("serie_a")?.value || "";
             const modelo = document.getElementById("modelo_a")?.value || "";
-            const status = "Concluído";
+            const status = document.getElementById("status_chamado")?.value || "";
             const acompanhante = document.getElementById("nome_responsavel")?.value || "";
 
             // Montagem do texto no formato solicitado
-            const texto =
-                `SCRIPT DE FECHAMENTO
-                 É obrigatório em todo agendamento técnico o envio do script preenchido via WhatsApp, junto com a RAT assinada.
-                 Técnico: ${tecnico}
-                 Parceiro: ${parceiro}
-                 Cliente: ${cliente}
-                 Chamado: ${chamado}
-                 Início da atividade: ${inicio}
-                 Término da atividade: ${termino}
-                 Problema identificado: ${problema}
-                 Atividade realizada: ${atividade}
-                 N.º Patrimônio/serial: ${patrimonio} / ${serie}
-                 Modelo do equipamento: ${modelo}
-                 Status do chamado: ${status}
-                 Nome de quem acompanhou a atividade: ${acompanhante}
-                 `;
+            let texto = `
+SCRIPT DE FECHAMENTO
+É OBRIGATÓRIO EM TODO AGENDAMENTO TÉCNICO O ENVIO DO SCRIPT PREENCHIDO VIA WHATSAPP, JUNTO COM A RAT ASSINADA.
 
+TÉCNICO: ${tecnico}
+PARCEIRO: ${parceiro}
+CLIENTE: ${cliente}
+CHAMADO: ${chamado}
+INÍCIO DA ATIVIDADE: ${inicio}
+TÉRMINO DA ATIVIDADE: ${termino}
+PROBLEMA IDENTIFICADO: ${problema}
+ATIVIDADE REALIZADA: ${atividade}
+N.º PATRIMÔNIO/SERIAL: ${patrimonio} / ${serie}
+MODELO DO EQUIPAMENTO: ${modelo}
+STATUS DO CHAMADO: ${status}
+NOME DE QUEM ACOMPANHOU A ATIVIDADE: ${acompanhante}
+        `;
 
-            // Criação e download do arquivo TXT
-            const blob = new Blob([texto], { type: "text/plain;charset=utf-8" });
-            const link = document.createElement("a");
-            link.href = URL.createObjectURL(blob);
-            link.download = `script_fechamento_${chamado || "sem_numero"}.txt`;
-            link.click();
+            // Converter todo o texto para maiúsculas e remover espaços desnecessários
+            texto = texto.toUpperCase().trim();
+
+            // Abrir em nova janela simples (sem CSS)
+            const novaJanela = window.open("", "ScriptFechamento", "width=700,height=600");
+            novaJanela.document.write(`<pre style="font-family: monospace; white-space: pre-wrap;">${texto}</pre>`);
+            novaJanela.document.title = "SCRIPT DE FECHAMENTO";
         }
+
+
+
+
 
 
         // --- Assinatura tecnico ---
