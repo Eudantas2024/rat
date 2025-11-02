@@ -580,13 +580,12 @@
   <script>
 
     // ==========================================================
-    // 1. LISTA DE IDS DOS CAMPOS OBRIGATÓRIOS (Fonte da verdade)
+    // 1. LISTA DE IDS DOS CAMPOS OBRIGATÓRIOS 
     // ==========================================================
     const camposObrigatorios = [
       "chamado", "cidade", "UF", "tecnico", "data",
       "inicio", "termino", "razao_social", "nome_responsavel",
-      "telefone_cliente", "email_cliente", "cargo_cliente",
-      "depto_cliente", "retirado_lab", "sintoma", "relatorio",
+      "telefone_cliente", "retirado_lab", "sintoma", "relatorio",
       "status_chamado", "modelo_a", "patrimonio_a"
     ];
 
@@ -1902,7 +1901,7 @@ NOME DE QUEM ACOMPANHOU A ATIVIDADE: ${acompanhante}
           const mesExtenso = dataObj.toLocaleString('pt-BR', { month: 'long' }).toUpperCase();
           const ano = dataObj.getFullYear();
 
-          const textoData = `${cidade}, ${dia} DE ${mesExtenso} DE ${ano}`;
+          const textoData = `${cidade} - ${uf},  ${dia} DE ${mesExtenso} DE ${ano}`;
           const larguraTextoData = doc.getTextWidth(textoData);
 
           doc.text(textoData, xCentroPagina - larguraTextoData / 2, yBase + 10);
