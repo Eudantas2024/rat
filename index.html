@@ -890,8 +890,6 @@ NOME DE QUEM ACOMPANHOU A ATIVIDADE: ${acompanhante}
         }
 
         ajustarCanvas();
-        // ADICIONADO: ajuste de canvas ao redimensionar a janela
-        window.addEventListener('resize', ajustarCanvas);
 
 
         function desenhar(e) {
@@ -938,8 +936,6 @@ NOME DE QUEM ACOMPANHOU A ATIVIDADE: ${acompanhante}
             ctxCliente.lineCap = 'round';
         }
         ajustarCanvasCliente();
-        // ADICIONADO: ajuste de canvas ao redimensionar a janela
-        window.addEventListener('resize', ajustarCanvasCliente);
 
         function desenharCliente(e) {
             if (!desenhandoCliente) return;
