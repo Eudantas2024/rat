@@ -31,7 +31,6 @@
             height: 100px;
             cursor: pointer;
             /* indica que é clicável */
-
         }
 
         h3 {
@@ -57,6 +56,7 @@
             box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
         }
 
+        /* Regra Original 1: Display Block */
         label {
             display: block;
             margin-top: 15px;
@@ -191,6 +191,7 @@
         }
 
 
+        /* Regra 2: Layout Flexbox */
         div {
             width: 95%;
             margin: 0 auto 15px auto;
@@ -201,6 +202,7 @@
             gap: 10px;
         }
 
+        /* Regra 3: Layout Flexbox mais específico para labels do formulário */
         label {
             display: flex;
             align-items: center;
@@ -229,6 +231,24 @@
             height: 18px;
             margin-left: 6px;
         }
+
+        .oculta {
+            display: none;
+        }
+
+        /* Este CSS é essencial para a nova lógica baseada em classe */
+        .campo-obrigatorio::after {
+            content: " *";
+            color: red;
+            font-weight: bold;
+            font-size: 1.1em;
+
+            /* Garante que o asterisco não será separado pelo Flexbox */
+            align-self: flex-start;
+            margin-left: 2px;
+        }
+
+
 
         /* Responsividade */
         @media (max-width: 500px) {
@@ -321,7 +341,7 @@
         <div style="margin-top: 10px;">
             <label>
                 RETIRADO PARA LABORATÓRIO S/N:
-                <select name="retirado_lab">
+                <select name="retirado_lab" id="retirado_lab">
                     <option value="">--</option>
                     <option value="S">S</option>
                     <option value="N">N</option>
@@ -358,7 +378,6 @@
 
         </div>
 
-
         <h4>DADOS DO(S) EQUIPAMENTO(S)</h4>
         <input type="text" id="dados_eqpto" name="dados_eqpto" readonly class="oculto">
         <input type="text" id="eqpto_antigo" name="eqpto_antigo" readonly class="oculto">
@@ -368,57 +387,38 @@
         <h4>EQUIPAMENTO ANTIGO</h4>
 
         <label for="modelo_a">MODELO:</label>
-        <input type="text" id="modelo_a" name="modelo_a" required>
-
-        <label for="patrimonio_a">N° PATRIMÔNIO DO EQUIPAMENTO:</label>
-        <input type="text" id="patrimonio_a" name="patrimonio_a" required>
-
-        <label for="serie_a">N° SÉRIE:</label>
-        <input type="text" id="serie_a" name="serie_a" required>
-
-        <label for="hostname_a">HOSTNAME:</label>
-        <input type="text" id="hostname_a" name="hostname_a" required>
-
-        <label for="etiqueta_a">N° ETIQUETA E SÉRIE CLIENTE:</label>
-        <input type="text" id="etiqueta_a" name="etiqueta_a" required>
-
-        <label for="imei_a">IMEI:</label>
-        <input type="text" id="imei_a" name="imei_a" required>
-
-
+        <input type="text" id="modelo_a" name="modelo_a"> <label for="patrimonio_a">N° PATRIMÔNIO DO
+            EQUIPAMENTO:</label>
+        <input type="text" id="patrimonio_a" name="patrimonio_a"> <label for="serie_a">N° SÉRIE:</label>
+        <input type="text" id="serie_a" name="serie_a"> <label for="hostname_a">HOSTNAME:</label>
+        <input type="text" id="hostname_a" name="hostname_a"> <label for="etiqueta_a">N° ETIQUETA E SÉRIE
+            CLIENTE:</label>
+        <input type="text" id="etiqueta_a" name="etiqueta_a"> <label for="imei_a">IMEI:</label>
+        <input type="text" id="imei_a" name="imei_a">
         <h4>EQUIPAMENTO NOVO</h4>
 
         <label for="modelo_b">MODELO:</label>
-        <input type="text" id="modelo_b" name="modelo_b" required>
-
-        <label for="patrimonio_b">N° PATRIMÔNIO DO EQUIPAMENTO:</label>
-        <input type="text" id="patrimonio_b" name="patrimonio_b" required>
-
-        <label for="serie_b">N° SÉRIE:</label>
-        <input type="text" id="serie_b" name="serie_b" required>
-
-        <label for="hostname_b">HOSTNAME:</label>
-        <input type="text" id="hostname_b" name="hostname_b" required>
-
-        <label for="etiqueta_b">N° ETIQUETA E SÉRIE CLIENTE:</label>
-        <input type="text" id="etiqueta_b" name="etiqueta_b" required>
-
-        <label for="imei_b">IMEI:</label>
-        <input type="text" id="imei_b" name="imei_b" required>
-
+        <input type="text" id="modelo_b" name="modelo_b"> <label for="patrimonio_b">N° PATRIMÔNIO DO
+            EQUIPAMENTO:</label>
+        <input type="text" id="patrimonio_b" name="patrimonio_b"> <label for="serie_b">N° SÉRIE:</label>
+        <input type="text" id="serie_b" name="serie_b"> <label for="hostname_b">HOSTNAME:</label>
+        <input type="text" id="hostname_b" name="hostname_b"> <label for="etiqueta_b">N° ETIQUETA E SÉRIE
+            CLIENTE:</label>
+        <input type="text" id="etiqueta_b" name="etiqueta_b"> <label for="imei_b">IMEI:</label>
+        <input type="text" id="imei_b" name="imei_b">
         <h4>INFORMAÇÕES SOBRE BACKUP</h4>
 
         <div>
             <label for="backup_a">
                 BACKUP REALIZADO:
-                <input type="text" id="backup_a" name="backup_a" required>
-                <input type="checkbox" id="check_backup_a" name="check_backup_a">
+                <input type="text" id="backup_a" name="backup_a"> <input type="checkbox" id="check_backup_a"
+                    name="check_backup_a">
             </label>
 
             <label for="patrimonio_b1">
                 DETALHAR / PATRIMÔNIO:
-                <input type="text" id="patrimonio_b1" name="patrimonio_b1" required>
-                <input type="checkbox" id="check_patrimonio_b1" name="check_patrimonio_b1">
+                <input type="text" id="patrimonio_b1" name="patrimonio_b1"> <input type="checkbox"
+                    id="check_patrimonio_b1" name="check_patrimonio_b1">
             </label>
         </div>
 
@@ -427,17 +427,16 @@
         <div>
             <label for="usuario_a">
                 NOME PERFIL USUÁRIO:
-                <input type="text" id="usuario_a" name="usuario_a" required>
-                <input type="checkbox" id="check_usuario_a" name="check_usuario_a">
+                <input type="text" id="usuario_a" name="usuario_a"> <input type="checkbox" id="check_usuario_a"
+                    name="check_usuario_a">
             </label>
 
             <label for="patrimonio_b2">
                 DETALHAR / PATRIMÔNIO:
-                <input type="text" id="patrimonio_b2" name="patrimonio_b2" required>
-                <input type="checkbox" id="check_patrimonio_b2" name="check_patrimonio_b2">
+                <input type="text" id="patrimonio_b2" name="patrimonio_b2"> <input type="checkbox"
+                    id="check_patrimonio_b2" name="check_patrimonio_b2">
             </label>
         </div>
-
 
         <h4>VALIDAÇÃO SOFTWARE DE GESTÃO</h4>
 
@@ -519,12 +518,14 @@
 
 
 
+        <button type="button" id="btnValidacao">VALIDAÇÃO</button>
 
 
+        <div id="divOculta" class="oculta">
+            <h4>O arquivo PDF gerado será salvo nos seus downloads</h4>
+            <button type="button" id="btnPDF">Gerar PDF</button>
+        </div>
 
-
-        <h4>O arquivo PDF gerado será salvo nos seus downloads</h4>
-        <button type="button" id="btnPDF">Gerar PDF</button>
 
 
         <div style="text-align:center; margin-top:20px;">
@@ -542,6 +543,120 @@
 
 
     <script>
+
+
+        // ==========================================================
+        // 1. LISTA DE IDS DOS CAMPOS OBRIGATÓRIOS (Fonte da verdade)
+        // ==========================================================
+        const camposObrigatorios = [
+            "chamado", "cidade", "UF", "tecnico", "data",
+            "inicio", "termino", "razao_social", "nome_responsavel",
+            "telefone_cliente", "email_cliente", "cargo_cliente",
+            "depto_cliente", "retirado_lab", "sintoma", "relatorio",
+            "status_chamado"
+        ];
+
+        // 2. Referências aos elementos principais
+        const btnValidacao = document.getElementById('btnValidacao');
+        const divOculta = document.getElementById('divOculta');
+        const obrigatoriosSet = new Set(camposObrigatorios);
+
+        // ==========================================================
+        // FUNÇÃO 1: GERENCIA O ATRIBUTO 'REQUIRED' E A CLASSE DE ESTILO
+        // ==========================================================
+        function configurarCamposObrigatorios() {
+            const formulario = document.getElementById('chamadoForm');
+            if (!formulario) return;
+
+            const todosOsCampos = formulario.querySelectorAll('input, select, textarea');
+
+            todosOsCampos.forEach(campo => {
+                const campoId = campo.id;
+                const label = formulario.querySelector(`label[for="${campoId}"]`) || campo.closest('label');
+
+                if (obrigatoriosSet.has(campoId)) {
+                    // Se o ID está na lista:
+
+                    // A. Adiciona o atributo required (para a validação do formulário e JavaScript)
+                    campo.setAttribute('required', 'required');
+
+                    // B. Adiciona a classe que ativa o asterisco no CSS (compatível com todos)
+                    if (label) {
+                        label.classList.add('campo-obrigatorio');
+                    }
+
+                } else {
+                    // Se o ID NÃO está na lista:
+
+                    // A. Remove o atributo required
+                    campo.removeAttribute('required');
+
+                    // B. Remove a classe de estilo
+                    if (label) {
+                        label.classList.remove('campo-obrigatorio');
+                    }
+                }
+            });
+            console.log(`Configuração de ${camposObrigatorios.length} campos obrigatórios concluída.`);
+        }
+
+        // ==========================================================
+        // FUNÇÃO 2 & 3 (Validação e Controle de Exibição - SEM ALTERAÇÃO)
+        // ==========================================================
+        function validarTodosOsCampos() {
+            for (const id of camposObrigatorios) {
+                const campo = document.getElementById(id);
+                if (!campo || campo.value.trim() === "") {
+                    return false;
+                }
+            }
+            return true;
+        }
+
+        function controlarExibicaoDiv() {
+            const todosValidados = validarTodosOsCampos();
+
+            if (todosValidados) {
+                divOculta.classList.remove('oculta');
+                btnValidacao.disabled = true;
+            } else {
+                divOculta.classList.add('oculta');
+                btnValidacao.disabled = false;
+            }
+        }
+
+        // ==========================================================
+        // INÍCIO: Configuração e Event Listeners
+        // ==========================================================
+        document.addEventListener('DOMContentLoaded', () => {
+
+            // 1. Configura os atributos e as CLASSES CSS que ativam o asterisco
+            configurarCamposObrigatorios();
+
+            // 2. Adiciona o listener de validação "ao vivo"
+            camposObrigatorios.forEach(id => {
+                const campo = document.getElementById(id);
+
+                if (campo) {
+                    const evento = (campo.tagName === 'SELECT' || campo.type === 'date' || campo.type === 'time') ? 'change' : 'input';
+                    campo.addEventListener(evento, controlarExibicaoDiv);
+                }
+            });
+
+            // 3. Listener para o botão de validação (feedback)
+            btnValidacao.addEventListener('click', function (event) {
+                event.preventDefault();
+                if (!validarTodosOsCampos()) {
+                    alert("🚨 Atenção! Por favor, preencha TODOS os campos obrigatórios (marcados com *) para liberar a Geração do PDF.");
+                } else {
+                    alert("✅ Todos os campos preenchidos. O PDF está liberado.");
+                }
+            });
+
+            controlarExibicaoDiv();
+        });
+
+
         // --- Função de Marca D'água (com imagem Base64) ---
         async function adicionarMarcaDagua(doc) {
             const pageWidth = doc.internal.pageSize.getWidth();
@@ -557,7 +672,7 @@
 
             // Define opacidade se disponível
             if (typeof doc.setGState === 'function') {
-                doc.setGState(new doc.GState({ opacity: 0.95 }));
+                doc.setGState(new doc.GState({ opacity: 0.15 }));
             }
 
             // Texto central
