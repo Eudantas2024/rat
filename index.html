@@ -8,10 +8,10 @@
   <style>
     body {
       font-family: Arial;
-      margin: 0;
+      margin: auto;
       padding: 20px 5px;
       background-color: #8caad4;
-      max-width: 95%;
+      max-width: 500px;
 
     }
 
@@ -279,28 +279,6 @@
 
 
 
-    /* Responsividade */
-    @media (max-width: 500px) {
-      div {
-        width: 98%;
-      }
-
-      label {
-        flex-direction: row;
-        align-items: center;
-        white-space: nowrap;
-        font-size: 13px;
-      }
-
-      input[type="text"] {
-        width: 97%;
-        margin: 5px 0;
-      }
-
-      input[type="checkbox"] {
-        align-self: center;
-      }
-    }
   </style>
 </head>
 
@@ -368,7 +346,7 @@
     <input type="text" id="depto_cliente" name="depto_cliente" required maxlength="15">
 
 
-    <div style="margin-top: 10px;">
+    <div>
       <label>
         RETIRADO PARA LABORATÓRIO S/N:
         <select name="retirado_lab" id="retirado_lab">
@@ -378,12 +356,12 @@
         </select>
       </label>
 
-      <label style="margin-left: 20px;">
+      <label>
         SUBSTITUIÇÃO OU TROCA:
         <input type="checkbox" name="substituicao_troca">
       </label>
 
-      <label style="margin-left: 20px;">
+      <label>
         UPGRADE (ATUALIZAÇÃO SSD, MEMÓRIA):
         <input type="checkbox" name="upgrade">
       </label>
