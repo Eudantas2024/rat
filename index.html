@@ -1968,21 +1968,11 @@ NOME DE QUEM ACOMPANHOU A ATIVIDADE: ${acompanhante}
       doc.setFont(undefined, 'normal');
       doc.setTextColor(200, 0, 0); // vermelho
       const larguraTexto4 = doc.getTextWidth(texto4);
-doc.text(texto4, (larguraPagina - larguraTexto4) / 2, yRodape + 8);
+doc.text(texto4, (larguraPagina - larguraTexto4) / 2, yRodape + 13);
 
 
 
-// Texto5(vermelho e negrito) - ESTE É O TEXTO ONDE A REGRA GLOBAL DEVE SER IGNORADA
-      const texto5 =  " ESTE TÉCNICO ARKLOK NÃO ESTÁ AUTORIZADO A REALIZAR A RETIRADA DE EQUIPAMENTOS OU PERIFÉRICOS";
-      doc.setFontSize(8);
-      doc.setFont(undefined, 'normal');
-      doc.setTextColor(200, 0, 0); // vermelho
-      const larguraTexto5 = doc.getTextWidth(texto5);
-      // Usamos originalText.call(doc, ...) para chamar a função original, que NÃO faz UPPERCASE.
-      originalText.call(doc, texto4, (larguraPagina - larguraTexto4) / 2, yRodape + 13);
-      // Resetar cor para evitar afetar o restante
-      doc.setTextColor(0, 0, 0);
-      doc.setFont(undefined, 'normal');
+
 
 
 
