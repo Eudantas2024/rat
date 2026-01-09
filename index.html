@@ -1962,7 +1962,8 @@ NOME DE QUEM ACOMPANHOU A ATIVIDADE: ${acompanhante}
       doc.text(texto3, (larguraPagina - larguraTexto3) / 2, yRodape + 8);
 
       // Texto 4 (vermelho e negrito) - ESTE É O TEXTO ONDE A REGRA GLOBAL DEVE SER IGNORADA
-      const texto4 = "Este documento é propriedade da ARKLOK, Todos os direitos são reservados";
+      const texto4 = "Este documento é propriedade da ARKLOK, Todos os direitos são reservados\n\n" +
+  "ESTE TÉCNICO ARKLOK NÃO ESTÁ AUTORIZADO A REALIZAR A RETIRADA DE EQUIPAMENTOS OU PERIFÉRICOS.";
       doc.setFontSize(8);
       doc.setFont(undefined, 'normal');
       doc.setTextColor(200, 0, 0); // vermelho
