@@ -1961,17 +1961,23 @@ NOME DE QUEM ACOMPANHOU A ATIVIDADE: ${acompanhante}
       const larguraTexto3 = doc.getTextWidth(texto3);
       doc.text(texto3, (larguraPagina - larguraTexto3) / 2, yRodape + 8);
 
-      // Texto 4 (vermelho e negrito) - ESTE É O TEXTO ONDE A REGRA GLOBAL DEVE SER IGNORADA
-      const texto4 = "Este documento é propriedade da ARKLOK, Todos os direitos são reservados\n\n" +
+      const texto4 =
+  "Este documento é propriedade da ARKLOK, Todos os direitos são reservados\n\n" +
   "ESTE TÉCNICO ARKLOK NÃO ESTÁ AUTORIZADO A REALIZAR A RETIRADA DE EQUIPAMENTOS OU PERIFÉRICOS.";
-      doc.setFontSize(8);
-      doc.setFont(undefined, 'normal');
-      doc.setTextColor(200, 0, 0); // vermelho
-      const larguraTexto4 = doc.getTextWidth(texto4);
-doc.text(texto4, (larguraPagina - larguraTexto4) / 2, yRodape + 13);
 
+doc.setFontSize(8);
+doc.setFont(undefined, 'normal');
+doc.setTextColor(200, 0, 0);
 
+// largura da página
+const larguraPagina = doc.internal.pageSize.getWidth();
 
+// x no centro da página
+const xCentro = larguraPagina / 2;
+
+doc.text(texto4, xCentro, yRodape + 13, {
+  align: "center"
+});
 
 
 
