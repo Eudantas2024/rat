@@ -513,8 +513,14 @@
         <button type="button" id="limparAssinatura">Limpar Assinatura</button>
 
 
+
+
+        <h2 id="retiradaequip" style="font-size: 18px; color: rgb(222, 23, 23); margin-top: 30px;">
+            Este técnico ARKLOK não está autorizado a realizar a retirada de equipamentos ou periféricos.
+        </h2>
+
+
         <!-- Assinatura do Cliente -->
-        <h2>"Este técnico ARKLOK não está autorizado a realizar a retirada de equipamentos ou periféricos"</h2>
         <label for="assinaturaCliente">ASSINATURA DO CLIENTE:</label>
         <div style="position: relative; margin-bottom: 15px;">
             <canvas id="assinaturaCliente" width="500" height="150" style="border:1px solid #ccc;"></canvas>
@@ -1661,7 +1667,7 @@ NOME DE QUEM ACOMPANHOU A ATIVIDADE: ${acompanhante}
             y = addBlocoRelatorioTecnico(doc, xInicio, y, larguraTotal, form);
 
             // Texto 5 (vermelho)
-            const texto5 = "Este técnico ARKLOK não está autorizado a realizar a retirada de equipamentos ou periféricos";
+            const texto5 = "Este técnico ARKLOK não está autorizado a realizar a retirada de equipamentos ou periféricos.";
 
             doc.setFontSize(8);
             doc.setFont('helvetica', 'normal');
