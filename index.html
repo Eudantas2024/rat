@@ -2,775 +2,624 @@
 <html lang="pt-BR">
 
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>RAT teste</title>
-  <style>
-    body {
-      font-family: Arial;
-      margin: auto;
-      padding: 20px 5px;
-      background-color: #8caad4;
-      max-width: 500px;
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>RAT ARKLOK - JM INFORMATICA</title>
+    <style>
+        body {
+            font-family: Arial;
+            margin: 0;
+            padding: 20px 5px;
+            background-color: #8caad4;
+            max-width: 95%;
+        }
 
-    }
+        .minha-div {
+            width: 100px;
+            height: 100px;
+            display: flex;
+            justify-content: center;
+            /* centraliza horizontalmente */
+            align-items: center;
+            /* centraliza verticalmente */
+            margin: 50px auto;
+            /* centraliza a div na página */
+        }
 
-    .minha-div {
-      width: 100px;
-      height: 100px;
-      display: flex;
-      justify-content: center;
-      /* centraliza horizontalmente */
-      align-items: center;
-      /* centraliza verticalmente */
-      margin: 50px auto;
-      /* centraliza a div na página */
-    }
+        .minha-div img {
+            width: 100px;
+            height: 100px;
+            cursor: pointer;
+            /* indica que é clicável */
 
-    .minha-div img {
-      width: 100px;
-      height: 100px;
-      cursor: pointer;
-      /* indica que é clicável */
-    }
+        }
 
-    h3 {
-      text-align: center;
-      margin-bottom: 20px;
-    }
+        h3 {
+            text-align: center;
+            margin-bottom: 20px;
+        }
 
-    h4 {
-      text-align: center;
-      font-size: 12px;
-      margin-top: 60px;
-      margin-bottom: 5px;
-    }
-
-    h5 {
-      text-align: center;
-      color: #127e08;
-      font-size: 14px;
-      margin-top: 10px;
-      margin-bottom: 1px;
-    }
+        h4 {
+            text-align: center;
+            font-size: 12px;
+            margin-top: 60px;
+            margin-bottom: 5px;
+        }
 
 
 
+        form {
+            max-width: 500px;
+            margin: auto;
+            background: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
 
-    form {
-      max-width: 500px;
-      margin: auto;
-      background: #fff;
-      padding: 20px;
-      border-radius: 8px;
-      box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-    }
+        label {
+            display: block;
+            margin-top: 15px;
+            font-weight: bold;
+        }
 
-    /* Regra Original 1: Display Block */
-    label {
-      display: block;
-      margin-top: 15px;
-      font-weight: bold;
-    }
+        input,
+        textarea,
+        canvas {
+            width: 100%;
+            padding: 12px;
+            margin-top: 5px;
+            font-size: 16px;
+            border-radius: 5px;
+            border: 1px solid #ccc;
+            box-sizing: border-box;
+        }
 
-    input,
-    textarea,
-    canvas {
-      width: 100%;
-      padding: 12px;
-      margin-top: 5px;
-      font-size: 16px;
-      border-radius: 5px;
-      border: 1px solid #ccc;
-      box-sizing: border-box;
-    }
+        textarea {
+            resize: vertical;
+            min-height: 80px;
+        }
 
-    textarea {
-      resize: vertical;
-      min-height: 80px;
-    }
-
-    .oculto {
-      display: none;
-    }
+        .oculto {
+            display: none;
+        }
 
 
-    button {
-      margin-top: 20px;
-      padding: 15px;
-      width: 100%;
-      font-size: 18px;
-      background-color: #007BFF;
-      color: white;
-      border: none;
-      border-radius: 8px;
-      cursor: pointer;
-    }
+        button {
+            margin-top: 20px;
+            padding: 15px;
+            width: 100%;
+            font-size: 18px;
+            background-color: #007BFF;
+            color: white;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+        }
 
-    button:hover {
-      background-color: #0056b3;
-    }
+        button:hover {
+            background-color: #0056b3;
+        }
 
+        button2 {
+            margin-top: 20px;
+            padding: 15px;
+            width: 100%;
+            font-size: 18px;
+            background-color: #12a310;
+            color: white;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+        }
 
-    #btnValidacao {
-      margin-top: 20px;
-      padding: 15px;
-      width: 100%;
-      font-size: 18px;
-      background-color: #f57513;
-      color: white;
-      border: none;
-      border-radius: 8px;
-      cursor: pointer;
-    }
+        button2:hover {
+            background-color: #117508;
+        }
 
-    #btnValidacao:hover {
-      background-color: #e2310e;
-      /* cor ao passar o mouse */
-    }
+        #limparAssinatura,
+        #limparAssinaturaCliente {
+            background-color: #dc3545;
+            color: white;
+            border: none;
+            padding: 6px 12px;
+            border-radius: 4px;
+            cursor: pointer;
+            margin-top: 5px;
+        }
 
-
-    /* Novo seletor para substituir o "button2" inválido */
-    .button-secundario {
-      margin-top: 20px;
-      padding: 15px;
-      width: 100%;
-      font-size: 18px;
-      background-color: #12a310;
-      color: white;
-      border: none;
-      border-radius: 8px;
-      cursor: pointer;
-      display: block;
-      box-sizing: border-box;
-      text-align: center;
-    }
-
-    .button-secundario:hover {
-      background-color: #117508;
-    }
-
-    #limparAssinatura,
-    #limparAssinaturaCliente {
-      background-color: #dc3545;
-      color: white;
-      border: none;
-      padding: 6px 12px;
-      border-radius: 4px;
-      cursor: pointer;
-      margin-top: 5px;
-    }
-
-    #limparAssinatura:hover,
-    #limparAssinaturaCliente:hover {
-      background-color: #a71d2a;
-    }
+        #limparAssinatura:hover,
+        #limparAssinaturaCliente:hover {
+            background-color: #a71d2a;
+        }
 
 
-    /* Centraliza todo o bloco de equipamento/serviço */
-    form div {
-      display: flex;
-      flex-direction: column;
-      /* cada item em linha separada */
-      align-items: center;
-      /* centraliza horizontalmente */
-      margin-top: 10px;
-    }
+        /* Centraliza todo o bloco de equipamento/serviço */
+        form div {
+            display: flex;
+            flex-direction: column;
+            /* cada item em linha separada */
+            align-items: center;
+            /* centraliza horizontalmente */
+            margin-top: 10px;
+        }
 
-    /* Cada label em linha separada, texto e checkbox próximos */
-    form div label {
-      display: flex;
-      align-items: center;
-      /* checkbox alinhado verticalmente ao meio do texto */
-      justify-content: center;
-      /* centraliza horizontalmente */
-      margin-bottom: 2px;
-      /* gap mínimo entre linhas */
-      font-weight: normal;
-      font-size: 14px;
-      white-space: nowrap;
-      /* evita quebra de linha nos títulos */
-    }
+        /* Cada label em linha separada, texto e checkbox próximos */
+        form div label {
+            display: flex;
+            align-items: center;
+            /* checkbox alinhado verticalmente ao meio do texto */
+            justify-content: center;
+            /* centraliza horizontalmente */
+            margin-bottom: 2px;
+            /* gap mínimo entre linhas */
+            font-weight: normal;
+            font-size: 18px;
+            white-space: nowrap;
+            /* evita quebra de linha nos títulos */
+        }
 
-    /* Inputs, checkboxes e select com espaço mínimo do texto */
-    form div label input[type="checkbox"],
-    form div label input[type="text"],
-    form div label select {
-      margin-left: 4px;
-      /* checkbox bem próximo do texto */
-      vertical-align: middle;
-      font-size: 15px;
-      padding: 3px;
-    }
+        /* Inputs, checkboxes e select com espaço mínimo do texto */
+        form div label input[type="checkbox"],
+        form div label input[type="text"],
+        form div label select {
+            margin-left: 4px;
+            /* checkbox bem próximo do texto */
+            vertical-align: middle;
+            font-size: 15px;
+            padding: 3px;
+        }
 
-    /* Mantém tamanho específico para alguns campos */
-    form div label input[type="text"] {
-      width: 180px;
-      /* campo "OUTROS" */
-    }
+        /* Mantém tamanho específico para alguns campos */
+        form div label input[type="text"] {
+            width: 180px;
+            /* campo "OUTROS" */
+        }
 
-    form div label select {
-      width: 150px;
-      /* select "RETIRADO PARA LABORATÓRIO" */
-    }
+        form div label select {
+            width: 60px;
+            /* select "RETIRADO PARA LABORATÓRIO" */
+        }
 
-    /* Remove gaps extras entre quebras de linha */
-    form div br {
-      line-height: 0px;
-    }
-
-
-    /* Regra 2: Layout Flexbox */
-    div {
-      width: 95%;
-      margin: 0 auto 15px auto;
-      /* centraliza horizontalmente e dá espaçamento inferior */
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      gap: 10px;
-    }
-
-    /* Regra 3: Layout Flexbox mais específico para labels do formulário */
-    label {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      width: 100%;
-      font-weight: bold;
-      font-size: 10px;
-      background-color: #f5f5f5;
-      padding: 8px;
-      border-radius: 5px;
-      box-sizing: border-box;
-    }
-
-    input[type="text"] {
-      flex: 1;
-      margin: 0 6px;
-      padding: 6px;
-      border: 1px solid #ccc;
-      border-radius: 4px;
-      font-size: 13px;
-      box-sizing: border-box;
-    }
-
-    input[type="checkbox"] {
-      width: 18px;
-      height: 18px;
-      margin-left: 6px;
-    }
-
-    .oculta {
-      display: none;
-    }
-
-    /* Este CSS é essencial para a nova lógica baseada em classe */
-    .campo-obrigatorio::after {
-      content: " *";
-      color: red;
-      font-weight: bold;
-      font-size: 2.1em;
-
-      /* Garante que o asterisco não será separado pelo Flexbox */
-      align-self: flex-start;
-      margin-left: 2px;
-    }
+        /* Remove gaps extras entre quebras de linha */
+        form div br {
+            line-height: 0px;
+        }
 
 
+        div {
+            width: 95%;
+            margin: 0 auto 15px auto;
+            /* centraliza horizontalmente e dá espaçamento inferior */
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 10px;
+        }
 
-  </style>
+        label {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            width: 100%;
+            font-weight: bold;
+            font-size: 14px;
+            background-color: #f5f5f5;
+            padding: 8px;
+            border-radius: 5px;
+            box-sizing: border-box;
+        }
+
+        input[type="text"] {
+            flex: 1;
+            margin: 0 6px;
+            padding: 6px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            font-size: 13px;
+            box-sizing: border-box;
+        }
+
+        input[type="checkbox"] {
+            width: 18px;
+            height: 18px;
+            margin-left: 6px;
+        }
+
+        /* Responsividade */
+        @media (max-width: 500px) {
+            div {
+                width: 95%;
+            }
+
+            label {
+                flex-direction: column;
+                align-items: flex-start;
+                font-size: 13px;
+            }
+
+            input[type="text"] {
+                width: 100%;
+                margin: 5px 0;
+            }
+
+            input[type="checkbox"] {
+                align-self: center;
+            }
+        }
+    </style>
 </head>
 
 <body>
 
-  <div class="minha-div">
-    <a href="https://www.jminformatica.com/" target="_blank">
-      <img src="https://www.jminformatica.com/img/iconbar.png" alt="JM Informática">
-    </a>
-  </div>
-
-  <h4>ARKLOK</h4>
-  <h3>RAT (RELATÓRIO ATENDIMENTO TÉCNICO)</h3>
-
-  <form id="chamadoForm">
-    <label for="chamado">N° DO CHAMADO:  </label>
-    <input type="text" id="chamado" name="chamado" required maxlength="15">
-
-    <label for="cidade">CIDADE DO CHAMADO:</label>
-    <input type="text" id="cidade" name="cidade" required maxlength="20">
-
-    <label for="UF">UF:</label>
-    <input type="text" id="UF" name="UF" maxlength="2" required>
-
-    <h4>DADOS DO TÉCNICO</h4>
-    <label for="tecnico">NOME DO TÉCNICO:</label>
-    <input type="text" id="tecnico" name="tecnico" required maxlength="39">
-
-    <label for="empresa" class="oculto">EMPRESA PARCEIRA:</label>
-    <input type="text" id="empresa" name="empresa" value="JM INFORMATICA" readonly class="oculto">
-
-
-
-
-    <label for="data">DATA DO ATENDIMENTO:</label>
-    <input type="date" id="data" name="data" required>
-
-    <label for="inicio">Horário de Início:</label>
-    <input type="time" id="inicio" name="inicio" required>
-
-    <label for="termino">Horário de Término:</label>
-    <input type="time" id="termino" name="termino" required>
-
-
-    <h4>DADOS DO CLIENTE</h4>
-
-    <input type="text" id="dados_cliente" name="dados_cliente" readonly class="oculto">
-
-    <label for="razao_social">RAZÃO SOCIAL / NOME FANTASIA:</label>
-    <input type="text" id="razao_social" name="razao_social" required maxlength="39">
-
-    <label for="nome_responsavel">NOME DO RESPONSÁVEL:</label>
-    <input type="text" id="nome_responsavel" name="nome_responsavel" required maxlength="39">
-
-    <label for="telefone_cliente">TELEFONE:</label>
-    <input type="text" id="telefone_cliente" name="telefone_cliente" required maxlength="12">
-
-    <label for="email_cliente">E-MAIL:</label>
-    <input type="text" id="email_cliente" name="email_cliente" required maxlength="37">
-
-    <label for="cargo_cliente">CARGO:</label>
-    <input type="text" id="cargo_cliente" name="cargo_cliente" required maxlength="15">
-
-    <label for="depto_cliente">DEPARTAMENTO:</label>
-    <input type="text" id="depto_cliente" name="depto_cliente" required maxlength="15">
-
-
-    <div>
-      <label>
-        RETIRADO PARA LABORATÓRIO S/N:
-        <select name="retirado_lab" id="retirado_lab">
-          <option value="">--</option>
-          <option value="S">S</option>
-          <option value="N" selected>N</option>
-        </select>
-      </label>
-
-      <label>
-        SUBSTITUIÇÃO OU TROCA:
-        <input type="checkbox" name="substituicao_troca">
-      </label>
-
-      <label>
-        UPGRADE (ATUALIZAÇÃO SSD, MEMÓRIA):
-        <input type="checkbox" name="upgrade">
-      </label>
-
-      <br><br>
-
-      <label>NOTEBOOK: <input type="checkbox" name="notebook"></label>
-      <label style="margin-left: 15px;">DESKTOP: <input type="checkbox" name="desktop"></label>
-      <label style="margin-left: 15px;">IMPRESSORA: <input type="checkbox" name="impressora"></label>
-      <label style="margin-left: 15px;">MOBILE: <input type="checkbox" name="mobile"></label>
-      <label style="margin-left: 15px; display: block;">
-        OUTROS:
-        <input type="text" id="outros" name="outros" maxlength="15" style="width: 180px;">
-
-      </label>
-
-
-
-
-
+    <div class="minha-div">
+        <a href="https://www.jminformatica.com/" target="_blank">
+            <img src="https://www.jminformatica.com/img/iconbar.png" alt="JM Informática">
+        </a>
     </div>
 
-    <h4>DADOS DO(S) EQUIPAMENTO(S)</h4>
-    <input type="text" id="dados_eqpto" name="dados_eqpto" readonly class="oculto">
-    <input type="text" id="eqpto_antigo" name="eqpto_antigo" readonly class="oculto">
-    <input type="text" id="eqpto_novo" name="eqpto_novo" readonly class="oculto">
-
-
-    <h4>EQUIPAMENTO ANTIGO</h4>
-
-    <label for="modelo_a" required>MODELO:</label>
-    <input type="text" id="modelo_a" name="modelo_a" maxlength="25"> <label for="patrimonio_a" required
-      maxlength="15">N° PATRIMÔNIO DO
-      EQUIPAMENTO:</label>
-    <input type="text" id="patrimonio_a" name="patrimonio_a" maxlength="15"> <label for="serie_a">N° SÉRIE:</label>
-    <input type="text" id="serie_a" name="serie_a" maxlength="15"> <label for="hostname_a">HOSTNAME:</label>
-    <input type="text" id="hostname_a" name="hostname_a" maxlength="15"> <label for="etiqueta_a">N° ETIQUETA E SÉRIE
-      CLIENTE:</label>
-    <input type="text" id="etiqueta_a" name="etiqueta_a" maxlength="15"> <label for="imei_a">IMEI:</label>
-    <input type="text" id="imei_a" name="imei_a" maxlength="30">
-
-
-    <h4>EQUIPAMENTO NOVO</h4>
-
-    <label for="modelo_b">MODELO:</label>
-    <input type="text" id="modelo_b" name="modelo_b" maxlength="30"> <label for="patrimonio_b">N° PATRIMÔNIO DO
-      EQUIPAMENTO:</label>
-    <input type="text" id="patrimonio_b" name="patrimonio_b" maxlength="15"> <label for="serie_b">N° SÉRIE:</label>
-    <input type="text" id="serie_b" name="serie_b" maxlength="15"> <label for="hostname_b">HOSTNAME:</label>
-    <input type="text" id="hostname_b" name="hostname_b" maxlength="15"> <label for="etiqueta_b">N° ETIQUETA E SÉRIE
-      CLIENTE:</label>
-    <input type="text" id="etiqueta_b" name="etiqueta_b" maxlength="15"> <label for="imei_b">IMEI:</label>
-    <input type="text" id="imei_b" name="imei_b" maxlength="30">
-    <h4>INFORMAÇÕES SOBRE BACKUP</h4>
-
-    <div>
-      <label for="backup_a">
-        BACKUP REALIZADO:
-        <input type="text" id="backup_a" name="backup_a" maxlength="15"> <input type="checkbox" id="check_backup_a"
-          name="check_backup_a">
-      </label>
-
-      <label for="patrimonio_b1">
-        DETALHAR / PATRIMÔNIO:
-        <input type="text" id="patrimonio_b1" name="patrimonio_b1" maxlength="15"> <input type="checkbox"
-          id="check_patrimonio_b1" name="check_patrimonio_b1">
-      </label>
-    </div>
-
-    <h4>INFORMAÇÕES SOBRE ACESSÓRIOS OU PERIFÉRICOS</h4>
-
-    <div>
-      <label for="usuario_a">
-        NOME PERFIL USUÁRIO:
-        <input type="text" id="usuario_a" name="usuario_a" maxlength="15"> <input type="checkbox" id="check_usuario_a"
-          name="check_usuario_a">
-      </label>
-
-      <label for="patrimonio_b2">
-        DETALHAR / PATRIMÔNIO:
-        <input type="text" id="patrimonio_b2" name="patrimonio_b2" maxlength="15"> <input type="checkbox"
-          id="check_patrimonio_b2" name="check_patrimonio_b2">
-      </label>
-    </div>
-
-    <h4>VALIDAÇÃO SOFTWARE DE GESTÃO</h4>
-
-    <div style="margin-top: 10px;">
-
-      <label style="margin-left: 15px;">AIM: <input type="checkbox" name="aim"></label>
-      <label style="margin-left: 15px;">KACE: <input type="checkbox" name="kace"></label>
-      <label style="margin-left: 15px;">OUTROS: <input type="checkbox" name="v_outros"></label>
-      <label style="margin-left: 15px; display: block;">
-        OBSERVAÇÕES:
-        <input id="observacoes" name="observacoes" maxlength="15" style="width: 180px; height: 10px;">
-        
-      </label>
+    <h4>ARKLOK</h4>
+    <h3>RAT (RELATÓRIO ATENDIMENTO TÉCNICO)</h3>
 
-    </div>
+    <form id="chamadoForm">
+        <label for="chamado">N° DO CHAMADO:</label>
+        <input type="text" id="chamado" name="chamado" required>
 
+        <label for="cidade">CIDADE DO CHAMADO:</label>
+        <input type="text" id="cidade" name="cidade" required>
 
-    <div style="text-align: center; margin-top: 15px;">
-      <label for="sintoma" style="display: block; font-weight: bold; margin-bottom: 5px; width: 100%">
-        SINTOMA DO PROBLEMA RELATADO
-      </label>
+        <label for="UF">UF:</label>
+        <input type="text" id="UF" name="UF" maxlength="2" required>
 
-      <textarea id="sintoma" name="sintoma" maxlength="200" style="width: 95%; height: 80px; resize: none;"></textarea>
+        <h4>DADOS DO TÉCNICO</h4>
+        <label for="tecnico">NOME DO TÉCNICO:</label>
+        <input type="text" id="tecnico" name="tecnico" required>
 
-      <div id="contador-sintoma" style="font-size: 12px; color: gray; margin-top: 4px;">
-        0 / 200 caracteres
-      </div>
-    </div>
+        <!-- esse campo empresa parceira está oculto no formulário -->
+        <label for="empresa" class="oculto">EMPRESA PARCEIRA:</label>
+        <input type="text" id="empresa" name="empresa" value="JM INFORMATICA" readonly class="oculto">
 
-    <div style="text-align: center; margin-top: 15px;">
-      <label for="relatorio" style="display: block; font-weight: bold; margin-bottom: 5px; width: 100%">
-        RELATÓRIO TÉCNICO - FECHAMENTO
-      </label>
 
-      <textarea id="relatorio" name="relatorio" maxlength="500"
-        style="width: 95%; height: 220px; resize: none;"></textarea>
 
-      <div id="contador-relatorio" style="font-size: 12px; color: gray; margin-top: 4px;">
-        0 / 500 caracteres
-      </div>
-    </div>
 
-    <div>
-      <label>
-        STATUS DO CHAMADO:
-        <select name="status_chamado" id="status_chamado" required>
-          <option value="">--</option>
-          <option value="CONCLUÍDO" selected>CONCLUÍDO</option>
-          <option value="PENDENTE">PENDENTE</option>
-          <option value="IMPRODUTIVO">IMPRODUTIVO</option>
-        </select>
-      </label>
+        <label for="data">DATA DO ATENDIMENTO:</label>
+        <input type="date" id="data" name="data" required>
 
-    </div>
+        <label for="inicio">Horário de Início:</label>
+        <input type="time" id="inicio" name="inicio" required>
 
+        <label for="termino">Horário de Término:</label>
+        <input type="time" id="termino" name="termino" required>
 
-    <label for="assinatura">ASSINATURA DO TÉCNICO:</label>
-    <div style="position: relative;">
-      <canvas id="assinatura" width="500" height="150" style="border:1px solid #ccc;"></canvas>
-      <div
-        style="position: absolute; bottom: 10px; width: 100%; text-align: center; color: #999; font-size: 16px; pointer-events: none;">
-        ______ASSINE AQUI______
-      </div>
-    </div>
-    <button type="button" id="limparAssinatura">Limpar Assinatura</button>
 
+        <!-- parte 2 dados do cliente -->
 
-    <label for="assinaturaCliente">ASSINATURA DO CLIENTE:</label>
-<h4> "ESTE TÉCNICO ARKLOK NÃO ESTÁ AUTORIZADO A REALIZAR A RETIRADA DE EQUIPAMENTOS OU PERIFÉRICOS"</h4>
+        <h4>DADOS DO CLIENTE</h4>
 
-    <div style="position: relative; margin-bottom: 15px;">
-      <canvas id="assinaturaCliente" width="500" height="150" style="border:1px solid #ccc;"></canvas>
-      <div
-        style="position: absolute; bottom: 10px; width: 100%; text-align: center; color: #999; font-size: 16px; pointer-events: none;">
-        ______ASSINE AQUI______
-      </div>
-    </div>
-    <button type="button" id="limparAssinaturaCliente">Limpar Assinatura</button>
+        <input type="text" id="dados_cliente" name="dados_cliente" readonly class="oculto">
 
+        <label for="razao_social">RAZÃO SOCIAL / NOME FANTASIA:</label>
+        <input type="text" id="razao_social" name="razao_social" required>
 
-    <div id="divValidacao">
-      <h4>Valide os dados para gerar o PDF</h4>
-      <button type="button" id="btnValidacao">⚠️ Preencha os Campos Obrigatórios para liberar o PDF</button>
-    </div>
+        <label for="nome_responsavel">NOME DO RESPONSÁVEL:</label>
+        <input type="text" id="nome_responsavel" name="nome_responsavel" required>
 
+        <label for="telefone_cliente">TELEFONE:</label>
+        <input type="text" id="telefone_cliente" name="telefone_cliente" required>
 
-    <div id="divOculta" class="oculta">
+        <label for="email_cliente">E-MAIL:</label>
+        <input type="text" id="email_cliente" name="email_cliente" required>
 
-      <h5>A RAT foi liberada para gerar PDF, clique no botão Gerar PDF</h5>
+        <label for="cargo_cliente">CARGO:</label>
+        <input type="text" id="cargo_cliente" name="cargo_cliente" required>
 
+        <label for="depto_cliente">DEPARTAMENTO:</label>
+        <input type="text" id="depto_cliente" name="depto_cliente" required>
 
-      <button type="button" id="btnPDF">Gerar PDF</button>
-      <h4>O arquivo PDF gerado será salvo nos seus downloads, compartilhe no grupo do chamado a RAT em PDF e o SCRIPT DE
-        FECHAMENTO</h4>
 
-      <div style="text-align:center; margin-top:20px;">
-        <button type="button" class="button-secundario" onclick="gerarScriptFechamento()">Abrir Script de
-          Fechamento</button>
-      </div>
+        <!-- BLOCO DE EQUIPAMENTO / SERVIÇO -->
+        <div style="margin-top: 10px;">
+            <label>
+                RETIRADO PARA LABORATÓRIO S/N:
+                <select name="retirado_lab">
+                    <option value="">--</option>
+                    <option value="S">S</option>
+                    <option value="N">N</option>
+                </select>
+            </label>
 
-    </div>
+            <label style="margin-left: 20px;">
+                SUBSTITUIÇÃO OU TROCA:
+                <input type="checkbox" name="substituicao_troca">
+            </label>
 
+            <label style="margin-left: 20px;">
+                UPGRADE (ATUALIZAÇÃO SSD, MEMÓRIA):
+                <input type="checkbox" name="upgrade">
+            </label>
 
+            <br><br>
 
+            <label>NOTEBOOK: <input type="checkbox" name="notebook"></label>
+            <label style="margin-left: 15px;">DESKTOP: <input type="checkbox" name="desktop"></label>
+            <label style="margin-left: 15px;">IMPRESSORA: <input type="checkbox" name="impressora"></label>
+            <label style="margin-left: 15px;">MOBILE: <input type="checkbox" name="mobile"></label>
+            <label style="margin-left: 15px; display: block;">
+                OUTROS:
+                <input type="text" id="outros" name="outros" maxlength="15" style="width: 180px;">
+                <div id="contador-outros" style="font-size: 12px; color: gray; margin-top: 4px;">
+                    0 / 15 caracteres
+                </div>
+            </label>
 
 
 
-  </form>
 
 
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+        </div>
 
 
+        <h4>DADOS DO(S) EQUIPAMENTO(S)</h4>
+        <input type="text" id="dados_eqpto" name="dados_eqpto" readonly class="oculto">
+        <input type="text" id="eqpto_antigo" name="eqpto_antigo" readonly class="oculto">
+        <input type="text" id="eqpto_novo" name="eqpto_novo" readonly class="oculto">
 
-  <script>
 
-    // ==========================================================
-    // 1. LISTA DE IDS DOS CAMPOS OBRIGATÓRIOS 
-    // colocar os campos obrigatorios aqui nesse bloco
-    // ==========================================================
-    const camposObrigatorios = [
+        <h4>EQUIPAMENTO ANTIGO</h4>
 
-      "chamado", "sintoma", "relatorio"
+        <label for="modelo_a">MODELO:</label>
+        <input type="text" id="modelo_a" name="modelo_a" required>
 
-    ];
+        <label for="patrimonio_a">N° PATRIMÔNIO DO EQUIPAMENTO:</label>
+        <input type="text" id="patrimonio_a" name="patrimonio_a" required>
 
-    // 2. Referências aos elementos principais
-    const btnValidacao = document.getElementById('btnValidacao');
-    const divValidacao = document.getElementById('divValidacao'); // nova referência
-    const divOculta = document.getElementById('divOculta');
-    const obrigatoriosSet = new Set(camposObrigatorios);
+        <label for="serie_a">N° SÉRIE:</label>
+        <input type="text" id="serie_a" name="serie_a" required>
 
-    // ==========================================================
-    // FUNÇÃO 1: GERENCIA O ATRIBUTO 'REQUIRED' E A CLASSE DE ESTILO
-    // ==========================================================
-    function configurarCamposObrigatorios() {
-      const formulario = document.getElementById('chamadoForm');
-      if (!formulario) return;
+        <label for="hostname_a">HOSTNAME:</label>
+        <input type="text" id="hostname_a" name="hostname_a" required>
 
-      const todosOsCampos = formulario.querySelectorAll('input, select, textarea');
+        <label for="etiqueta_a">N° ETIQUETA E SÉRIE CLIENTE:</label>
+        <input type="text" id="etiqueta_a" name="etiqueta_a" required>
 
-      todosOsCampos.forEach(campo => {
-        const campoId = campo.id;
-        const label = formulario.querySelector(`label[for="${campoId}"]`) || campo.closest('label');
+        <label for="imei_a">IMEI:</label>
+        <input type="text" id="imei_a" name="imei_a" required>
 
-        if (obrigatoriosSet.has(campoId)) {
-          campo.setAttribute('required', 'required');
-          if (label) label.classList.add('campo-obrigatorio');
-        } else {
-          campo.removeAttribute('required');
-          if (label) label.classList.remove('campo-obrigatorio');
-        }
-      });
-      console.log(`Configuração de ${camposObrigatorios.length} campos obrigatórios concluída.`);
-    }
 
-    // ==========================================================
-    // FUNÇÃO 2 & 3: Validação e Controle de Exibição
-    // ==========================================================
-    function validarTodosOsCampos() {
-      for (const id of camposObrigatorios) {
-        const campo = document.getElementById(id);
-        if (!campo || campo.value.trim() === "") {
-          return false;
-        }
-      }
-      return true;
-    }
+        <h4>EQUIPAMENTO NOVO</h4>
 
-    function controlarExibicaoDiv() {
-      const todosValidados = validarTodosOsCampos();
+        <label for="modelo_b">MODELO:</label>
+        <input type="text" id="modelo_b" name="modelo_b" required>
 
-      if (todosValidados) {
-        divOculta.classList.remove('oculta');   // mostra PDF
-        divValidacao.style.display = 'none';    // oculta validação
-      } else {
-        divOculta.classList.add('oculta');      // esconde PDF
-        divValidacao.style.display = 'block';   // mostra validação
-      }
-    }
+        <label for="patrimonio_b">N° PATRIMÔNIO DO EQUIPAMENTO:</label>
+        <input type="text" id="patrimonio_b" name="patrimonio_b" required>
 
-    // ==========================================================
-    // INÍCIO: Configuração e Event Listeners
-    // ==========================================================
-    document.addEventListener('DOMContentLoaded', () => {
+        <label for="serie_b">N° SÉRIE:</label>
+        <input type="text" id="serie_b" name="serie_b" required>
 
-      // 1. Configura os atributos e as CLASSES CSS que ativam o asterisco
-      configurarCamposObrigatorios();
+        <label for="hostname_b">HOSTNAME:</label>
+        <input type="text" id="hostname_b" name="hostname_b" required>
 
-      // 2. Adiciona o listener de validação "ao vivo"
-      camposObrigatorios.forEach(id => {
-        const campo = document.getElementById(id);
+        <label for="etiqueta_b">N° ETIQUETA E SÉRIE CLIENTE:</label>
+        <input type="text" id="etiqueta_b" name="etiqueta_b" required>
 
-        if (campo) {
-          const evento = (campo.tagName === 'SELECT' || campo.type === 'date' || campo.type === 'time') ? 'change' : 'input';
-          campo.addEventListener(evento, controlarExibicaoDiv);
-        }
-      });
+        <label for="imei_b">IMEI:</label>
+        <input type="text" id="imei_b" name="imei_b" required>
 
-      // 3. Listener para o botão de validação (feedback)
-      btnValidacao.addEventListener('click', function (event) {
-        event.preventDefault();
-        if (!validarTodosOsCampos()) {
-          alert("⚠️ Atenção! Por favor, preencha TODOS os campos obrigatórios (marcados com *) para liberar a Geração do PDF.");
-        } else {
-          alert("✅ Todos os campos preenchidos. O PDF está liberado.");
-        }
-        controlarExibicaoDiv(); // garante que a exibição seja atualizada após o clique
-      });
+        <h4>INFORMAÇÕES SOBRE BACKUP</h4>
 
-      // 4. Executa no carregamento para definir estado inicial
-      controlarExibicaoDiv();
-    });
+        <div>
+            <label for="backup_a">
+                BACKUP REALIZADO:
+                <input type="text" id="backup_a" name="backup_a" required>
+                <input type="checkbox" id="check_backup_a" name="check_backup_a">
+            </label>
 
+            <label for="patrimonio_b1">
+                DETALHAR / PATRIMÔNIO:
+                <input type="text" id="patrimonio_b1" name="patrimonio_b1" required>
+                <input type="checkbox" id="check_patrimonio_b1" name="check_patrimonio_b1">
+            </label>
+        </div>
 
-    // --- Função de Marca D'água (com imagem Base64) ---
-    async function adicionarMarcaDagua(doc) {
-      const pageWidth = doc.internal.pageSize.getWidth();
-      const pageHeight = doc.internal.pageSize.getHeight();
-
-      // Salva o estado atual do PDF
-      doc.saveGraphicsState();
-
-      // Configurações do texto da marca d’água
-      doc.setFontSize(70);
-      doc.setTextColor(0, 0, 255);
-      doc.setFont('helvetica', 'bold');
-
-      // Define opacidade se disponível
-      if (typeof doc.setGState === 'function') {
-        doc.setGState(new doc.GState({ opacity: 0.05 }));
-      }
-
-      // Texto central
-      const textoMarcaDagua = "";
-      const x = 105;
-      const y = 150;
-
-      doc.text(textoMarcaDagua, x, y, {
-        align: 'center',
-        angle: 0
-      });
-
-      // --- Inserir imagem a partir de Base64 ---
-      const base64Img = "data:image/jpeg;base64,/9j/4AAQSkZJRgABAQEAeAB4AAD/4R1SRXhpZgAATU0AKgAAAAgACQALAAIAAAAmAAAIhgESAAMAAAABAAEAAAExAAIAAAAmAAAIrAEyAAIAAAAUAAAI0lEQAAEAAAABAQAAAFERAAQAAAABAAAAAFESAAQAAAABAAAAAIdpAAQAAAABAAAI5uocAAcAAAgMAAAAegAAEWoc6gAAAAgAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAFdpbmRvd3MgUGhvdG8gRWRpdG9yIDEwLjAuMTAwMTEuMTYzODQAV2luZG93cyBQaG90byBFZGl0b3IgMTAuMC4xMDAxMS4xNjM4NAAyMDI1OjExOjA2IDIyOjI4OjQwAAAGkAMAAgAAABQAABFAkAQAAgAAABQAABFUkpEAAgAAAAMwMAAAkpIAAgAAAAMwMAAAoAEAAwAAAAEAAQAA6hwABwAACAwAAAk0AAAAABzqAAAACAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAMjAyNToxMTowNiAyMjoxNDoxNgAyMDI1OjExOjA2IDIyOjE0OjE2AAAAAAYBAwADAAAAAQAGAAABGgAFAAAAAQAAEbgBGwAFAAAAAQAAEcABKAADAAAAAQACAAACAQAEAAAAAQAAEcgCAgAEAAAAAQAAC4EAAAAAAAAAYAAAAAEAAABgAAAAAf/Y/9sAQwAIBgYHBgUIBwcHCQkICgwUDQwLCwwZEhMPFB0aHx4dGhwcICQuJyAiLCMcHCg3KSwwMTQ0NB8nOT04MjwuMzQy/9sAQwEJCQkMCwwYDQ0YMiEcITIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIy/8AAEQgBAAEAAwEhAAIRAQMRAf/EAB8AAAEFAQEBAQEBAAAAAAAAAAABAgMEBQYHCAkKC//EALUQAAIBAwMCBAMFBQQEAAABfQECAwAEEQUSITFBBhNRYQcicRQygZGhCCNCscEVUtHwJDNicoIJChYXGBkaJSYnKCkqNDU2Nzg5OkNERUZHSElKU1RVVldYWVpjZGVmZ2hpanN0dXZ3eHl6g4SFhoeIiYqSk5SVlpeYmZqio6Slpqeoqaqys7S1tre4ubrCw8TFxsfIycrS09TV1tfY2drh4uPk5ebn6Onq8fLz9PX29/j5+v/EAB8BAAMBAQEBAQEBAQEAAAAAAAABAgMEBQYHCAkKC//EALURAAIBAgQEAwQHBQQEAAECdwABAgMRBAUhMQYSQVEHYXETIjKBCBRCkaGxwQkjM1LwFWJy0QoWJDThJfEXGBkaJicoKSo1Njc4OTpDREVGR0hJSlNUVVZXWFlaY2RlZmdoaWpzdHV2d3h5eoKDhIWGh4iJipKTlJWWl5iZmqKjpKWmp6ipqrKztLW2t7i5usLDxMXGx8jJytLT1NXW19jZ2uLj5OXm5+jp6vLz9PX29/j5+v/aAAwDAQACEQMRAD8A9/ooAKKACigAooAKKACigAooAKKACigAooAKKACigAooAKKACigAooAKKACigAooAKKACigAooAKKACigAooAKKACigAooAKKACigAooAKKACigAooAKKACigAooAKKACigAooAKKACigAooAKKACigAooAKKACigAooAKKACigAooAKKACigAooAKKACigAooAKKACigAooAKKACigAooAKKACigAooAKKACigAqIy88CgBPNPoKTzW9qADzW9qPNb1oAPNb2o81vagA81val84+goA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ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgCiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAKICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIAogICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgCiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAKICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIAogICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgCiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAKICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIAogICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgCiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAKICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIAogICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgCiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAKICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIAogICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgCiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAKICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIAogICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgCiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAKICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIAogICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgCiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAKICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIAogICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgCiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAKICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIAogICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgCiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAKICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIAogICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgCiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAKICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIAogICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgCiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAKICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIAogICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgCiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAKICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIAogICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgCiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAKICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIAogICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgCiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAKICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIAogICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgCiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAKICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIAogICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgCiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAKICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIAogICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgCiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAKICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIAogICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgCiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAKICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIAogICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgCiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAKICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIAogICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgCiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAKICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIAogICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgCiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAKICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIAogICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgCiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAKICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIAogICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgCiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAKICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIAogICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgCiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAKICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIAogICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgCiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAKICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIAogICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgCiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAKICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIAogICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgCiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAKICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIAogICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgCiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAKICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIAogICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgCiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAKICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIAogICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgCiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAKICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIAogICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgCiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAKICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIAogICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgCiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAKICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIAogICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgCiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAKICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIAogICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgCiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAKICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIAogICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgCiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAKICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIAogICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgCiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAKICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIAogICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgCiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAKICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIAogICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgCiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAKICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIAogICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgCiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAKICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIAogICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgPD94cGFja2V0IGVuZD0ndyc/Pv/bAEMAAwICAwICAwMDAwQDAwQFCAUFBAQFCgcHBggMCgwMCwoLCw0OEhANDhEOCwsQFhARExQVFRUMDxcYFhQYEhQVFP/bAEMBAwQEBQQFCQUFCRQNCw0UFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFP/AABEIAfQB9AMBIgACEQEDEQH/xAAfAAABBQEBAQEBAQAAAAAAAAAAAQIDBAUGBwgJCgv/xAC1EAACAQMDAgQDBQUEBAAAAX0BAgMABBEFEiExQQYTUWEHInEUMoGRoQgjQrHBFVLR8CQzYnKCCQoWFxgZGiUmJygpKjQ1Njc4OTpDREVGR0hJSlNUVVZXWFlaY2RlZmdoaWpzdHV2d3h5eoOEhYaHiImKkpOUlZaXmJmaoqOkpaanqKmqsrO0tba3uLm6wsPExcbHyMnK0tPU1dbX2Nna4eLj5OXm5+jp6vHy8/T19vf4+fr/xAAfAQADAQEBAQEBAQEBAAAAAAAAAQIDBAUGBwgJCgv/xAC1EQACAQIEBAMEBwUEBAABAncAAQIDEQQFITEGEkFRB2FxEyIygQgUQpGhscEJIzNS8BVictEKFiQ04SXxFxgZGiYnKCkqNTY3ODk6Q0RFRkdISUpTVFVWV1hZWmNkZWZnaGlqc3R1dnd4eXqCg4SFhoeIiYqSk5SVlpeYmZqio6Slpqeoqaqys7S1tre4ubrCw8TFxsfIycrS09TV1tfY2dri4+Tl5ufo6ery8/T19vf4+fr/2gAMAwEAAhEDEQA/AP1TooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigApCQoyeBS1QvZ9zbB0HWgCw15GP4s0030fYE1n0bqAL39oL/dNJ/aA/ufrVHdSUAXP7RP9wfnSf2i390VT3UbqALn9ov/AHRSf2g/oKp7jRk0AXP7Qf0FL/aD+gqlmnD7ooAt/wBoP/dFH9oP/cFVKKALn9ot/cH50f2gf7tU6KALv9o/7FO/tFf7hqhR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FFABRRRQAUUUUAFFFFABRRRQAUUUUAFFFFABRRRQAUUUUAFFFFABRRRQAUUUUAFFFFABRRRQAUUUUAFFFFABRRRQAUUUUAFFFFABRRRQAUUUUAFFFFABRRRQAUUUUAFFFFABRRRQAUUUUAFFFFABRRRQAUUUUAFFFFABRRRQAUUUUAFFFFABRRRQAUUUUAFFFFABRRRQAUUUUAFFFFABRRRQAUUUUAFFFFABRRRQAUUUUAFFFFABRRRQAUUUUAFFFFABRRRQAUUUUAFFFFABRRRQAUUUUAFFFFABRRRQAUUUUAFFFFABRRRQAUUUUAFFFFABRRRQAUUUUAFFFFABRRRQAUUUUAFFFFABRRRQAUUUUAFFFFABRRRQAUUUUAFFFFABRRRQAUUUUAFFFFABRRRQAUUUUAFFFFABRRRQAUUUUAFFFFABRRRQAUUUUAFFFFABRRRQAUUUUAFFFFABRRRQAUUUUAFFFFABRRRQAUUUUAFFFFABRRRQAUUUUAFFFFABRRRQAUUUUAFFFFABRRRQAUUUUAFFFFABRRRQAUUUUAFFFFABRRRQAUUUUAFFFFABRRRQAUUUUAFFFFABRRRQAUUUUAFFFFABRRRQAUUUUAFFFFABRRRQAUUUUAFFFFABRRRQAUUUUAFFFFABRRRQAUUUUAFFFFABRRRQAUUUUAFFFFABRRRQAUUUUAFFFFABRRRQAUUUUAFFFFABRRRQAUUUUAFFFFABRRRQAUUUUAFFFFABRRRQAUUUUAFFFFABRRRQAUUUUAFFFFABRRRQAUUUUAFFFFABRRRQAUUUUAFFFFABRRRQAUUUUAFFFFABRRRQAUUUUAFFFFABRRRQAUUUUAFFFFABRRRQAUUUUAFFFFABRRRQAUUUUAFFFFABRRRQAUUUUAf/2Q== ";
-
-      const largura = 20; // em mm
-      const altura = 20;  // em mm
-      const posX = pageWidth - largura - 10; // canto superior direito
-      const posY = 7; // margem superior
-
-      // Adiciona a imagem no PDF
-      doc.addImage(base64Img, 'PNG', posX, posY, largura, altura);
-
-      // Restaura o estado anterior
-      doc.restoreGraphicsState();
-    }
-    // --- Fim da Função de Marca D'água ---
-
-
-
-
-    // contador de caracteres
-    const inputOutros = document.getElementById("outros");
-    const contadorOutros = document.getElementById("contador-outros");
-
-    inputOutros.addEventListener("input", () => {
-      const length = inputOutros.value.length;
-      const max = inputOutros.maxLength;
-      contadorOutros.textContent = `${length} / ${max} caracteres`;
-    });
-
-
-
-    // contador de caracteres1
-    const textarea = document.getElementById("observacoes");
-    const contador = document.getElementById("contador");
-
-    textarea.addEventListener("input", () => {
-      const length = textarea.value.length;
-      const max = textarea.maxLength;
-      contador.textContent = `${length} / ${max} caracteres`;
-    });
-
-    // contador de caracteres2
-    const textareaSintoma = document.getElementById("sintoma");
-    const contadorSintoma = document.getElementById("contador-sintoma");
-
-    textareaSintoma.addEventListener("input", () => {
-      const length = textareaSintoma.value.length;
-      const max = textareaSintoma.maxLength;
-      contadorSintoma.textContent = `${length} / ${max} caracteres`;
-    });
-
-    // contador de caracteres3
-    const relatorio = document.getElementById('relatorio');
-    const contadorRelatorio = document.getElementById('contador-relatorio');
-
-    relatorio.addEventListener('input', () => {
-      const comprimento = relatorio.value.length;
-      contadorRelatorio.textContent = `${comprimento} / 500 caracteres`;
-    });
-
-    // REMOVIDO: Linha redundante
-    // const status = document.getElementById("status_chamado")?.value || "";
-
-    // script de fechamento
-    function gerarScriptFechamento() {
-      // Coleta de dados dos campos
-      const tecnico = document.getElementById("tecnico")?.value || "";
-      const parceiro = document.getElementById("empresa")?.value || "";
-      const cliente = document.getElementById("razao_social")?.value || "";
-      const chamado = document.getElementById("chamado")?.value || "";
-      const inicio = document.getElementById("inicio")?.value || "";
-      const termino = document.getElementById("termino")?.value || "";
-      const problema = document.getElementById("sintoma")?.value || "";
-      const atividade = document.getElementById("relatorio")?.value || "";
-      const patrimonio = document.getElementById("patrimonio_a")?.value || "";
-      const serie = document.getElementById("serie_a")?.value || "";
-      const modelo = document.getElementById("modelo_a")?.value || "";
-      const status = document.getElementById("status_chamado")?.value || "";
-      const acompanhante = document.getElementById("nome_responsavel")?.value || "";
-
-      // Montagem do texto
-      let texto = `
+        <h4>INFORMAÇÕES SOBRE ACESSÓRIOS OU PERIFÉRICOS</h4>
+
+        <div>
+            <label for="usuario_a">
+                NOME PERFIL USUÁRIO:
+                <input type="text" id="usuario_a" name="usuario_a" required>
+                <input type="checkbox" id="check_usuario_a" name="check_usuario_a">
+            </label>
+
+            <label for="patrimonio_b2">
+                DETALHAR / PATRIMÔNIO:
+                <input type="text" id="patrimonio_b2" name="patrimonio_b2" required>
+                <input type="checkbox" id="check_patrimonio_b2" name="check_patrimonio_b2">
+            </label>
+        </div>
+
+
+        <!-- BLOCO VALIDAÇÃO SOFTWARE DE GESTÃO: -->
+
+        <h4>VALIDAÇÃO SOFTWARE DE GESTÃO</h4>
+
+        <div style="margin-top: 10px;">
+
+            <label style="margin-left: 15px;">AIM: <input type="checkbox" name="aim"></label>
+            <label style="margin-left: 15px;">KACE: <input type="checkbox" name="kace"></label>
+            <label style="margin-left: 15px;">OUTROS: <input type="checkbox" name="v_outros"></label>
+            <label style="margin-left: 15px; display: block;">
+                OBSERVAÇÕES:
+                <input id="observacoes" name="observacoes" maxlength="15" style="width: 180px; height: 10px;">
+                <div id="contador" style="font-size: 12px; color: gray; margin-top: 4px;">0 / 15 caracteres</div>
+            </label>
+
+        </div>
+
+
+        <!-- Sintoma de problema relatado -->
+
+        <div style="text-align: center; margin-top: 15px;">
+            <label for="sintoma" style="display: block; font-weight: bold; margin-bottom: 5px; width: 100%">
+                SINTOMA DO PROBLEMA RELATADO
+            </label>
+
+            <textarea id="sintoma" name="sintoma" maxlength="200"
+                style="width: 95%; height: 80px; resize: none;"></textarea>
+
+            <div id="contador-sintoma" style="font-size: 12px; color: gray; margin-top: 4px;">
+                0 / 200 caracteres
+            </div>
+        </div>
+
+        <!-- RELATÓRIO TÉCNICO - FECHAMENTO -->
+
+        <div style="text-align: center; margin-top: 15px;">
+            <label for="relatorio" style="display: block; font-weight: bold; margin-bottom: 5px; width: 100%">
+                RELATÓRIO TÉCNICO - FECHAMENTO
+            </label>
+
+            <textarea id="relatorio" name="relatorio" maxlength="500"
+                style="width: 95%; height: 220px; resize: none;"></textarea>
+
+            <div id="contador-relatorio" style="font-size: 12px; color: gray; margin-top: 4px;">
+                0 / 500 caracteres
+            </div>
+        </div>
+
+        <div>
+            <label>
+                STATUS DO CHAMADO:
+                <select name="status_chamado" id="status_chamado" required>
+                    <option value="">--</option>
+                    <option value="CONCLUÍDO">CONCLUÍDO</option>
+                    <option value="PENDENTE">PENDENTE</option>
+                    <option value="IMPRODUTIVO">IMPRODUTIVO</option>
+                </select>
+            </label>
+
+        </div>
+
+
+        <!-- Assinatura do tecnico -->
+        <label for="assinatura">ASSINATURA DO TÉCNICO:</label>
+        <div style="position: relative;">
+            <canvas id="assinatura" width="500" height="150" style="border:1px solid #ccc;"></canvas>
+            <div
+                style="position: absolute; bottom: 10px; width: 100%; text-align: center; color: #999; font-size: 16px; pointer-events: none;">
+                ______ASSINE AQUI______
+            </div>
+        </div>
+        <button type="button" id="limparAssinatura">Limpar Assinatura</button>
+
+
+        <!-- Assinatura do Cliente -->
+        <h2>"Este técnico ARKLOK não está autorizado a realizar a retirada de equipamentos ou periféricos"</h2>
+        <label for="assinaturaCliente">ASSINATURA DO CLIENTE:</label>
+        <div style="position: relative; margin-bottom: 15px;">
+            <canvas id="assinaturaCliente" width="500" height="150" style="border:1px solid #ccc;"></canvas>
+            <div
+                style="position: absolute; bottom: 10px; width: 100%; text-align: center; color: #999; font-size: 16px; pointer-events: none;">
+                ______ASSINE AQUI______
+            </div>
+        </div>
+        <button type="button" id="limparAssinaturaCliente">Limpar Assinatura</button>
+
+
+
+
+
+
+
+
+        <!-- botão gerar DPF  -->
+        <h4>O arquivo PDF gerado será salvo nos seus downloads</h4>
+        <button type="button" id="btnPDF">Gerar PDF</button>
+
+
+        <!-- botao exportar script txt -->
+        <div style="text-align:center; margin-top:20px;">
+            <button2 type="button2" onclick="gerarScriptFechamento()">Abrir Script de Fechamento</butto2>
+        </div>
+
+
+
+    </form>
+
+
+    <!-- INICIO DO JAVASCRIPT  -->
+
+    <!-- API que gera o PDF -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+
+
+
+    <script>
+
+
+        // contador de caracteres
+        const inputOutros = document.getElementById("outros");
+        const contadorOutros = document.getElementById("contador-outros");
+
+        inputOutros.addEventListener("input", () => {
+            const length = inputOutros.value.length;
+            const max = inputOutros.maxLength;
+            contadorOutros.textContent = `${length} / ${max} caracteres`;
+        });
+
+
+
+        // contador de caracteres1
+        const textarea = document.getElementById("observacoes");
+        const contador = document.getElementById("contador");
+
+        textarea.addEventListener("input", () => {
+            const length = textarea.value.length;
+            const max = textarea.maxLength;
+            contador.textContent = `${length} / ${max} caracteres`;
+        });
+
+        // contador de caracteres2
+        const textareaSintoma = document.getElementById("sintoma");
+        const contadorSintoma = document.getElementById("contador-sintoma");
+
+        textareaSintoma.addEventListener("input", () => {
+            const length = textareaSintoma.value.length;
+            const max = textareaSintoma.maxLength;
+            contadorSintoma.textContent = `${length} / ${max} caracteres`;
+        });
+
+        // contador de caracteres3
+        const relatorio = document.getElementById('relatorio');
+        const contadorRelatorio = document.getElementById('contador-relatorio');
+
+        relatorio.addEventListener('input', () => {
+            const comprimento = relatorio.value.length;
+            contadorRelatorio.textContent = `${comprimento} / 500 caracteres`;
+        });
+
+        // status do chamado
+        const status = document.getElementById("status_chamado")?.value || "";
+
+        // script de fechamento
+        function gerarScriptFechamento() {
+            // Coleta de dados dos campos
+            const tecnico = document.getElementById("tecnico")?.value || "";
+            const parceiro = document.getElementById("empresa")?.value || "";
+            const cliente = document.getElementById("razao_social")?.value || "";
+            const chamado = document.getElementById("chamado")?.value || "";
+            const inicio = document.getElementById("inicio")?.value || "";
+            const termino = document.getElementById("termino")?.value || "";
+            const problema = document.getElementById("sintoma")?.value || "";
+            const atividade = document.getElementById("relatorio")?.value || "";
+            const patrimonio = document.getElementById("patrimonio_a")?.value || "";
+            const serie = document.getElementById("serie_a")?.value || "";
+            const modelo = document.getElementById("modelo_a")?.value || "";
+            const status = document.getElementById("status_chamado")?.value || "";
+            const acompanhante = document.getElementById("nome_responsavel")?.value || "";
+
+            // Montagem do texto
+            let texto = `
 SCRIPT DE FECHAMENTO
 É OBRIGATÓRIO EM TODO AGENDAMENTO TÉCNICO O ENVIO DO SCRIPT PREENCHIDO VIA WHATSAPP, JUNTO COM A RAT ASSINADA.
 
@@ -788,1207 +637,1152 @@ STATUS DO CHAMADO: ${status}
 NOME DE QUEM ACOMPANHOU A ATIVIDADE: ${acompanhante}
     `;
 
-      texto = texto.toUpperCase().trim();
+            texto = texto.toUpperCase().trim();
 
-      // Detecta se está em celular
-      const emCelular = /Android|iPhone|iPad|iPod/i.test(navigator.userAgent);
+            // Detecta se está em celular
+            const emCelular = /Android|iPhone|iPad|iPod/i.test(navigator.userAgent);
 
-      if (emCelular) {
-        // Cria o overlay do balão
-        const overlay = document.createElement("div");
-        overlay.style.position = "fixed";
-        overlay.style.top = "0";
-        overlay.style.left = "0";
-        overlay.style.width = "100%";
-        overlay.style.height = "100%";
-        overlay.style.backgroundColor = "rgba(0,0,0,0.6)";
-        overlay.style.display = "flex";
-        overlay.style.alignItems = "center";
-        overlay.style.justifyContent = "center";
-        overlay.style.zIndex = "9999";
+            if (emCelular) {
+                // Cria o overlay do balão
+                const overlay = document.createElement("div");
+                overlay.style.position = "fixed";
+                overlay.style.top = "0";
+                overlay.style.left = "0";
+                overlay.style.width = "100%";
+                overlay.style.height = "100%";
+                overlay.style.backgroundColor = "rgba(0,0,0,0.6)";
+                overlay.style.display = "flex";
+                overlay.style.alignItems = "center";
+                overlay.style.justifyContent = "center";
+                overlay.style.zIndex = "9999";
 
-        const balao = document.createElement("div");
-        balao.style.backgroundColor = "white";
-        balao.style.padding = "20px";
-        balao.style.borderRadius = "15px";
-        balao.style.maxWidth = "90%";
-        balao.style.maxHeight = "85%";
-        balao.style.overflowY = "auto";
-        balao.style.fontSize = "12px";
-        balao.style.fontFamily = "monospace";
-        balao.style.whiteSpace = "pre-wrap";
-        balao.textContent = texto;
+                const balao = document.createElement("div");
+                balao.style.backgroundColor = "white";
+                balao.style.padding = "20px";
+                balao.style.borderRadius = "15px";
+                balao.style.maxWidth = "90%";
+                balao.style.maxHeight = "85%";
+                balao.style.overflowY = "auto";
+                balao.style.fontSize = "12px";
+                balao.style.fontFamily = "monospace";
+                balao.style.whiteSpace = "pre-wrap";
+                balao.textContent = texto;
 
-        // Botão de compartilhar
-        const botaoCompartilhar = document.createElement("button");
-        botaoCompartilhar.textContent = "📤 COMPARTILHAR";
-        botaoCompartilhar.style.marginTop = "15px";
-        botaoCompartilhar.style.fontSize = "18px";
-        botaoCompartilhar.style.backgroundColor = "#007bff";
-        botaoCompartilhar.style.color = "white";
-        botaoCompartilhar.style.border = "none";
-        botaoCompartilhar.style.borderRadius = "8px";
-        botaoCompartilhar.style.padding = "10px 15px";
-        botaoCompartilhar.style.display = "block";
-        botaoCompartilhar.style.marginLeft = "auto";
-        botaoCompartilhar.style.marginRight = "auto";
+                // Botão de compartilhar
+                const botaoCompartilhar = document.createElement("button");
+                botaoCompartilhar.textContent = "📤 COMPARTILHAR";
+                botaoCompartilhar.style.marginTop = "15px";
+                botaoCompartilhar.style.fontSize = "18px";
+                botaoCompartilhar.style.backgroundColor = "#007bff";
+                botaoCompartilhar.style.color = "white";
+                botaoCompartilhar.style.border = "none";
+                botaoCompartilhar.style.borderRadius = "8px";
+                botaoCompartilhar.style.padding = "10px 15px";
+                botaoCompartilhar.style.display = "block";
+                botaoCompartilhar.style.marginLeft = "auto";
+                botaoCompartilhar.style.marginRight = "auto";
 
-        botaoCompartilhar.onclick = async () => {
-          if (navigator.share) {
-            try {
-              await navigator.share({
-                title: "Script de Fechamento",
-                text: texto,
-              });
-            } catch (err) {
-              alert("Compartilhamento cancelado ou não suportado.");
+                botaoCompartilhar.onclick = async () => {
+                    if (navigator.share) {
+                        try {
+                            await navigator.share({
+                                title: "Script de Fechamento",
+                                text: texto,
+                            });
+                        } catch (err) {
+                            alert("Compartilhamento cancelado ou não suportado.");
+                        }
+                    } else {
+                        alert("Este dispositivo não suporta compartilhamento direto.");
+                    }
+                };
+
+                // Botão de fechar
+                const botaoFechar = document.createElement("button");
+                botaoFechar.textContent = "❌ FECHAR";
+                botaoFechar.style.marginTop = "10px";
+                botaoFechar.style.fontSize = "18px";
+                botaoFechar.style.backgroundColor = "#dc3545";
+                botaoFechar.style.color = "white";
+                botaoFechar.style.border = "none";
+                botaoFechar.style.borderRadius = "8px";
+                botaoFechar.style.padding = "10px 15px";
+                botaoFechar.style.display = "block";
+                botaoFechar.style.marginLeft = "auto";
+                botaoFechar.style.marginRight = "auto";
+                botaoFechar.onclick = () => document.body.removeChild(overlay);
+
+                // Montagem do balão
+                balao.appendChild(botaoCompartilhar);
+                balao.appendChild(botaoFechar);
+                overlay.appendChild(balao);
+                document.body.appendChild(overlay);
+            } else {
+                // Computador: abre nova janela simples
+                const novaJanela = window.open("", "ScriptFechamento", "width=700,height=600");
+                novaJanela.document.write(`<pre style="font-family: monospace; font-size: 16px; white-space: pre-wrap;">${texto}</pre>`);
+                novaJanela.document.title = "SCRIPT DE FECHAMENTO";
             }
-          } else {
-            alert("Este dispositivo não suporta compartilhamento direto.");
-          }
-        };
-
-        // Botão de fechar
-        const botaoFechar = document.createElement("button");
-        botaoFechar.textContent = "❌ FECHAR";
-        botaoFechar.style.marginTop = "10px";
-        botaoFechar.style.fontSize = "18px";
-        botaoFechar.style.backgroundColor = "#dc3545";
-        botaoFechar.style.color = "white";
-        botaoFechar.style.border = "none";
-        botaoFechar.style.borderRadius = "8px";
-        botaoFechar.style.padding = "10px 15px";
-        botaoFechar.style.display = "block";
-        botaoFechar.style.marginLeft = "auto";
-        botaoFechar.style.marginRight = "auto";
-        botaoFechar.onclick = () => document.body.removeChild(overlay);
-
-        // Montagem do balão
-        balao.appendChild(botaoCompartilhar);
-        balao.appendChild(botaoFechar);
-        overlay.appendChild(balao);
-        document.body.appendChild(overlay);
-      } else {
-        // Computador: abre nova janela simples
-        const novaJanela = window.open("", "ScriptFechamento", "width=700,height=600");
-        novaJanela.document.write(`<pre style="font-family: monospace; font-size: 16px; white-space: pre-wrap;">${texto}</pre>`);
-        novaJanela.document.title = "SCRIPT DE FECHAMENTO";
-      }
-    }
-
-
-    // --- Assinatura tecnico ---
-    const canvas = document.getElementById('assinatura');
-    const ctx = canvas.getContext('2d');
-    let desenhando = false;
-    let lastX = 0, lastY = 0;
-
-    function ajustarCanvas() {
-      canvas.width = canvas.offsetWidth;
-      canvas.height = 150;
-      ctx.lineWidth = 2;
-      ctx.lineCap = 'round';
-    }
-
-    ajustarCanvas();
-
-
-    function desenhar(e) {
-      if (!desenhando) return;
-      const rect = canvas.getBoundingClientRect();
-      let x = (e.touches ? e.touches[0].clientX : e.clientX) - rect.left;
-      let y = (e.touches ? e.touches[0].clientY : e.clientY) - rect.top;
-
-      const dx = x - lastX, dy = y - lastY;
-      if (Math.sqrt(dx * dx + dy * dy) > 2) {
-        ctx.beginPath();
-        ctx.moveTo(lastX, lastY);
-        ctx.lineTo(x, y);
-        ctx.stroke();
-        ctx.closePath();
-        lastX = x; lastY = y;
-      }
-    }
-
-    canvas.addEventListener('mousedown', e => { desenhando = true; const rect = canvas.getBoundingClientRect(); lastX = e.clientX - rect.left; lastY = e.clientY - rect.top; });
-    canvas.addEventListener('mouseup', () => desenhando = false);
-    canvas.addEventListener('mouseout', () => desenhando = false);
-    canvas.addEventListener('mousemove', desenhar);
-
-    canvas.addEventListener('touchstart', e => { desenhando = true; const rect = canvas.getBoundingClientRect(); lastX = e.touches[0].clientX - rect.left; lastY = e.touches[0].clientY - rect.top; e.preventDefault(); });
-    canvas.addEventListener('touchend', () => desenhando = false);
-    canvas.addEventListener('touchmove', desenhar);
-
-    // Limpar assinatura
-    document.getElementById('limparAssinatura').addEventListener('click', () => ctx.clearRect(0, 0, canvas.width, canvas.height));
-
-
-    // Asinatura do Cliente
-
-    const canvasCliente = document.getElementById('assinaturaCliente');
-    const ctxCliente = canvasCliente.getContext('2d');
-    let desenhandoCliente = false;
-    let lastXCliente = 0, lastYCliente = 0;
-
-    function ajustarCanvasCliente() {
-      canvasCliente.width = canvasCliente.offsetWidth;
-      canvasCliente.height = 150;
-      ctxCliente.lineWidth = 2;
-      ctxCliente.lineCap = 'round';
-    }
-    ajustarCanvasCliente();
-
-    function desenharCliente(e) {
-      if (!desenhandoCliente) return;
-      const rect = canvasCliente.getBoundingClientRect();
-      let x = (e.touches ? e.touches[0].clientX : e.clientX) - rect.left;
-      let y = (e.touches ? e.touches[0].clientY : e.clientY) - rect.top;
-
-      const dx = x - lastXCliente, dy = y - lastYCliente;
-      if (Math.sqrt(dx * dx + dy * dy) > 2) {
-        ctxCliente.beginPath();
-        ctxCliente.moveTo(lastXCliente, lastYCliente);
-        ctxCliente.lineTo(x, y);
-        ctxCliente.stroke();
-        ctxCliente.closePath();
-        lastXCliente = x; lastYCliente = y;
-      }
-    }
-
-    // Eventos mouse/touch
-    canvasCliente.addEventListener('mousedown', e => {
-      desenhandoCliente = true;
-      const rect = canvasCliente.getBoundingClientRect();
-      lastXCliente = e.clientX - rect.left;
-      lastYCliente = e.clientY - rect.top;
-    });
-    canvasCliente.addEventListener('mouseup', () => desenhandoCliente = false);
-    canvasCliente.addEventListener('mouseout', () => desenhandoCliente = false);
-    canvasCliente.addEventListener('mousemove', desenharCliente);
-
-    canvasCliente.addEventListener('touchstart', e => {
-      desenhandoCliente = true;
-      const rect = canvasCliente.getBoundingClientRect();
-      lastXCliente = e.touches[0].clientX - rect.left;
-      lastYCliente = e.touches[0].clientY - rect.top;
-      e.preventDefault();
-    });
-    canvasCliente.addEventListener('touchend', () => desenhandoCliente = false);
-    canvasCliente.addEventListener('touchmove', desenharCliente);
-
-    // Limpar assinatura do cliente
-    document.getElementById('limparAssinaturaCliente')
-      .addEventListener('click', () => ctxCliente.clearRect(0, 0, canvasCliente.width, canvasCliente.height));
-
-
-
-
-
-
-
-
-    // --- Gerar PDF ---
-
-
-    const { jsPDF } = window.jspdf;
-
-    // CORRIGIDO: Adicionado 'async' no callback para permitir o uso de 'await'
-    // CORRIGIDO: Adicionado 'async' no callback para permitir o uso de 'await'
-    document.getElementById('btnPDF').addEventListener('click', async () => {
-      const form = document.getElementById('chamadoForm');
-      const doc = new jsPDF({ format: 'a4', unit: 'mm' });
-
-      // --- REGRA GLOBAL UPPERCASE ---
-      // 1. Salvamos a função original doc.text
-      const originalText = doc.text;
-
-      // 2. Sobrescrevemos doc.text com uma nova função
-      doc.text = function (text, ...args) {
-        let upperText;
-
-        // Tratamos strings (simples ou arrays)
-        if (Array.isArray(text)) {
-          // Se for um array de strings, mapeamos cada uma para UPPERCASE
-          upperText = text.map(t => (typeof t === 'string' ? t.toUpperCase() : t));
-        } else if (typeof text === 'string') {
-          // Se for uma string simples, convertemos para UPPERCASE
-          upperText = text.toUpperCase();
-        } else {
-          // Mantemos outros tipos de dados (números, etc.) como estão
-          upperText = text;
         }
 
-        // Chamamos a função original do jsPDF com o texto em maiúsculas e os argumentos originais
-        originalText.call(this, upperText, ...args);
-        
-      };
 
-      // ⚡ CHAMADA DA MARCA D'ÁGUA (Adicionada para a primeira página)
-      // CORRIGIDO: Removido 'imageUrl' do argumento
-      await adicionarMarcaDagua(doc);
+        // --- Assinatura tecnico ---
+        const canvas = document.getElementById('assinatura');
+        const ctx = canvas.getContext('2d');
+        let desenhando = false;
+        let lastX = 0, lastY = 0;
 
-      let xInicio = 10;
-      let y = 20;
-      const larguraTotal = 190;
-
-      // --- Título principal ---
-      doc.setFontSize(14);
-      doc.setFont(undefined, 'normal');
-      doc.setTextColor(200, 0, 0);
-      doc.text("RAT (RELATÓRIO ATENDIMENTO TÉCNICO)", 105, y, { align: "center" });
-      y += 10;
-
-
-      // --- BLOCO DADOS DO CHAMADO ---
-      function addCampo(x, y, largura, titulo, valor, padding = 2, percentualTitulo = 0.4) {
-        const altura = 5; // mesma altura visual do bloco DADOS DO CLIENTE
-        const larguraTitulo = largura * percentualTitulo;
-        // REMOVIDO: A chamada recursiva addCampo(...) que causava o erro.
-        valor = (valor || "").toString().toUpperCase();
-
-        doc.setDrawColor(0);
-        doc.setLineWidth(0.3);
-        doc.setLineDashPattern([0.3, 0.3], 0);
-        doc.rect(x, y, largura, altura, 'S');
-        doc.setLineDashPattern([], 0);
-
-        // fundo vermelho do título
-        doc.setFillColor(200, 0, 0);
-        doc.rect(x, y, larguraTitulo, altura, 'F');
-
-        // centralização vertical (ajustada)
-        const yTexto = y + altura / 2 + 2.2;
-
-        // título
-        doc.setFont("helvetica", "bold");
-        doc.setFontSize(9);
-        doc.setTextColor(255, 255, 255);
-        doc.text(titulo, x + padding, yTexto);
-
-        // valor
-        doc.setFont("helvetica", "normal");
-        doc.setTextColor(0, 0, 0);
-        doc.setFontSize(9);
-        doc.text(valor, x + larguraTitulo + padding, yTexto);
-      }
-
-      // --- LINHA 1 ---
-      const larguraNome = larguraTotal * 0.60;
-      const larguraEmpresa = larguraTotal * 0.40;
-      const alturaCampos = 5; // mesma altura padronizada
-
-      // NOME DO TÉCNICO: APLICAMOS A PORCENTAGEM (ex: 0.3) NO ÚLTIMO ARGUMENTO.
-      addCampo(xInicio, y, larguraNome, "NOME DO TÉCNICO:", form.tecnico.value, 2, 0.31);
-
-      // EMPRESA PARCEIRA: MANTÉM O PADRÃO (0.4), pois o último argumento foi omitido.
-      addCampo(xInicio + larguraNome, y, larguraEmpresa, "EMPRESA PARCEIRA:", form.empresa.value, 2, 0.50);
-
-      // --- Espaçamento entre linhas ---
-      y += alturaCampos + 2;
-
-      // --- LINHA 2 (CHAMADO / DATA / HORÁRIO) ---
-      const larguraChamado = larguraTotal * 0.27;
-      const larguraData = larguraTotal * 0.38;
-      const larguraHorario = larguraTotal - larguraChamado - larguraData;
-
-      // --- CHAMADO ---
-      addCampo(xInicio, y, larguraChamado, "CHAMADO:", form.chamado.value, 1);
-
-      // --- DATA DO ATENDIMENTO ---
-      const dataInput = form.elements['data'].value;
-      const partesData = dataInput.split('-');
-      const dataFormatada = partesData.length === 3 ? `${partesData[2]}/${partesData[1]}/${partesData[0]}` : dataInput;
-
-      (function addCampoData(x, y, largura, titulo, valor) {
-        const altura = 5; // altura igual ao DADOS DO CLIENTE
-        const larguraTitulo = largura * 0.6;
-        const padding = 2;
-
-        doc.setDrawColor(0);
-        doc.setLineWidth(0.3);
-        doc.setLineDashPattern([0.3, 0.3], 0);
-        doc.rect(x, y, largura, altura, 'S');
-        doc.setLineDashPattern([], 0);
-
-        // fundo vermelho
-        doc.setFillColor(200, 0, 0);
-        doc.rect(x, y, larguraTitulo, altura, 'F');
-
-        const yTexto = y + altura / 2 + 2.2; // centralização vertical
-
-        // título
-        doc.setFont("helvetica", "bold");
-        doc.setFontSize(9);
-        doc.setTextColor(255, 255, 255);
-        doc.text(titulo, x + padding, yTexto);
-
-        // valor
-        const xValor = x + larguraTitulo + padding;
-        const maxLarguraValor = largura - larguraTitulo - padding * 2 - 9;
-        doc.setFont("helvetica", "normal");
-        doc.setTextColor(0, 0, 0);
-        doc.setFontSize(9);
-        doc.text(valor, xValor, yTexto, { maxWidth: maxLarguraValor });
-      })(xInicio + larguraChamado, y, larguraData, "DATA DO ATENDIMENTO:", dataFormatada);
-
-      // --- HORÁRIO ---
-      const xHorario = xInicio + larguraChamado + larguraData;
-      const altura = 5;
-      const larguraTituloHorario = 20;
-
-      doc.setDrawColor(0);
-      doc.setLineWidth(0.3);
-      doc.setLineDashPattern([0.3, 0.3], 0);
-      doc.rect(xHorario, y, larguraHorario, altura, 'S');
-      doc.setLineDashPattern([], 0);
-
-      // fundo vermelho
-      doc.setFillColor(200, 0, 0);
-      doc.rect(xHorario, y, larguraTituloHorario, altura, 'F');
-
-      const yTextoHorario = y + altura / 2 + 2.2;
-
-      // título HORÁRIO
-      doc.setFont("helvetica", "bold");
-      doc.setFontSize(9);
-      doc.setTextColor(255, 255, 255);
-      doc.text("HORÁRIO:", xHorario + 2, yTextoHorario);
-
-      // conteúdo interno
-      doc.setFont("helvetica", "normal");
-      doc.setFontSize(9);
-      doc.setTextColor(0, 0, 0);
-
-      const inicioVal = form.inicio.value;
-      const terminoVal = form.termino.value;
-
-      const larguraConteudo = larguraHorario - larguraTituloHorario;
-      const larguraBloco = (larguraConteudo - 1) / 2;
-
-      const yTextoInterno = yTextoHorario;
-
-      // bloco INÍCIO
-      const xInicioBloco = xHorario + larguraTituloHorario;
-      doc.text("INÍCIO :", xInicioBloco + 1, yTextoInterno);
-      doc.text(inicioVal, xInicioBloco + 14, yTextoInterno);
-
-      // bloco FIM
-      const xFimBloco = xInicioBloco + larguraBloco + 1.3;
-      doc.text("FIM :", xFimBloco + 1, yTextoInterno);
-      doc.text(terminoVal, xFimBloco + 11, yTextoInterno);
-
-      y += altura + 3;
-
-      // assinatura do tecnico
-      const imageData = canvas.toDataURL('image/png');
-      if (imageData && imageData.length > 100) {
-        const larguraAssinatura = 60 * 0.5;
-        const alturaAssinatura = (canvas.height / canvas.width) * larguraAssinatura;
-
-        const texto = "ASSINATURA DO TÉCNICO / RESPONSÁVEL:";
-        doc.setFontSize(9);
-        doc.setFont(undefined, 'normal');
-        const larguraTexto = doc.getTextWidth(texto);
-
-        const xCentro = (210 - (larguraTexto + larguraAssinatura)) / 2;
-        const yBase = y + 6;
-
-        // escreve o texto
-        doc.text(texto, xCentro, yBase);
-
-        // comprimento da linha
-        const comprimentoLinha = larguraAssinatura + 35;
-        doc.setLineWidth(0.02); // linha bem fina
-        doc.line(xCentro + larguraTexto, yBase, xCentro + larguraTexto + comprimentoLinha, yBase);
-
-        // adiciona a assinatura levemente sobre a linha
-        const sobreLinha = 0.3;
-        doc.addImage(
-          imageData,
-          'PNG',
-          xCentro + larguraTexto,
-          yBase - alturaAssinatura + sobreLinha,
-          larguraAssinatura,
-          alturaAssinatura
-        );
-      }
-
-      y += 8;
-
-
-      // BLOCO DADOS DO CLIENTE
-      function addBlocoDadosCliente(doc, x, y, larguraTotal, form) {
-        // Função auxiliar para garantir que o valor seja UPPERCASE e evitar erros se for null/undefined
-        const getUpper = (element) => (element && element.value ? element.value.toUpperCase() : "");
-
-        const alturaTitulo = 5;
-        const alturaBloco = 33;
-        const padding = 2;
-
-        // Borda pontilhada
-        doc.setLineWidth(0.3);
-        doc.setDrawColor(0);
-        doc.setLineDashPattern([0.3, 0.3], 0);
-        doc.rect(x, y, larguraTotal, alturaBloco, 'S');
-        doc.setLineDashPattern([], 0);
-
-        // cabeçalho vermelho
-        doc.setFillColor(200, 0, 0);
-        doc.rect(x, y, larguraTotal, alturaTitulo, 'F');
-
-        // título
-        doc.setFont(undefined, 'bold');
-        doc.setFontSize(9);
-        doc.setTextColor(255, 255, 255);
-        const yTexto = y + (alturaTitulo / 2) + 2;
-        doc.text("DADOS DO CLIENTE", x + larguraTotal / 2, yTexto, { align: "center" });
-
-        // conteúdo
-        doc.setFont(undefined, 'normal');
-        doc.setFontSize(9);
-        doc.setTextColor(0, 0, 0);
-
-        let linhaY = y + alturaTitulo + 4;
-        const xInicial = x + padding;
-
-        // RAZÃO SOCIAL / NOME FANTASIA
-        // USANDO getUpper AQUI 👇
-        doc.text(`RAZÃO SOCIAL / NOME FANTASIA: ${getUpper(form.razao_social)}`, xInicial, linhaY);
-        linhaY += 7;
-
-        // NOME DO RESPONSÁVEL
-        // USANDO getUpper AQUI 👇
-        doc.text(`NOME DO RESPONSÁVEL: ${getUpper(form.nome_responsavel)}`, xInicial, linhaY);
-        linhaY += 7;
-
-        // TELEFONE à esquerda
-        // USANDO getUpper AQUI 👇
-        doc.text(`TELEFONE: ${getUpper(form.telefone_cliente)}`, xInicial, linhaY);
-
-        // E-MAIL alinhado à direita (do centro do bloco para a direita)
-        const xEmailFixo = x + larguraTotal / 2 + padding; // começa do centro do bloco
-        // USANDO getUpper AQUI 👇
-        doc.text(`E-MAIL: ${getUpper(form.email_cliente)}`, xEmailFixo, linhaY);
-
-        linhaY += 7;
-
-        // CARGO à esquerda
-        // USANDO getUpper AQUI 👇
-        doc.text(`CARGO: ${getUpper(form.cargo_cliente)}`, xInicial, linhaY);
-
-        // DEPARTAMENTO alinhado à direita
-        const xDeptoFixo = x + larguraTotal / 2 + padding;
-        // USANDO getUpper AQUI 👇
-        doc.text(`DEPARTAMENTO: ${getUpper(form.depto_cliente)}`, xDeptoFixo, linhaY);
-
-        return y + alturaBloco + 5;
-      }
-
-
-      // --- BLOCO DE SERVIÇOS / EQUIPAMENTO CHECKBOX ---
-      function addBlocoEquipamento(doc, x, y, larguraTotal, form) {
-        const padding = 6;
-        const alturaLinha1 = 6.2;
-        const alturaLinha2 = 7;
-        const alturaTotal = alturaLinha1 + alturaLinha2;
-        const checkboxSize = 3;
-        const checkboxOffsetY = 1.2;
-        const spacingPadrao = 5; // espaçamento padrão entre grupos
-
-        doc.setFontSize(9);
-        doc.setTextColor(0, 0, 0);
-        doc.setFont("helvetica", "normal");
-
-        // --- Função para desenhar checkbox ---
-        function drawCheckbox(cx, cy, checked) {
-          doc.rect(cx, cy - checkboxSize / 2 - checkboxOffsetY, checkboxSize, checkboxSize);
-          if (checked) {
-            doc.line(cx, cy - checkboxSize / 2 - checkboxOffsetY, cx + checkboxSize, cy + checkboxSize / 2 - checkboxOffsetY);
-            doc.line(cx, cy + checkboxSize / 2 - checkboxOffsetY, cx + checkboxSize, cy - checkboxSize / 2 - checkboxOffsetY);
-          }
+        function ajustarCanvas() {
+            canvas.width = canvas.offsetWidth;
+            canvas.height = 150;
+            ctx.lineWidth = 2;
+            ctx.lineCap = 'round';
         }
 
-        // --- Linha 1 ---
-        const linha1Y = y + 3.8;
+        ajustarCanvas();
 
-        // Itens linha 1
-        const itensLinha1 = [
-          { label: `RETIRADO PARA LABORATÓRIO S/N: ${form.retirado_lab.value || ""}`, checked: null, spacing: 4.5 }, // menor gap
-          { label: "SUBSTITUIÇÃO OU TROCA:", checked: form.substituicao_troca.checked, spacing: 2.5 },
-          { label: "UPGRADE (ATUALIZAÇÃO SSD, MEMÓRIA):", checked: form.upgrade.checked, spacing: 2.5 }
-        ];
 
-        let cX1 = x + padding;
-        itensLinha1.forEach(item => {
-          doc.text(item.label, cX1, linha1Y);
-          if (typeof item.checked === "boolean") {
-            const posCheckbox = cX1 + doc.getTextWidth(item.label) + 1.5;
-            drawCheckbox(posCheckbox, linha1Y, item.checked);
-            cX1 = posCheckbox + checkboxSize + item.spacing;
-          } else {
-            cX1 += doc.getTextWidth(item.label) + item.spacing;
-          }
+        function desenhar(e) {
+            if (!desenhando) return;
+            const rect = canvas.getBoundingClientRect();
+            let x = (e.touches ? e.touches[0].clientX : e.clientX) - rect.left;
+            let y = (e.touches ? e.touches[0].clientY : e.clientY) - rect.top;
+
+            const dx = x - lastX, dy = y - lastY;
+            if (Math.sqrt(dx * dx + dy * dy) > 2) {
+                ctx.beginPath();
+                ctx.moveTo(lastX, lastY);
+                ctx.lineTo(x, y);
+                ctx.stroke();
+                ctx.closePath();
+                lastX = x; lastY = y;
+            }
+        }
+
+        canvas.addEventListener('mousedown', e => { desenhando = true; const rect = canvas.getBoundingClientRect(); lastX = e.clientX - rect.left; lastY = e.clientY - rect.top; });
+        canvas.addEventListener('mouseup', () => desenhando = false);
+        canvas.addEventListener('mouseout', () => desenhando = false);
+        canvas.addEventListener('mousemove', desenhar);
+
+        canvas.addEventListener('touchstart', e => { desenhando = true; const rect = canvas.getBoundingClientRect(); lastX = e.touches[0].clientX - rect.left; lastY = e.touches[0].clientY - rect.top; e.preventDefault(); });
+        canvas.addEventListener('touchend', () => desenhando = false);
+        canvas.addEventListener('touchmove', desenhar);
+
+        // Limpar assinatura
+        document.getElementById('limparAssinatura').addEventListener('click', () => ctx.clearRect(0, 0, canvas.width, canvas.height));
+
+
+        // Asinatura do Cliente
+
+        const canvasCliente = document.getElementById('assinaturaCliente');
+        const ctxCliente = canvasCliente.getContext('2d');
+        let desenhandoCliente = false;
+        let lastXCliente = 0, lastYCliente = 0;
+
+        function ajustarCanvasCliente() {
+            canvasCliente.width = canvasCliente.offsetWidth;
+            canvasCliente.height = 150;
+            ctxCliente.lineWidth = 2;
+            ctxCliente.lineCap = 'round';
+        }
+        ajustarCanvasCliente();
+
+        function desenharCliente(e) {
+            if (!desenhandoCliente) return;
+            const rect = canvasCliente.getBoundingClientRect();
+            let x = (e.touches ? e.touches[0].clientX : e.clientX) - rect.left;
+            let y = (e.touches ? e.touches[0].clientY : e.clientY) - rect.top;
+
+            const dx = x - lastXCliente, dy = y - lastYCliente;
+            if (Math.sqrt(dx * dx + dy * dy) > 2) {
+                ctxCliente.beginPath();
+                ctxCliente.moveTo(lastXCliente, lastYCliente);
+                ctxCliente.lineTo(x, y);
+                ctxCliente.stroke();
+                ctxCliente.closePath();
+                lastXCliente = x; lastYCliente = y;
+            }
+        }
+
+        // Eventos mouse/touch
+        canvasCliente.addEventListener('mousedown', e => {
+            desenhandoCliente = true;
+            const rect = canvasCliente.getBoundingClientRect();
+            lastXCliente = e.clientX - rect.left;
+            lastYCliente = e.clientY - rect.top;
+        });
+        canvasCliente.addEventListener('mouseup', () => desenhandoCliente = false);
+        canvasCliente.addEventListener('mouseout', () => desenhandoCliente = false);
+        canvasCliente.addEventListener('mousemove', desenharCliente);
+
+        canvasCliente.addEventListener('touchstart', e => {
+            desenhandoCliente = true;
+            const rect = canvasCliente.getBoundingClientRect();
+            lastXCliente = e.touches[0].clientX - rect.left;
+            lastYCliente = e.touches[0].clientY - rect.top;
+            e.preventDefault();
+        });
+        canvasCliente.addEventListener('touchend', () => desenhandoCliente = false);
+        canvasCliente.addEventListener('touchmove', desenharCliente);
+
+        // Limpar assinatura do cliente
+        document.getElementById('limparAssinaturaCliente')
+            .addEventListener('click', () => ctxCliente.clearRect(0, 0, canvasCliente.width, canvasCliente.height));
+
+
+
+
+
+
+
+
+        // --- Gerar PDF ---
+
+
+        const { jsPDF } = window.jspdf;
+
+        document.getElementById('btnPDF').addEventListener('click', () => {
+            const form = document.getElementById('chamadoForm');
+            const doc = new jsPDF({ format: 'a4', unit: 'mm' });
+
+            let xInicio = 10;
+            let y = 20;
+            const larguraTotal = 190;
+
+            // --- Título principal ---
+            doc.setFontSize(14);
+            doc.setFont(undefined, 'normal');
+            doc.setTextColor(200, 0, 0);
+            doc.text("RAT (RELATÓRIO ATENDIMENTO TÉCNICO)", 105, y, { align: "center" });
+            y += 10;
+
+            // --- BLOCO DADOS DO CHAMADO ---
+            function addCampo(x, y, largura, titulo, valor, padding = 2) {
+                const altura = 5; // mesma altura visual do bloco DADOS DO CLIENTE
+                const larguraTitulo = largura * 0.4;
+                valor = (valor || "").toString().toUpperCase();
+
+                doc.setDrawColor(0);
+                doc.setLineWidth(0.3);
+                doc.setLineDashPattern([0.3, 0.3], 0);
+                doc.rect(x, y, largura, altura, 'S');
+                doc.setLineDashPattern([], 0);
+
+                // fundo vermelho do título
+                doc.setFillColor(200, 0, 0);
+                doc.rect(x, y, larguraTitulo, altura, 'F');
+
+                // centralização vertical (ajustada)
+                const yTexto = y + altura / 2 + 2.2;
+
+                // título
+                doc.setFont("helvetica", "bold");
+                doc.setFontSize(9);
+                doc.setTextColor(255, 255, 255);
+                doc.text(titulo, x + padding, yTexto);
+
+                // valor
+                doc.setFont("helvetica", "normal");
+                doc.setTextColor(0, 0, 0);
+                doc.setFontSize(9);
+                doc.text(valor, x + larguraTitulo + padding, yTexto);
+            }
+
+            // --- LINHA 1 ---
+            const larguraNome = larguraTotal * 0.50;
+            const larguraEmpresa = larguraTotal * 0.50;
+            const alturaCampos = 5; // mesma altura padronizada
+
+            addCampo(xInicio, y, larguraNome, "NOME DO TÉCNICO:", form.tecnico.value);
+            addCampo(xInicio + larguraNome, y, larguraEmpresa, "EMPRESA PARCEIRA:", form.empresa.value);
+
+            // --- Espaçamento entre linhas ---
+            y += alturaCampos + 2;
+
+            // --- LINHA 2 (CHAMADO / DATA / HORÁRIO) ---
+            const larguraChamado = larguraTotal * 0.27;
+            const larguraData = larguraTotal * 0.38;
+            const larguraHorario = larguraTotal - larguraChamado - larguraData;
+
+            // --- CHAMADO ---
+            addCampo(xInicio, y, larguraChamado, "CHAMADO:", form.chamado.value, 1);
+
+            // --- DATA DO ATENDIMENTO ---
+            const dataInput = form.elements['data'].value;
+            const partesData = dataInput.split('-');
+            const dataFormatada = partesData.length === 3 ? `${partesData[2]}/${partesData[1]}/${partesData[0]}` : dataInput;
+
+            (function addCampoData(x, y, largura, titulo, valor) {
+                const altura = 5; // altura igual ao DADOS DO CLIENTE
+                const larguraTitulo = largura * 0.6;
+                const padding = 2;
+
+                doc.setDrawColor(0);
+                doc.setLineWidth(0.3);
+                doc.setLineDashPattern([0.3, 0.3], 0);
+                doc.rect(x, y, largura, altura, 'S');
+                doc.setLineDashPattern([], 0);
+
+                // fundo vermelho
+                doc.setFillColor(200, 0, 0);
+                doc.rect(x, y, larguraTitulo, altura, 'F');
+
+                const yTexto = y + altura / 2 + 2.2; // centralização vertical
+
+                // título
+                doc.setFont("helvetica", "bold");
+                doc.setFontSize(9);
+                doc.setTextColor(255, 255, 255);
+                doc.text(titulo, x + padding, yTexto);
+
+                // valor
+                const xValor = x + larguraTitulo + padding;
+                const maxLarguraValor = largura - larguraTitulo - padding * 2 - 9;
+                doc.setFont("helvetica", "normal");
+                doc.setTextColor(0, 0, 0);
+                doc.setFontSize(9);
+                doc.text(valor, xValor, yTexto, { maxWidth: maxLarguraValor });
+            })(xInicio + larguraChamado, y, larguraData, "DATA DO ATENDIMENTO:", dataFormatada);
+
+            // --- HORÁRIO ---
+            const xHorario = xInicio + larguraChamado + larguraData;
+            const altura = 5;
+            const larguraTituloHorario = 20;
+
+            doc.setDrawColor(0);
+            doc.setLineWidth(0.3);
+            doc.setLineDashPattern([0.3, 0.3], 0);
+            doc.rect(xHorario, y, larguraHorario, altura, 'S');
+            doc.setLineDashPattern([], 0);
+
+            // fundo vermelho
+            doc.setFillColor(200, 0, 0);
+            doc.rect(xHorario, y, larguraTituloHorario, altura, 'F');
+
+            const yTextoHorario = y + altura / 2 + 2.2;
+
+            // título HORÁRIO
+            doc.setFont("helvetica", "bold");
+            doc.setFontSize(9);
+            doc.setTextColor(255, 255, 255);
+            doc.text("HORÁRIO:", xHorario + 2, yTextoHorario);
+
+            // conteúdo interno
+            doc.setFont("helvetica", "normal");
+            doc.setFontSize(9);
+            doc.setTextColor(0, 0, 0);
+
+            const inicioVal = form.inicio.value;
+            const terminoVal = form.termino.value;
+
+            const larguraConteudo = larguraHorario - larguraTituloHorario;
+            const larguraBloco = (larguraConteudo - 1) / 2;
+
+            const yTextoInterno = yTextoHorario;
+
+            // bloco INÍCIO
+            const xInicioBloco = xHorario + larguraTituloHorario;
+            doc.text("INÍCIO :", xInicioBloco + 1, yTextoInterno);
+            doc.text(inicioVal, xInicioBloco + 14, yTextoInterno);
+
+            // bloco FIM
+            const xFimBloco = xInicioBloco + larguraBloco + 1.3;
+            doc.text("FIM :", xFimBloco + 1, yTextoInterno);
+            doc.text(terminoVal, xFimBloco + 11, yTextoInterno);
+
+            y += altura + 3;
+
+
+
+            // assinatura do tecnico
+            const imageData = canvas.toDataURL('image/png');
+            if (imageData && imageData.length > 100) {
+                const larguraAssinatura = 60 * 0.5;
+                const alturaAssinatura = (canvas.height / canvas.width) * larguraAssinatura;
+
+                const texto = "ASSINATURA DO TÉCNICO / RESPONSÁVEL:";
+                doc.setFontSize(9);
+                doc.setFont(undefined, 'normal');
+                const larguraTexto = doc.getTextWidth(texto);
+
+                const xCentro = (210 - (larguraTexto + larguraAssinatura)) / 2;
+                const yBase = y + 6;
+
+                // escreve o texto
+                doc.text(texto, xCentro, yBase);
+
+                // comprimento da linha
+                const comprimentoLinha = larguraAssinatura + 35;
+                doc.setLineWidth(0.02); // linha bem fina
+                doc.line(xCentro + larguraTexto, yBase, xCentro + larguraTexto + comprimentoLinha, yBase);
+
+                // adiciona a assinatura levemente sobre a linha
+                const sobreLinha = 0.3;
+                doc.addImage(
+                    imageData,
+                    'PNG',
+                    xCentro + larguraTexto,
+                    yBase - alturaAssinatura + sobreLinha,
+                    larguraAssinatura,
+                    alturaAssinatura
+                );
+            }
+
+            y += 8;
+
+
+
+            //  BLOCO DADOS DO CLIENTE
+            function addBlocoDadosCliente(doc, x, y, larguraTotal, form) {
+                const alturaTitulo = 5;
+                const alturaBloco = 33;
+                const padding = 2;
+
+                // Borda pontilhada (pontos pequenos e próximos)
+                doc.setLineWidth(0.3);
+                doc.setDrawColor(0);
+                doc.setLineDashPattern([0.3, 0.3], 0); // pontinhos menores e mais próximos
+                doc.rect(x, y, larguraTotal, alturaBloco, 'S');
+                doc.setLineDashPattern([], 0);
+
+                // cabeçalho vermellho
+                doc.setFillColor(200, 0, 0);
+                doc.rect(x, y, larguraTotal, alturaTitulo, 'F');
+
+
+                //titulo linha unica
+                doc.setFont(undefined, 'bold');
+                doc.setFontSize(9);
+                doc.setTextColor(255, 255, 255);
+                const yTexto = y + (alturaTitulo / 2) + 2; // centraliza verticalmente com leve ajuste
+                doc.text("DADOS DO CLIENTE", x + larguraTotal / 2, yTexto, { align: "center" });
+
+
+
+                //conteudo interno
+                doc.setFont(undefined, 'normal');
+                doc.setFontSize(9);
+                doc.setTextColor(0, 0, 0);
+
+
+                let linhaY = y + alturaTitulo + 4;
+                doc.text(`RAZÃO SOCIAL / NOME FANTASIA: ${form.razao_social.value || ""}`, x + padding, linhaY);
+                linhaY += 7;
+                doc.text(`NOME DO RESPONSÁVEL: ${form.nome_responsavel.value || ""}`, x + padding, linhaY);
+                linhaY += 7;
+                doc.text(`TELEFONE: ${form.telefone_cliente.value || ""}     E-MAIL: ${form.email_cliente.value || ""}`, x + padding, linhaY);
+                linhaY += 7;
+                doc.text(`CARGO: ${form.cargo_cliente.value || ""}     DEPARTAMENTO: ${form.depto_cliente.value || ""}`, x + padding, linhaY);
+
+                return y + alturaBloco + 5;
+            }
+
+            // --- BLOCO DE SERVIÇOS / EQUIPAMENTO CHECKBOX ---
+            function addBlocoEquipamento(doc, x, y, larguraTotal, form) {
+                const padding = 6;
+                const alturaLinha1 = 7;
+                const alturaLinha2 = 7;
+                const alturaTotal = alturaLinha1 + alturaLinha2;
+                const checkboxSize = 3;
+                const checkboxOffsetY = 1.2; // alinhamento vertical fino
+                const spacing = 5; // espaçamento entre grupos
+
+                doc.setFontSize(9);
+                doc.setTextColor(0, 0, 0);
+                doc.setFont("helvetica", "normal");
+
+                // --- Função para desenhar checkbox ---
+                function drawCheckbox(cx, cy, checked) {
+                    doc.rect(cx, cy - checkboxSize / 2 - checkboxOffsetY, checkboxSize, checkboxSize);
+                    if (checked) {
+                        doc.line(cx, cy - checkboxSize / 2 - checkboxOffsetY, cx + checkboxSize, cy + checkboxSize / 2 - checkboxOffsetY);
+                        doc.line(cx, cy + checkboxSize / 2 - checkboxOffsetY, cx + checkboxSize, cy - checkboxSize / 2 - checkboxOffsetY);
+                    }
+                }
+
+                // --- Linha 1 ---
+                const linha1Y = y + 4;
+
+                const itensLinha1 = [
+                    { label: `RETIRADO PARA LABORATÓRIO S/N: ${form.retirado_lab.value || ""}`, checked: null },
+                    { label: "SUBSTITUIÇÃO OU TROCA:", checked: form.substituicao_troca.checked },
+                    { label: "UPGRADE (ATUALIZAÇÃO SSD, MEMÓRIA):", checked: form.upgrade.checked }
+                ];
+
+                let cX1 = x + padding;
+                itensLinha1.forEach(item => {
+                    doc.text(item.label, cX1, linha1Y);
+                    if (typeof item.checked === "boolean") {
+                        // checkbox logo após o texto, sem espaçamento excessivo
+                        const posCheckbox = cX1 + doc.getTextWidth(item.label) + 1.5;
+                        drawCheckbox(posCheckbox, linha1Y, item.checked);
+                        cX1 = posCheckbox + checkboxSize + spacing;
+                    } else {
+                        cX1 += doc.getTextWidth(item.label) + spacing;
+                    }
+                });
+
+                // --- Linha 2 ---
+                const linha2Y = y + alturaLinha1 + 4;
+                const itensLinha2 = [
+                    { label: "NOTEBOOK:", checked: form.notebook.checked },
+                    { label: "DESKTOP:", checked: form.desktop.checked },
+                    { label: "IMPRESSORA:", checked: form.impressora.checked },
+                    { label: "MOBILE:", checked: form.mobile.checked },
+                    { label: `OUTROS: ${form.outros.value || ""}`, checked: null }
+                ];
+
+                let cX2 = x + padding;
+                itensLinha2.forEach(item => {
+                    doc.text(item.label, cX2, linha2Y);
+                    if (typeof item.checked === "boolean") {
+                        const posCheckbox = cX2 + doc.getTextWidth(item.label) + 1.5;
+                        drawCheckbox(posCheckbox, linha2Y, item.checked);
+                        cX2 = posCheckbox + checkboxSize + spacing;
+                    } else {
+                        cX2 += doc.getTextWidth(item.label) + spacing;
+                    }
+                });
+
+                return y + alturaTotal + 0.4;
+            }
+
+
+
+
+            // BLOCO DADOS DOS EQUIPAMENTOS - LINHA UNICA 
+            function addBlocoEquipamentoCorreto(doc, x, y, larguraTotal, form) {
+                const alturaTitulo = 5;
+                const alturaBloco = 5;
+                const padding = 4;
+
+                // Borda pontilhada (pontos pequenos e próximos)
+                doc.setLineWidth(0.3);
+                doc.setDrawColor(0);
+                doc.setLineDashPattern([0.3, 0.3], 0); // pontinhos menores e mais próximos
+                doc.rect(x, y, larguraTotal, alturaBloco, 'S');
+                doc.setLineDashPattern([], 0);
+
+                // Cabeçalho vermelho
+                doc.setFillColor(200, 0, 0);
+                doc.rect(x, y, larguraTotal, alturaTitulo, 'F');
+
+                // --- TÍTULO ---
+                doc.setFont(undefined, 'bold');
+                doc.setFontSize(9);
+                doc.setTextColor(255, 255, 255);
+                // Centralização vertical dentro do retângulo vermelho
+                const yTexto = y + (alturaTitulo / 2) + 2; // ajuste fino (+2 para compensar a altura da fonte)
+                doc.text("DADOS DO (S) EQUIPAMENTO (S)", x + larguraTotal / 2, yTexto, { align: "center" });
+
+
+                // Retorna nova posição y para o próximo bloco
+                return y + alturaBloco + 0.4;
+            }
+
+
+
+            // BLOCO DADOS DOS EQUIPAMENTOS DIVIDIDO EM DUAS PARTES 50% 50%
+            function addBlocoEquipamentoDivido(doc, x, y, larguraTotal, form) {
+                const alturaTitulo = 5;
+                const alturaBloco = 5;
+
+                // Borda pontilhada (pontos pequenos e próximos)
+                doc.setLineWidth(0.3);
+                doc.setDrawColor(0);
+                doc.setLineDashPattern([0.3, 0.3], 0);
+                doc.rect(x, y, larguraTotal, alturaBloco, 'S');
+                doc.setLineDashPattern([], 0);
+
+                // Metade esquerda e direita (vermelhas)
+                const larguraColuna = larguraTotal / 2;
+                doc.setFillColor(200, 0, 0);
+                doc.rect(x, y, larguraColuna, alturaTitulo, 'F');
+                doc.rect(x + larguraColuna, y, larguraColuna, alturaTitulo, 'F');
+
+                // Linha divisória central (pontilhada branca)
+                doc.setLineWidth(0.2);
+                doc.setDrawColor(255);
+                doc.setLineDashPattern([0.3, 0.3], 0);
+                doc.line(x + larguraColuna, y, x + larguraColuna, y + alturaTitulo);
+                doc.setLineDashPattern([], 0);
+
+                // Texto centralizado em cada metade
+                doc.setFont(undefined, 'bold');
+                doc.setFontSize(9);
+                doc.setTextColor(255, 255, 255);
+
+                // Texto centralizado verticalmente nas duas metades
+                const yTexto = y + (alturaTitulo / 2) + 2; // ajuste fino (+2 para compensar a base da fonte)
+                doc.text("EQUIPAMENTO ANTIGO", x + larguraColuna / 2, yTexto, { align: "center" });
+                doc.text("EQUIPAMENTO NOVO", x + larguraColuna + larguraColuna / 2, yTexto, { align: "center" });
+
+
+                // Retorna nova posição Y para o próximo bloco
+                return y + alturaBloco + 1.5;
+            }
+
+
+            // --- BLOCO MODELO DIVIDIDO EM DUAS PARTES (LADO A / LADO B) ---
+            function addBlocoModelo(doc, x, y, larguraTotal, form) {
+                const alturaBloco = 35;
+                const padding = 4;
+
+                // Borda pontilhada (preta, pequenos pontos)
+                doc.setLineWidth(0.3);
+                doc.setDrawColor(0);
+                doc.setLineDashPattern([0.3, 0.3], 0);
+                doc.rect(x, y, larguraTotal, alturaBloco, 'S');
+                doc.setLineDashPattern([], 0);
+
+                // Conteúdo interno (fundo branco, texto preto)
+                doc.setFont(undefined, 'normal');
+                doc.setFontSize(9);
+                doc.setTextColor(0, 0, 0);
+
+                // Divide área em duas metades (LADO A e LADO B)
+                const larguraColuna = larguraTotal / 2;
+
+                // Linha divisória central (pontilhada)
+                doc.setLineWidth(0.2);
+                doc.setLineDashPattern([0.3, 0.3], 0);
+                doc.line(x + larguraColuna, y, x + larguraColuna, y + alturaBloco);
+                doc.setLineDashPattern([], 0);
+
+                // --- LADO A ---
+                let linhaYA = y + padding; // posição inicial colada ao topo
+                doc.text(`MODELO: ${form.modelo_a?.value || ""}`, x + padding, linhaYA);
+                linhaYA += 6;
+                doc.text(`N° PATRIMÔNIO DO EQUIPAMENTO: ${form.patrimonio_a?.value || ""}`, x + padding, linhaYA);
+                linhaYA += 6;
+                doc.text(`N° SÉRIE: ${form.serie_a?.value || ""}`, x + padding, linhaYA);
+                linhaYA += 6;
+                doc.text(`HOSTNAME: ${form.hostname_a?.value || ""}`, x + padding, linhaYA);
+                linhaYA += 6;
+                doc.text(`N° ETIQUETA E SÉRIE CLIENTE: ${form.etiqueta_a?.value || ""}`, x + padding, linhaYA);
+                linhaYA += 6;
+                doc.text(`IMEI: ${form.imei_a?.value || ""}`, x + padding, linhaYA);
+
+                // --- LADO B ---
+                let linhaYB = y + padding; // posição inicial colada ao topo
+                const xB = x + larguraColuna + padding;
+                doc.text(`MODELO: ${form.modelo_b?.value || ""}`, xB, linhaYB);
+                linhaYB += 6;
+                doc.text(`N° PATRIMÔNIO DO EQUIPAMENTO: ${form.patrimonio_b?.value || ""}`, xB, linhaYB);
+                linhaYB += 6;
+                doc.text(`N° SÉRIE: ${form.serie_b?.value || ""}`, xB, linhaYB);
+                linhaYB += 6;
+                doc.text(`HOSTNAME: ${form.hostname_b?.value || ""}`, xB, linhaYB);
+                linhaYB += 6;
+                doc.text(`N° ETIQUETA E SÉRIE CLIENTE: ${form.etiqueta_b?.value || ""}`, xB, linhaYB);
+                linhaYB += 6;
+                doc.text(`IMEI: ${form.imei_b?.value || ""}`, xB, linhaYB);
+
+                // Retorna nova posição Y para o próximo bloco
+                return y + alturaBloco + 1.5;
+            }
+
+
+            // BLOCO BACKUP DIVIDIDO EM DUAS PARTES 50% 50%
+            function addBlocoBackup(doc, x, y, larguraTotal, form) {
+                const alturaTitulo = 5;
+                const alturaBloco = 5;
+
+                // Borda pontilhada (pontos pequenos e próximos)
+                doc.setLineWidth(0.3);
+                doc.setDrawColor(0);
+                doc.setLineDashPattern([0.3, 0.3], 0);
+                doc.rect(x, y, larguraTotal, alturaBloco, 'S');
+                doc.setLineDashPattern([], 0);
+
+                // Metade esquerda e direita (vermelhas)
+                const larguraColuna = larguraTotal / 2;
+                doc.setFillColor(200, 0, 0);
+                doc.rect(x, y, larguraColuna, alturaTitulo, 'F');
+                doc.rect(x + larguraColuna, y, larguraColuna, alturaTitulo, 'F');
+
+                // Linha divisória central (pontilhada branca)
+                doc.setLineWidth(0.2);
+                doc.setDrawColor(255);
+                doc.setLineDashPattern([0.3, 0.3], 0);
+                doc.line(x + larguraColuna, y, x + larguraColuna, y + alturaTitulo);
+                doc.setLineDashPattern([], 0);
+
+                // Texto centralizado em cada metade
+                doc.setFont(undefined, 'bold');
+                doc.setFontSize(9);
+                doc.setTextColor(255, 255, 255);
+
+                // Texto centralizado verticalmente nas duas metades
+                const yTexto = y + (alturaTitulo / 2) + 2; // ajuste fino (+2 para compensar a base da fonte)
+                doc.text("BACKUP", x + larguraColuna / 2, yTexto, { align: "center" });
+                doc.text("ACESSÓRIOS OU PERIFÉRICOS", x + larguraColuna + larguraColuna / 2, yTexto, { align: "center" });
+
+
+                // Retorna nova posição Y para o próximo bloco
+                return y + alturaBloco + 0.5;
+            }
+
+            // --- BLOCO BACKUP REALIZADO (LADO A / LADO B) ---
+            // Checkboxes à direita e mais alto
+            function addBlocoBackupRealizado(doc, x, y, larguraTotal, form) {
+                const alturaBloco = 10;
+                const padding = 3;
+                const espacoLinha = 5;
+                const larguraColuna = larguraTotal / 2;
+                const checkboxSize = 3;
+                const checkboxOffsetY = 1.6; // sobe o checkbox acima da linha do texto
+
+                // --- Borda pontilhada ---
+                doc.setLineWidth(0.3);
+                doc.setDrawColor(0);
+                doc.setLineDashPattern([0.3, 0.3], 0);
+                doc.rect(x, y, larguraTotal, alturaBloco, 'S');
+                doc.setLineDashPattern([], 0);
+
+                doc.setFont("helvetica", "normal");
+                doc.setFontSize(9);
+                doc.setTextColor(0, 0, 0);
+
+                // --- Função para desenhar checkbox ---
+                function drawCheckbox(cx, cy, checked) {
+                    doc.rect(cx, cy - checkboxSize / 2, checkboxSize, checkboxSize);
+                    if (checked) {
+                        doc.line(cx, cy - checkboxSize / 2, cx + checkboxSize, cy + checkboxSize / 2);
+                        doc.line(cx, cy + checkboxSize / 2, cx + checkboxSize, cy - checkboxSize / 2);
+                    }
+                }
+
+                // --- Valores ---
+                const backup_a = form.backup_a?.value.trim() || "";
+                const usuario_a = form.usuario_a?.value.trim() || "";
+                const patrimonio_b1 = form.patrimonio_b1?.value.trim() || "";
+                const patrimonio_b2 = form.patrimonio_b2?.value.trim() || "";
+
+                const check_backup_a = form.check_backup_a?.checked || false;
+                const check_usuario_a = form.check_usuario_a?.checked || false;
+                const check_patrimonio_b1 = form.check_patrimonio_b1?.checked || false;
+                const check_patrimonio_b2 = form.check_patrimonio_b2?.checked || false;
+
+                // --- LADO A ---
+                let linhaYA = y + padding + 1;  // <--- ajuste do espaço superior do bloco
+                const xA = x + padding;
+
+                doc.text(`BACKUP REALIZADO: ${backup_a.toUpperCase()}`, xA, linhaYA);
+                drawCheckbox(x + larguraColuna - padding - checkboxSize, linhaYA - checkboxOffsetY, check_backup_a);
+
+                linhaYA += espacoLinha;
+                doc.text(`NOME PERFIL USUÁRIO: ${usuario_a.toUpperCase()}`, xA, linhaYA);
+                drawCheckbox(x + larguraColuna - padding - checkboxSize, linhaYA - checkboxOffsetY, check_usuario_a);
+
+                // --- LADO B ---
+                let linhaYB = y + padding + 1;
+                const xB = x + larguraColuna + padding;
+
+                doc.text(`DETALHAR / PATRIMÔNIO: ${patrimonio_b1.toUpperCase()}`, xB, linhaYB);
+                drawCheckbox(x + larguraTotal - padding - checkboxSize, linhaYB - checkboxOffsetY, check_patrimonio_b1);
+
+                linhaYB += espacoLinha;
+                doc.text(`DETALHAR / PATRIMÔNIO: ${patrimonio_b2.toUpperCase()}`, xB, linhaYB);
+                drawCheckbox(x + larguraTotal - padding - checkboxSize, linhaYB - checkboxOffsetY, check_patrimonio_b2);
+
+                // --- Linha divisória central ---
+                doc.setLineWidth(0.2);
+                doc.setDrawColor(0);
+                doc.setLineDashPattern([0.3, 0.3], 0);
+                doc.line(x + larguraColuna, y, x + larguraColuna, y + alturaBloco);
+                doc.setLineDashPattern([], 0);
+
+                return y + alturaBloco + 1.5;
+            }
+
+
+
+            // BLOCO VALIDAÇÃO LINHA UNICA: 
+            function addBlocoValidacao(doc, x, y, larguraTotal, form) {
+                const alturaTitulo = 5;
+                const alturaBloco = 5;
+                const padding = 4;
+
+                // Borda pontilhada (pontos pequenos e próximos)
+                doc.setLineWidth(0.3);
+                doc.setDrawColor(0);
+                doc.setLineDashPattern([0.3, 0.3], 0); // pontinhos menores e mais próximos
+                doc.rect(x, y, larguraTotal, alturaBloco, 'S');
+                doc.setLineDashPattern([], 0);
+
+                // Cabeçalho vermelho
+                doc.setFillColor(200, 0, 0);
+                doc.rect(x, y, larguraTotal, alturaTitulo, 'F');
+
+                // --- TÍTULO ---
+                doc.setFont(undefined, 'bold');
+                doc.setFontSize(9);
+                doc.setTextColor(255, 255, 255);
+                // Centralização vertical dentro do retângulo vermelho
+                const yTexto = y + (alturaTitulo / 2) + 2; // ajuste fino (+2 para compensar a altura da fonte)
+                doc.text("VALIDAÇÃO SOFTWARE DE GESTÃO:", x + larguraTotal / 2, yTexto, { align: "center" });
+
+
+                // Retorna nova posição y para o próximo bloco
+                return y + alturaBloco + 0.4;
+            }
+
+
+            // --- BLOCO VALIDAÇÃO SOFTWARE DE GESTÃO ---
+            function addBlocoValidacaoSoftware(doc, x, y, larguraTotal, form) {
+                const padding = 6;
+                const alturaLinha = 7;
+                const checkboxSize = 3;
+                const checkboxOffsetY = 1.2;
+                const spacing = 6;
+                const alturaBloco = alturaLinha; // altura do bloco
+                const larguraBloco = larguraTotal * 1; // bloco ocupa 90% da largura total
+
+                doc.setFontSize(9);
+                doc.setTextColor(0, 0, 0);
+                doc.setFont("helvetica", "normal");
+
+                // --- Centralizar horizontalmente ---
+                const centroPagina = x + (larguraTotal / 2);
+                const xInicio = centroPagina - (larguraBloco / 2);
+
+                // --- Borda pontilhada (pontos pequenos e próximos) ---
+                doc.setLineWidth(0.3);
+                doc.setDrawColor(0);
+                doc.setLineDashPattern([0.3, 0.3], 0); // pontinhos pequenos e próximos
+                doc.rect(xInicio, y, larguraBloco, alturaBloco, 'S');
+                doc.setLineDashPattern([], 0); // reseta padrão de linha
+
+                // --- Função para desenhar checkbox ---
+                function drawCheckbox(cx, cy, checked) {
+                    doc.rect(cx, cy - checkboxSize / 2 - checkboxOffsetY, checkboxSize, checkboxSize);
+                    if (checked) {
+                        doc.line(cx, cy - checkboxSize / 2 - checkboxOffsetY, cx + checkboxSize, cy + checkboxSize / 2 - checkboxOffsetY);
+                        doc.line(cx, cy + checkboxSize / 2 - checkboxOffsetY, cx + checkboxSize, cy - checkboxSize / 2 - checkboxOffsetY);
+                    }
+                }
+
+                // --- Linha Única ---
+                const linhaY = y + 4;
+                const itensLinha = [
+                    { label: "AIM:", checked: form.aim.checked },
+                    { label: "KACE:", checked: form.kace.checked },
+                    { label: "OUTROS:", checked: form.v_outros.checked },
+                    { label: `OBSERVAÇÕES: ${form.observacoes.value || ""}`, checked: null }
+                ];
+
+                let cX = xInicio + padding;
+                itensLinha.forEach(item => {
+                    doc.text(item.label, cX, linhaY);
+                    if (typeof item.checked === "boolean") {
+                        const posCheckbox = cX + doc.getTextWidth(item.label) + 1.5;
+                        drawCheckbox(posCheckbox, linhaY, item.checked);
+                        cX = posCheckbox + checkboxSize + spacing;
+                    } else {
+                        cX += doc.getTextWidth(item.label) + spacing;
+                    }
+                });
+
+                return y + alturaBloco + 2;
+            }
+
+
+
+            // BLOCO VALIDAÇÃO LINHA UNICA: 
+            function addBlocoSintoma(doc, x, y, larguraTotal, form) {
+                const alturaTitulo = 5;
+                const alturaBloco = 5;
+                const padding = 4;
+
+                // Borda pontilhada (pontos pequenos e próximos)
+                doc.setLineWidth(0.3);
+                doc.setDrawColor(0);
+                doc.setLineDashPattern([0.3, 0.3], 0); // pontinhos menores e mais próximos
+                doc.rect(x, y, larguraTotal, alturaBloco, 'S');
+                doc.setLineDashPattern([], 0);
+
+                // Cabeçalho vermelho
+                doc.setFillColor(200, 0, 0);
+                doc.rect(x, y, larguraTotal, alturaTitulo, 'F');
+
+                // --- TÍTULO ---
+                doc.setFont(undefined, 'bold');
+                doc.setFontSize(9);
+                doc.setTextColor(255, 255, 255);
+                // Centralização vertical dentro do retângulo vermelho
+                const yTexto = y + (alturaTitulo / 2) + 2; // ajuste fino (+2 para compensar a altura da fonte)
+                doc.text("SINTOMA DO PROBLEMA RELATADO", x + larguraTotal / 2, yTexto, { align: "center" });
+
+
+                // Retorna nova posição y para o próximo bloco
+                return y + alturaBloco + 0.4;
+            }
+
+
+            // --- BLOCO SINTOMA DO PROBLEMA RELATADO  ---
+            function addBlocoSintomaProblema(doc, x, y, larguraTotal, form) {
+                const alturaBloco = 16;
+
+
+                // Fundo branco
+                doc.setFillColor(255, 255, 255);
+                doc.rect(x, y, larguraTotal, alturaBloco, 'F');
+
+                // Borda pontilhada (pontos pequenos e próximos)
+                doc.setLineWidth(0.3);
+                doc.setDrawColor(0);
+                doc.setLineDashPattern([0.3, 0.3], 0);
+                doc.rect(x, y, larguraTotal, alturaBloco, 'S');
+                doc.setLineDashPattern([], 0);
+
+                // Texto digitado no formulário
+                const sintoma = (form.sintoma?.value || "").toUpperCase();
+                doc.setFontSize(9);
+                doc.setTextColor(0, 0, 0);
+                doc.setFont('helvetica', 'normal');
+
+                const padding = 4;
+                const textoX = x + padding;
+                const textoY = y + padding;
+                const larguraTextoArea = larguraTotal - (padding * 2);
+                const linhas = doc.splitTextToSize(sintoma, larguraTextoArea);
+                doc.text(linhas, textoX, textoY);
+
+
+                // Retorna nova posição vertical
+                return y + alturaBloco + 1;
+            }
+
+
+
+            // BLOCO RELATÓRIO TÉCNICO - FECHAMENTO LINHA UNICA: 
+            function addBlocoFechamento(doc, x, y, larguraTotal, form) {
+                const alturaTitulo = 5;
+                const alturaBloco = 5;
+                const padding = 4;
+
+                // Borda pontilhada (pontos pequenos e próximos)
+                doc.setLineWidth(0.3);
+                doc.setDrawColor(0);
+                doc.setLineDashPattern([0.3, 0.3], 0); // pontinhos menores e mais próximos
+                doc.rect(x, y, larguraTotal, alturaBloco, 'S');
+                doc.setLineDashPattern([], 0);
+
+                // Cabeçalho vermelho
+                doc.setFillColor(200, 0, 0);
+                doc.rect(x, y, larguraTotal, alturaTitulo, 'F');
+
+                // --- TÍTULO ---
+                doc.setFont(undefined, 'bold');
+                doc.setFontSize(9);
+                doc.setTextColor(255, 255, 255);
+                // Centralização vertical dentro do retângulo vermelho
+                const yTexto = y + (alturaTitulo / 2) + 2; // ajuste fino (+2 para compensar a altura da fonte)
+                doc.text("RELATÓRIO TÉCNICO - FECHAMENTO", x + larguraTotal / 2, yTexto, { align: "center" });
+
+
+                // Retorna nova posição y para o próximo bloco
+                return y + alturaBloco + 0.4;
+            }
+
+
+
+
+            // --- BLOCO RELATÓRIO TÉCNICO - FECHAMENTO ---
+            function addBlocoRelatorioTecnico(doc, x, y, larguraTotal, form) {
+                const alturaBloco = 30; // altura ajustável conforme o texto
+                const padding = 4;
+
+                // Fundo branco
+                doc.setFillColor(255, 255, 255);
+                doc.rect(x, y, larguraTotal, alturaBloco, 'F');
+
+                // Borda pontilhada (pontos pequenos e próximos)
+                doc.setLineWidth(0.3);
+                doc.setDrawColor(0);
+                doc.setLineDashPattern([0.3, 0.3], 0);
+                doc.rect(x, y, larguraTotal, alturaBloco, 'S');
+                doc.setLineDashPattern([], 0);
+
+                // Texto digitado no formulário
+                const relatorio = (form.relatorio?.value || "").toUpperCase();
+                doc.setFontSize(9);
+                doc.setTextColor(0, 0, 0);
+                doc.setFont('helvetica', 'normal');
+
+                const textoX = x + padding;
+                const textoY = y + padding;
+                const larguraTextoArea = larguraTotal - (padding * 2);
+                const linhas = doc.splitTextToSize(relatorio, larguraTextoArea);
+                doc.text(linhas, textoX, textoY);
+
+                // Retorna nova posição vertical
+                return y + alturaBloco + 5;
+            }
+
+            const larguraPagina = 210;
+
+
+
+
+
+
+
+
+            // 1 --- função chamar o bloco dados do cliente
+            y = addBlocoDadosCliente(doc, xInicio, y, larguraTotal, form);
+
+            // 2 --- função chamar o bloco serviços checkbox
+            y = addBlocoEquipamento(doc, xInicio, y, larguraTotal, form);
+
+            // 3 --- função chamar o bloco DADOS DO (S) EQUIPAMENTO (S)
+            y = addBlocoEquipamentoCorreto(doc, xInicio, y, larguraTotal, form);
+
+            // 4 --- função chamar o bloco EQUIPAMENTO ANTIGO e EQUIPAMENTO NOVO  50% cada 
+            y = addBlocoEquipamentoDivido(doc, xInicio, y, larguraTotal, form);
+
+            y = addBlocoModelo(doc, xInicio, y, larguraTotal, form);
+
+            y = addBlocoBackup(doc, xInicio, y, larguraTotal, form);
+
+            y = addBlocoBackupRealizado(doc, xInicio, y, larguraTotal, form);
+
+            y = addBlocoValidacao(doc, xInicio, y, larguraTotal, form);
+
+            y = addBlocoValidacaoSoftware(doc, xInicio, y, larguraTotal, form);
+
+            y = addBlocoSintoma(doc, xInicio, y, larguraTotal, form);
+
+            y = addBlocoSintomaProblema(doc, xInicio, y, larguraTotal, form);
+
+            y = addBlocoFechamento(doc, xInicio, y, larguraTotal, form);
+
+            y = addBlocoRelatorioTecnico(doc, xInicio, y, larguraTotal, form);
+
+            // Texto 5 (vermelho)
+            const texto5 = "Este técnico ARKLOK não está autorizado a realizar a retirada de equipamentos ou periféricos";
+
+            doc.setFontSize(8);
+            doc.setFont('helvetica', 'normal');
+            doc.setTextColor(200, 0, 0);
+
+            const larguraTexto5 = doc.getTextWidth(texto5);
+
+            doc.text(
+                texto5,
+                (larguraPagina - larguraTexto5) / 2,
+                y - 1.5
+            );
+
+            // reset visual
+            doc.setTextColor(0, 0, 0);
+
+
+
+            // --- ASSINATURA DO CLIENTE ---
+            const canvasCliente = document.getElementById('assinaturaCliente');
+            const imageDataCliente = canvasCliente.toDataURL('image/png');
+
+            if (imageDataCliente && imageDataCliente.length > 100) {
+                const larguraAssinatura = 50;
+                const alturaAssinatura = (canvasCliente.height / canvasCliente.width) * (larguraAssinatura / 2);
+
+                const texto = "ASSINATURA DO CLIENTE / RESPONSÁVEL";
+                doc.setFontSize(9);
+                doc.setFont(undefined, 'normal');
+
+                // Centralização horizontal
+                const xCentroPagina = 105; // centro do A4
+                const yBase = 255; // posição vertical
+                const larguraLinha = 80;
+
+                // Linha centralizada
+                doc.setLineWidth(0.2);
+                doc.line(xCentroPagina - larguraLinha / 2, yBase, xCentroPagina + larguraLinha / 2, yBase);
+
+                // Texto centralizado logo abaixo
+                const larguraTexto = doc.getTextWidth(texto);
+                doc.text(texto, xCentroPagina - larguraTexto / 2, yBase + 5);
+
+                // 🔹 Assinatura (imagem)
+                const sobreLinha = 1;
+                doc.addImage(
+                    imageDataCliente,
+                    'PNG',
+                    xCentroPagina - (larguraAssinatura / 2),
+                    yBase - alturaAssinatura - sobreLinha,
+                    larguraAssinatura,
+                    alturaAssinatura
+                );
+
+                // 🔹 Linha de local e data (ex: CAMPINAS-SP, 30 DE OUTUBRO DE 2025)
+                const cidade = document.getElementById('cidade').value.toUpperCase() || "";
+                const uf = document.getElementById('UF').value.toUpperCase() || "";
+                const dataValor = document.getElementById('data').value;
+
+                if (cidade && uf && dataValor) {
+                    const partes = dataValor.split('-'); // [ano, mes, dia]
+                    const dataObj = new Date(partes[0], partes[1] - 1, partes[2]); // usa fuso local
+
+                    const dia = dataObj.getDate();
+                    const mesExtenso = dataObj.toLocaleString('pt-BR', { month: 'long' }).toUpperCase();
+                    const ano = dataObj.getFullYear();
+
+                    const textoData = `${cidade}, ${dia} DE ${mesExtenso} DE ${ano}`;
+                    const larguraTextoData = doc.getTextWidth(textoData);
+
+                    doc.text(textoData, xCentroPagina - larguraTextoData / 2, yBase + 10);
+                }
+            }
+
+
+
+            // --- RODAPÉ LGPD E DIREITOS RESERVADOS ---
+            doc.setFontSize(6);
+            doc.setFont(undefined, 'normal');
+            doc.setTextColor(0, 0, 0); // preto
+
+
+            let yRodape = 273; // posição perto do final da página A4 (297mm)
+
+            // Texto 1
+            const texto1 = "ATENDIMENTO À LGPD: AO INSERIR SEUS DADOS ACIMA, VOCÊ ESTARÁ DE ACORDO COM A UTILIZAÇÃO DE SUAS INFORMAÇÕES";
+            const larguraTexto1 = doc.getTextWidth(texto1);
+            doc.text(texto1, (larguraPagina - larguraTexto1) / 2, yRodape);
+
+            // Texto 2
+            const texto2 = "ÚNICA E EXCLUSIVAMENTE PARA O PROCESSO DE ATENDIMENTO TÉCNICO DA ARKLOK. SEUS DADOS NÃO SERÃO PROCESSADOS E";
+            const larguraTexto2 = doc.getTextWidth(texto2);
+            doc.text(texto2, (larguraPagina - larguraTexto2) / 2, yRodape + 4);
+
+            // Texto 3
+            const texto3 = "NEM DIVULGADOS PARA NENHUM OUTRO MEIO FORA O ESCLARECIDO ACIMA.";
+            const larguraTexto3 = doc.getTextWidth(texto3);
+            doc.text(texto3, (larguraPagina - larguraTexto3) / 2, yRodape + 8);
+
+            // Texto 4 (vermelho e negrito)
+            const texto4 = "Este documento é propriedade da ARKLOK, Todos os direitos são reservados";
+            doc.setFontSize(8);
+            doc.setFont(undefined, 'normal');
+            doc.setTextColor(200, 0, 0); // vermelho
+            const larguraTexto4 = doc.getTextWidth(texto4);
+            doc.text(texto4, (larguraPagina - larguraTexto4) / 2, yRodape + 13);
+
+            // Resetar cor para evitar afetar o restante
+            doc.setTextColor(0, 0, 0);
+            doc.setFont(undefined, 'normal');
+
+
+
+
+            // salvar pdf -- isso fica no fim do codigo
+            const chamadoNum = form.chamado.value || 'sem_numero';
+            doc.save(`RAT ${chamadoNum}.pdf`);
         });
 
-        // --- Linha 2 ---
-        const linha2Y = y + alturaLinha1 + 3.8;
-        const itensLinha2 = [
-          { label: "NOTEBOOK:", checked: form.notebook.checked },
-          { label: "DESKTOP:", checked: form.desktop.checked },
-          { label: "IMPRESSORA:", checked: form.impressora.checked },
-          { label: "MOBILE:", checked: form.mobile.checked },
-          { label: `OUTROS: ${form.outros.value || ""}`, checked: null }
-        ];
 
-        let cX2 = x + padding;
-        itensLinha2.forEach(item => {
-          doc.text(item.label, cX2, linha2Y);
-          if (typeof item.checked === "boolean") {
-            const posCheckbox = cX2 + doc.getTextWidth(item.label) + 1.5;
-            drawCheckbox(posCheckbox, linha2Y, item.checked);
-            cX2 = posCheckbox + checkboxSize + spacingPadrao;
-          } else {
-            cX2 += doc.getTextWidth(item.label) + spacingPadrao;
-          }
-        });
-
-        return y + alturaTotal + 0.4;
-      }
-
-      // BLOCO DADOS DOS EQUIPAMENTOS - LINHA UNICA 
-      function addBlocoEquipamentoCorreto(doc, x, y, larguraTotal, form) {
-        const alturaTitulo = 5;
-        const alturaBloco = 5;
-        const padding = 4;
-
-        // Borda pontilhada (pontos pequenos e próximos)
-        doc.setLineWidth(0.3);
-        doc.setDrawColor(0);
-        doc.setLineDashPattern([0.3, 0.3], 0); // pontinhos menores e mais próximos
-        doc.rect(x, y, larguraTotal, alturaBloco, 'S');
-        doc.setLineDashPattern([], 0);
-
-        // Cabeçalho vermelho
-        doc.setFillColor(200, 0, 0);
-        doc.rect(x, y, larguraTotal, alturaTitulo, 'F');
-
-        // --- TÍTULO ---
-        doc.setFont(undefined, 'bold');
-        doc.setFontSize(9);
-        doc.setTextColor(255, 255, 255);
-        // Centralização vertical dentro do retângulo vermelho
-        const yTexto = y + (alturaTitulo / 2) + 2; // ajuste fino (+2 para compensar a altura da fonte)
-        doc.text("DADOS DO (S) EQUIPAMENTO (S)", x + larguraTotal / 2, yTexto, { align: "center" });
-
-
-        // Retorna nova posição y para o próximo bloco
-        return y + alturaBloco + 0.4;
-      }
-
-
-
-      // BLOCO DADOS DOS EQUIPAMENTOS DIVIDIDO EM DUAS PARTES 50% 50%
-      function addBlocoEquipamentoDivido(doc, x, y, larguraTotal, form) {
-        const alturaTitulo = 5;
-        const alturaBloco = 5;
-
-        // Borda pontilhada (pontos pequenos e próximos)
-        doc.setLineWidth(0.3);
-        doc.setDrawColor(0);
-        doc.setLineDashPattern([0.3, 0.3], 0);
-        doc.rect(x, y, larguraTotal, alturaBloco, 'S');
-        doc.setLineDashPattern([], 0);
-
-        // Metade esquerda e direita (vermelhas)
-        const larguraColuna = larguraTotal / 2;
-        doc.setFillColor(200, 0, 0);
-        doc.rect(x, y, larguraColuna, alturaTitulo, 'F');
-        doc.rect(x + larguraColuna, y, larguraColuna, alturaTitulo, 'F');
-
-        // Linha divisória central (pontilhada branca)
-        doc.setLineWidth(0.2);
-        doc.setDrawColor(255);
-        doc.setLineDashPattern([0.3, 0.3], 0);
-        doc.line(x + larguraColuna, y, x + larguraColuna, y + alturaTitulo);
-        doc.setLineDashPattern([], 0);
-
-        // Texto centralizado em cada metade
-        doc.setFont(undefined, 'bold');
-        doc.setFontSize(9);
-        doc.setTextColor(255, 255, 255);
-
-        // Texto centralizado verticalmente nas duas metades
-        const yTexto = y + (alturaTitulo / 2) + 2; // ajuste fino (+2 para compensar a base da fonte)
-        doc.text("EQUIPAMENTO ANTIGO", x + larguraColuna / 2, yTexto, { align: "center" });
-        doc.text("EQUIPAMENTO NOVO", x + larguraColuna + larguraColuna / 2, yTexto, { align: "center" });
-
-
-        // Retorna nova posição Y para o próximo bloco
-        return y + alturaBloco + 1.5;
-      }
-
-
-      // --- BLOCO MODELO DIVIDIDO EM DUAS PARTES (LADO A / LADO B) ---
-      function addBlocoModelo(doc, x, y, larguraTotal, form) {
-        const alturaBloco = 35;
-        const padding = 4;
-
-        // Borda pontilhada (preta, pequenos pontos)
-        doc.setLineWidth(0.3);
-        doc.setDrawColor(0);
-        doc.setLineDashPattern([0.3, 0.3], 0);
-        doc.rect(x, y, larguraTotal, alturaBloco, 'S');
-        doc.setLineDashPattern([], 0);
-
-        // Conteúdo interno (fundo branco, texto preto)
-        doc.setFont(undefined, 'normal');
-        doc.setFontSize(9);
-        doc.setTextColor(0, 0, 0);
-
-        // Divide área em duas metades (LADO A e LADO B)
-        const larguraColuna = larguraTotal / 2;
-
-        // Linha divisória central (pontilhada)
-        doc.setLineWidth(0.2);
-        doc.setLineDashPattern([0.3, 0.3], 0);
-        doc.line(x + larguraColuna, y, x + larguraColuna, y + alturaBloco);
-        doc.setLineDashPattern([], 0);
-
-        // --- LADO A ---
-        let linhaYA = y + padding; // posição inicial colada ao topo
-        doc.text(`MODELO: ${form.modelo_a?.value || ""}`, x + padding, linhaYA);
-        linhaYA += 6;
-        doc.text(`N° PATRIMÔNIO DO EQUIPAMENTO: ${form.patrimonio_a?.value || ""}`, x + padding, linhaYA);
-        linhaYA += 6;
-        doc.text(`N° SÉRIE: ${form.serie_a?.value || ""}`, x + padding, linhaYA);
-        linhaYA += 6;
-        doc.text(`HOSTNAME: ${form.hostname_a?.value || ""}`, x + padding, linhaYA);
-        linhaYA += 6;
-        doc.text(`N° ETIQUETA E SÉRIE CLIENTE: ${form.etiqueta_a?.value || ""}`, x + padding, linhaYA);
-        linhaYA += 6;
-        doc.text(`IMEI: ${form.imei_a?.value || ""}`, x + padding, linhaYA);
-
-        // --- LADO B ---
-        let linhaYB = y + padding; // posição inicial colada ao topo
-        const xB = x + larguraColuna + padding;
-        doc.text(`MODELO: ${form.modelo_b?.value || ""}`, xB, linhaYB);
-        linhaYB += 6;
-        doc.text(`N° PATRIMÔNIO DO EQUIPAMENTO: ${form.patrimonio_b?.value || ""}`, xB, linhaYB);
-        linhaYB += 6;
-        doc.text(`N° SÉRIE: ${form.serie_b?.value || ""}`, xB, linhaYB);
-        linhaYB += 6;
-        doc.text(`HOSTNAME: ${form.hostname_b?.value || ""}`, xB, linhaYB);
-        linhaYB += 6;
-        doc.text(`N° ETIQUETA E SÉRIE CLIENTE: ${form.etiqueta_b?.value || ""}`, xB, linhaYB);
-        linhaYB += 6;
-        doc.text(`IMEI: ${form.imei_b?.value || ""}`, xB, linhaYB);
-
-        // Retorna nova posição Y para o próximo bloco
-        return y + alturaBloco + 1.5;
-      }
-
-
-      // BLOCO BACKUP DIVIDIDO EM DUAS PARTES 50% 50%
-      function addBlocoBackup(doc, x, y, larguraTotal, form) {
-        const alturaTitulo = 5;
-        const alturaBloco = 5;
-
-        // Borda pontilhada (pontos pequenos e próximos)
-        doc.setLineWidth(0.3);
-        doc.setDrawColor(0);
-        doc.setLineDashPattern([0.3, 0.3], 0);
-        doc.rect(x, y, larguraTotal, alturaBloco, 'S');
-        doc.setLineDashPattern([], 0);
-
-        // Metade esquerda e direita (vermelhas)
-        const larguraColuna = larguraTotal / 2;
-        doc.setFillColor(200, 0, 0);
-        doc.rect(x, y, larguraColuna, alturaTitulo, 'F');
-        doc.rect(x + larguraColuna, y, larguraColuna, alturaTitulo, 'F');
-
-        // Linha divisória central (pontilhada branca)
-        doc.setLineWidth(0.2);
-        doc.setDrawColor(255);
-        doc.setLineDashPattern([0.3, 0.3], 0);
-        doc.line(x + larguraColuna, y, x + larguraColuna, y + alturaTitulo);
-        doc.setLineDashPattern([], 0);
-
-        // Texto centralizado em cada metade
-        doc.setFont(undefined, 'bold');
-        doc.setFontSize(9);
-        doc.setTextColor(255, 255, 255);
-
-        // Texto centralizado verticalmente nas duas metades
-        const yTexto = y + (alturaTitulo / 2) + 2; // ajuste fino (+2 para compensar a base da fonte)
-        doc.text("BACKUP", x + larguraColuna / 2, yTexto, { align: "center" });
-        doc.text("ACESSÓRIOS OU PERIFÉRICOS", x + larguraColuna + larguraColuna / 2, yTexto, { align: "center" });
-
-
-        // Retorna nova posição Y para o próximo bloco
-        return y + alturaBloco + 0.5;
-      }
-
-      // --- BLOCO BACKUP REALIZADO (LADO A / LADO B) ---
-      // Checkboxes à direita e mais alto
-      function addBlocoBackupRealizado(doc, x, y, larguraTotal, form) {
-        const alturaBloco = 10;
-        const padding = 3;
-        const espacoLinha = 5;
-        const larguraColuna = larguraTotal / 2;
-        const checkboxSize = 3;
-        const checkboxOffsetY = 1.6; // sobe o checkbox acima da linha do texto
-
-        // --- Borda pontilhada ---
-        doc.setLineWidth(0.3);
-        doc.setDrawColor(0);
-        doc.setLineDashPattern([0.3, 0.3], 0);
-        doc.rect(x, y, larguraTotal, alturaBloco, 'S');
-        doc.setLineDashPattern([], 0);
-
-        doc.setFont("helvetica", "normal");
-        doc.setFontSize(9);
-        doc.setTextColor(0, 0, 0);
-
-        // --- Função para desenhar checkbox ---
-        function drawCheckbox(cx, cy, checked) {
-          doc.rect(cx, cy - checkboxSize / 2, checkboxSize, checkboxSize);
-          if (checked) {
-            doc.line(cx, cy - checkboxSize / 2, cx + checkboxSize, cy + checkboxSize / 2);
-            doc.line(cx, cy + checkboxSize / 2, cx + checkboxSize, cy - checkboxSize / 2);
-          }
-        }
-
-        // --- Valores ---
-        const backup_a = form.backup_a?.value.trim() || "";
-        const usuario_a = form.usuario_a?.value.trim() || "";
-        const patrimonio_b1 = form.patrimonio_b1?.value.trim() || "";
-        const patrimonio_b2 = form.patrimonio_b2?.value.trim() || "";
-
-        const check_backup_a = form.check_backup_a?.checked || false;
-        const check_usuario_a = form.check_usuario_a?.checked || false;
-        const check_patrimonio_b1 = form.check_patrimonio_b1?.checked || false;
-        const check_patrimonio_b2 = form.check_patrimonio_b2?.checked || false;
-
-        // --- LADO A ---
-        let linhaYA = y + padding + 1;  // <--- ajuste do espaço superior do bloco
-        const xA = x + padding;
-
-        doc.text(`BACKUP REALIZADO: ${backup_a.toUpperCase()}`, xA, linhaYA);
-        drawCheckbox(x + larguraColuna - padding - checkboxSize, linhaYA - checkboxOffsetY, check_backup_a);
-
-        linhaYA += espacoLinha;
-        doc.text(`NOME PERFIL USUÁRIO: ${usuario_a.toUpperCase()}`, xA, linhaYA);
-        drawCheckbox(x + larguraColuna - padding - checkboxSize, linhaYA - checkboxOffsetY, check_usuario_a);
-
-        // --- LADO B ---
-        let linhaYB = y + padding + 1;
-        const xB = x + larguraColuna + padding;
-
-        doc.text(`DETALHAR / PATRIMÔNIO: ${patrimonio_b1.toUpperCase()}`, xB, linhaYB);
-        drawCheckbox(x + larguraTotal - padding - checkboxSize, linhaYB - checkboxOffsetY, check_patrimonio_b1);
-
-        linhaYB += espacoLinha;
-        doc.text(`DETALHAR / PATRIMÔNIO: ${patrimonio_b2.toUpperCase()}`, xB, linhaYB);
-        drawCheckbox(x + larguraTotal - padding - checkboxSize, linhaYB - checkboxOffsetY, check_patrimonio_b2);
-
-        // --- Linha divisória central ---
-        doc.setLineWidth(0.2);
-        doc.setDrawColor(0);
-        doc.setLineDashPattern([0.3, 0.3], 0);
-        doc.line(x + larguraColuna, y, x + larguraColuna, y + alturaBloco);
-        doc.setLineDashPattern([], 0);
-
-        return y + alturaBloco + 1.5;
-      }
-
-
-
-      // BLOCO VALIDAÇÃO LINHA UNICA: 
-      function addBlocoValidacao(doc, x, y, larguraTotal, form) {
-        const alturaTitulo = 5;
-        const alturaBloco = 5;
-        const padding = 4;
-
-        // Borda pontilhada (pontos pequenos e próximos)
-        doc.setLineWidth(0.3);
-        doc.setDrawColor(0);
-        doc.setLineDashPattern([0.3, 0.3], 0); // pontinhos menores e mais próximos
-        doc.rect(x, y, larguraTotal, alturaBloco, 'S');
-        doc.setLineDashPattern([], 0);
-
-        // Cabeçalho vermelho
-        doc.setFillColor(200, 0, 0);
-        doc.rect(x, y, larguraTotal, alturaTitulo, 'F');
-
-        // --- TÍTULO ---
-        doc.setFont(undefined, 'bold');
-        doc.setFontSize(9);
-        doc.setTextColor(255, 255, 255);
-        // Centralização vertical dentro do retângulo vermelho
-        const yTexto = y + (alturaTitulo / 2) + 2; // ajuste fino (+2 para compensar a altura da fonte)
-        doc.text("VALIDAÇÃO SOFTWARE DE GESTÃO:", x + larguraTotal / 2, yTexto, { align: "center" });
-
-
-        // Retorna nova posição y para o próximo bloco
-        return y + alturaBloco + 0.4;
-      }
-
-
-      // --- BLOCO VALIDAÇÃO SOFTWARE DE GESTÃO ---
-      function addBlocoValidacaoSoftware(doc, x, y, larguraTotal, form) {
-        const padding = 6;
-        const alturaLinha = 7;
-        const checkboxSize = 3;
-        const checkboxOffsetY = 1.2;
-        const spacing = 6;
-        const alturaBloco = alturaLinha; // altura do bloco
-        const larguraBloco = larguraTotal * 1; // bloco ocupa 100% da largura total
-
-        doc.setFontSize(9);
-        doc.setTextColor(0, 0, 0);
-        doc.setFont("helvetica", "normal");
-
-        // --- Centralizar horizontalmente o bloco ---
-        const centroPagina = x + (larguraTotal / 2);
-        const xInicio = centroPagina - (larguraBloco / 2);
-
-        // --- Borda pontilhada (pontos pequenos e próximos) ---
-        doc.setLineWidth(0.3);
-        doc.setDrawColor(0);
-        doc.setLineDashPattern([0.3, 0.3], 0); // pontinhos pequenos e próximos
-        doc.rect(xInicio, y, larguraBloco, alturaBloco, 'S');
-        doc.setLineDashPattern([], 0); // reseta padrão de linha
-
-        // --- Função para desenhar checkbox ---
-        function drawCheckbox(cx, cy, checked) {
-          doc.rect(cx, cy - checkboxSize / 2 - checkboxOffsetY, checkboxSize, checkboxSize);
-          if (checked) {
-            doc.line(cx, cy - checkboxSize / 2 - checkboxOffsetY, cx + checkboxSize, cy + checkboxSize / 2 - checkboxOffsetY);
-            doc.line(cx, cy + checkboxSize / 2 - checkboxOffsetY, cx + checkboxSize, cy - checkboxSize / 2 - checkboxOffsetY);
-          }
-        }
-
-        // --- Linha Única ---
-        const linhaY = y + 4;
-        const itensLinha = [
-          { label: "AIM:", checked: form.aim.checked },
-          { label: "KACE:", checked: form.kace.checked },
-          { label: "OUTROS:", checked: form.v_outros.checked },
-          { label: `OBSERVAÇÕES: ${form.observacoes.value || ""}`, checked: null }
-        ];
-
-        // --- Calcula largura total dos itens para centralizar ---
-        const larguraItens = itensLinha.reduce((acc, item) => {
-          return acc + doc.getTextWidth(item.label) + (typeof item.checked === "boolean" ? checkboxSize + spacing : spacing);
-        }, 0);
-
-        // --- Posição inicial horizontal centralizada ---
-        let cX = xInicio + (larguraBloco - larguraItens) / 2;
-
-        // --- Desenha os itens na linha ---
-        itensLinha.forEach(item => {
-          doc.text(item.label, cX, linhaY);
-          if (typeof item.checked === "boolean") {
-            const posCheckbox = cX + doc.getTextWidth(item.label) + 1.5;
-            drawCheckbox(posCheckbox, linhaY, item.checked);
-            cX = posCheckbox + checkboxSize + spacing;
-          } else {
-            cX += doc.getTextWidth(item.label) + spacing;
-          }
-        });
-
-        return y + alturaBloco + 2;
-      }
-
-
-
-      // BLOCO VALIDAÇÃO LINHA UNICA: 
-      function addBlocoSintoma(doc, x, y, larguraTotal, form) {
-        const alturaTitulo = 5;
-        const alturaBloco = 5;
-        const padding = 4;
-
-        // Borda pontilhada (pontos pequenos e próximos)
-        doc.setLineWidth(0.3);
-        doc.setDrawColor(0);
-        doc.setLineDashPattern([0.3, 0.3], 0); // pontinhos menores e mais próximos
-        doc.rect(x, y, larguraTotal, alturaBloco, 'S');
-        doc.setLineDashPattern([], 0);
-
-        // Cabeçalho vermelho
-        doc.setFillColor(200, 0, 0);
-        doc.rect(x, y, larguraTotal, alturaTitulo, 'F');
-
-        // --- TÍTULO ---
-        doc.setFont(undefined, 'bold');
-        doc.setFontSize(9);
-        doc.setTextColor(255, 255, 255);
-        // Centralização vertical dentro do retângulo vermelho
-        const yTexto = y + (alturaTitulo / 2) + 2; // ajuste fino (+2 para compensar a altura da fonte)
-        doc.text("SINTOMA DO PROBLEMA RELATADO", x + larguraTotal / 2, yTexto, { align: "center" });
-
-
-        // Retorna nova posição y para o próximo bloco
-        return y + alturaBloco + 0.4;
-      }
-
-
-      // --- BLOCO SINTOMA DO PROBLEMA RELATADO  ---
-      function addBlocoSintomaProblema(doc, x, y, larguraTotal, form) {
-        const alturaBloco = 16;
-
-
-        // Fundo branco
-        doc.setFillColor(255, 255, 255);
-        doc.rect(x, y, larguraTotal, alturaBloco, 'F');
-
-        // Borda pontilhada (pontos pequenos e próximos)
-        doc.setLineWidth(0.3);
-        doc.setDrawColor(0);
-        doc.setLineDashPattern([0.3, 0.3], 0);
-        doc.rect(x, y, larguraTotal, alturaBloco, 'S');
-        doc.setLineDashPattern([], 0);
-
-        // Texto digitado no formulário
-        const sintoma = (form.sintoma?.value || "").toUpperCase();
-        doc.setFontSize(9);
-        doc.setTextColor(0, 0, 0);
-        doc.setFont('helvetica', 'normal');
-
-        const padding = 4;
-        const textoX = x + padding;
-        const textoY = y + padding;
-        const larguraTextoArea = larguraTotal - (padding * 2);
-        const linhas = doc.splitTextToSize(sintoma, larguraTextoArea);
-        doc.text(linhas, textoX, textoY);
-
-
-        // Retorna nova posição vertical
-        return y + alturaBloco + 1;
-      }
-
-
-
-      // BLOCO RELATÓRIO TÉCNICO - FECHAMENTO LINHA UNICA: 
-      function addBlocoFechamento(doc, x, y, larguraTotal, form) {
-        const alturaTitulo = 5;
-        const alturaBloco = 5;
-        const padding = 4;
-
-        // Borda pontilhada (pontos pequenos e próximos)
-        doc.setLineWidth(0.3);
-        doc.setDrawColor(0);
-        doc.setLineDashPattern([0.3, 0.3], 0); // pontinhos menores e mais próximos
-        doc.rect(x, y, larguraTotal, alturaBloco, 'S');
-        doc.setLineDashPattern([], 0);
-
-        // Cabeçalho vermelho
-        doc.setFillColor(200, 0, 0);
-        doc.rect(x, y, larguraTotal, alturaTitulo, 'F');
-
-        // --- TÍTULO ---
-        doc.setFont(undefined, 'bold');
-        doc.setFontSize(9);
-        doc.setTextColor(255, 255, 255);
-        // Centralização vertical dentro do retângulo vermelho
-        const yTexto = y + (alturaTitulo / 2) + 2; // ajuste fino (+2 para compensar a altura da fonte)
-        doc.text("RELATÓRIO TÉCNICO - FECHAMENTO", x + larguraTotal / 2, yTexto, { align: "center" });
-
-
-        // Retorna nova posição y para o próximo bloco
-        return y + alturaBloco + 0.4;
-      }
-
-
-
-
-      // --- BLOCO RELATÓRIO TÉCNICO - FECHAMENTO ---
-      function addBlocoRelatorioTecnico(doc, x, y, larguraTotal, form) {
-        const alturaBloco = 30; // altura ajustável conforme o texto
-        const padding = 4;
-
-        // Fundo branco
-        doc.setFillColor(255, 255, 255);
-        doc.rect(x, y, larguraTotal, alturaBloco, 'F');
-
-        // Borda pontilhada (pontos pequenos e próximos)
-        doc.setLineWidth(0.3);
-        doc.setDrawColor(0);
-        doc.setLineDashPattern([0.3, 0.3], 0);
-        doc.rect(x, y, larguraTotal, alturaBloco, 'S');
-        doc.setLineDashPattern([], 0);
-
-        // Texto digitado no formulário
-        const relatorio = (form.relatorio?.value || "").toUpperCase();
-        doc.setFontSize(9);
-        doc.setTextColor(0, 0, 0);
-        doc.setFont('helvetica', 'normal');
-
-        const textoX = x + padding;
-        const textoY = y + padding;
-        const larguraTextoArea = larguraTotal - (padding * 2);
-        const linhas = doc.splitTextToSize(relatorio, larguraTextoArea);
-        doc.text(linhas, textoX, textoY);
-
-        // Retorna nova posição vertical
-        return y + alturaBloco + 5;
-      }
-
-
-
-
-
-
-
-      // 1 --- função chamar o bloco dados do cliente
-      y = addBlocoDadosCliente(doc, xInicio, y, larguraTotal, form);
-
-      // 2 --- função chamar o bloco serviços checkbox
-      y = addBlocoEquipamento(doc, xInicio, y, larguraTotal, form);
-
-      // 3 --- função chamar o bloco DADOS DO (S) EQUIPAMENTO (S)
-      y = addBlocoEquipamentoCorreto(doc, xInicio, y, larguraTotal, form);
-
-      // 4 --- função chamar o bloco EQUIPAMENTO ANTIGO e EQUIPAMENTO NOVO  50% cada 
-      y = addBlocoEquipamentoDivido(doc, xInicio, y, larguraTotal, form);
-
-      y = addBlocoModelo(doc, xInicio, y, larguraTotal, form);
-
-      y = addBlocoBackup(doc, xInicio, y, larguraTotal, form);
-
-      y = addBlocoBackupRealizado(doc, xInicio, y, larguraTotal, form);
-
-      y = addBlocoValidacao(doc, xInicio, y, larguraTotal, form);
-
-      y = addBlocoValidacaoSoftware(doc, xInicio, y, larguraTotal, form);
-
-      y = addBlocoSintoma(doc, xInicio, y, larguraTotal, form);
-
-      y = addBlocoSintomaProblema(doc, xInicio, y, larguraTotal, form);
-
-      y = addBlocoFechamento(doc, xInicio, y, larguraTotal, form);
-
-      y = addBlocoRelatorioTecnico(doc, xInicio, y, larguraTotal, form);
-
-
-
-      // --- ASSINATURA DO CLIENTE ---
-      const canvasCliente = document.getElementById('assinaturaCliente');
-      const imageDataCliente = canvasCliente.toDataURL('image/png');
-
-      if (imageDataCliente && imageDataCliente.length > 100) {
-        const larguraAssinatura = 50;
-        const alturaAssinatura = (canvasCliente.height / canvasCliente.width) * (larguraAssinatura / 2);
-
-        const texto = "ASSINATURA DO CLIENTE / RESPONSÁVEL";
-        doc.setFontSize(9);
-        doc.setFont(undefined, 'normal');
-
-        // Centralização horizontal
-        const xCentroPagina = 105; // centro do A4
-        const yBase = 255; // posição vertical
-        const larguraLinha = 80;
-
-        // Linha centralizada
-        doc.setLineWidth(0.2);
-        doc.line(xCentroPagina - larguraLinha / 2, yBase, xCentroPagina + larguraLinha / 2, yBase);
-
-        // Texto centralizado logo abaixo
-        const larguraTexto = doc.getTextWidth(texto);
-        doc.text(texto, xCentroPagina - larguraTexto / 2, yBase + 5);
-
-        // 🔹 Assinatura (imagem)
-        const sobreLinha = 1;
-        doc.addImage(
-          imageDataCliente,
-          'PNG',
-          xCentroPagina - (larguraAssinatura / 2),
-          yBase - alturaAssinatura - sobreLinha,
-          larguraAssinatura,
-          alturaAssinatura
-        );
-
-        // 🔹 Linha de local e data (ex: CAMPINAS-SP, 30 DE OUTUBRO DE 2025)
-        const cidade = document.getElementById('cidade').value.toUpperCase() || "";
-        const uf = document.getElementById('UF').value.toUpperCase() || "";
-        const dataValor = document.getElementById('data').value;
-
-        if (cidade && uf && dataValor) {
-          const partes = dataValor.split('-'); // [ano, mes, dia]
-          const dataObj = new Date(partes[0], partes[1] - 1, partes[2]); // usa fuso local
-
-          const dia = dataObj.getDate();
-          const mesExtenso = dataObj.toLocaleString('pt-BR', { month: 'long' }).toUpperCase();
-          const ano = dataObj.getFullYear();
-
-          const textoData = `${cidade} - ${uf},  ${dia} DE ${mesExtenso} DE ${ano}`;
-          const larguraTextoData = doc.getTextWidth(textoData);
-
-          doc.text(textoData, xCentroPagina - larguraTextoData / 2, yBase + 10);
-        }
-      }
-
-
-      // --- RODAPÉ LGPD E DIREITOS RESERVADOS ---
-
-      // ATENÇÃO: Se você quer que a regra global de UPPERCASE seja aplicada ao
-      // texto de LGPD, use doc.text normalmente.
-      // Se você NÃO quer que o rodapé obedeça a regra, chame 'originalText.call(doc, ...)'
-      // em todas as linhas.
-
-      // Vamos assumir que você QUER que "ATENDIMENTO À LGPD..." fique em MAIÚSCULAS
-      // (pois já está assim no código) e só o último texto seja isento.
-
-      doc.setFontSize(6);
-      doc.setFont(undefined, 'normal');
-      doc.setTextColor(0, 0, 0); // preto
-
-      const larguraPagina = 210;
-      let yRodape = 273; // posição perto do final da página A4 (297mm)
-
-      // Texto 1 (Usa doc.text, se doc.text foi sobrescrito para UPPERCASE, ele será aplicado)
-      const texto1 = "ATENDIMENTO À LGPD: AO INSERIR SEUS DADOS ACIMA, VOCÊ ESTARÁ DE ACORDO COM A UTILIZAÇÃO DE SUAS INFORMAÇÕES";
-      const larguraTexto1 = doc.getTextWidth(texto1);
-      doc.text(texto1, (larguraPagina - larguraTexto1) / 2, yRodape);
-
-      // Texto 2 (Usa doc.text, se doc.text foi sobrescrito para UPPERCASE, ele será aplicado)
-      const texto2 = "ÚNICA E EXCLUSIVAMENTE PARA O PROCESSO DE ATENDIMENTO TÉCNICO DA ARKLOK. SEUS DADOS NÃO SERÃO PROCESSADOS E";
-      const larguraTexto2 = doc.getTextWidth(texto2);
-      doc.text(texto2, (larguraPagina - larguraTexto2) / 2, yRodape + 4);
-
-      // Texto 3 (Usa doc.text, se doc.text foi sobrescrito para UPPERCASE, ele será aplicado)
-      const texto3 = "NEM DIVULGADOS PARA NENHUM OUTRO MEIO FORA O ESCLARECIDO ACIMA.";
-      const larguraTexto3 = doc.getTextWidth(texto3);
-      doc.text(texto3, (larguraPagina - larguraTexto3) / 2, yRodape + 8);
-
-      const texto4 =
-  "Este documento é propriedade da ARKLOK, Todos os direitos são reservados\n\n" +
-  "ESTE TÉCNICO ARKLOK NÃO ESTÁ AUTORIZADO A REALIZAR A RETIRADA DE EQUIPAMENTOS OU PERIFÉRICOS.";
-
-doc.setFontSize(8);
-doc.setFont(undefined, 'normal');
-doc.setTextColor(200, 0, 0);
-
-// largura da página
-const larguraPagina = doc.internal.pageSize.getWidth();
-
-// x no centro da página
-const xCentro = larguraPagina / 2;
-
-doc.text(texto4, xCentro, yRodape + 13, {
-  align: "center"
-});
-
-
-
-
-      // salvar pdf -- isso fica no fim do codigo
-      const chamadoNum = form.chamado.value || 'sem_numero';
-      doc.save(`RAT ${chamadoNum}.pdf`);
-    });
-
-
-  </script>
+    </script>
 </body>
 
 </html>
